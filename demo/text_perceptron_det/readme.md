@@ -44,9 +44,8 @@ Directly modify the paths (`test_dataset`, `image_prefix`, etc.) in the testing 
 ```
 Some visualization of detection results are shown:
 
-<img src="visualizations/pred_img499.jpg", width="50%" />
-
-<img src="visualizations/pred_img566.jpg", width="50%" />
+![https://github.com/DAVAR-Lab/OCR/blob/main/demo/text_perceptron_det/visualizations/pred_img499.jpg](https://github.com/DAVAR-Lab/OCR/blob/main/demo/text_perceptron_det/visualizations/pred_img499.jpg)
+![https://github.com/DAVAR-Lab/OCR/blob/main/demo/text_perceptron_det/visualizations/pred_img566.jpg](https://github.com/DAVAR-Lab/OCR/blob/main/demo/text_perceptron_det/visualizations/pred_img566.jpg)
 
 
 ## Trained Model Download
