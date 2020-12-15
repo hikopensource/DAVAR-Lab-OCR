@@ -1,10 +1,10 @@
 # Text Perceptron （detection part）
 
-This code repository contains the implementations of the paper [Text Perceptron: Towards End-to-End Arbitrary-Shaped Text Spotting](https://aaai.org/ojs/index.php/AAAI/article/view/6864/6718) (AAAI 2020 oral).
+This code repository contains the implementations of the paper [Text Perceptron: Towards End-to-End Arbitrary-Shaped Text Spotting](https://arxiv.org/pdf/2002.06820.pdf) (AAAI 2020 oral).
 
-> To date, the detection part in the Text Perceptron is re-implemented based one the common repository [Davar-OCR](#), and the recognization part will be released in the future.
+> To date, the detection part in the Text Perceptron is re-implemented based one the common repository [Davar-OCR](https://github.com/DAVAR-Lab/OCR), and the recognization part will be released in the future.
 
-The model's implementation is in `mmdetection/third_party/text_perceptron`. The demo is in `demo/text_perceptron_det/`.
+The model's implementation is in `mmdetection/third_party/text_perceptron`. The running scritps/demo is in `demo/text_perceptron_det/`.
 
 ## Installation
 
@@ -12,6 +12,7 @@ Before running the demo code, you should compile and install corresponding depen
 
 **Step 1**: Install Davar-OCR (complie mmdetection and mmcv) 
 ``` bash
+>>> cd $OCR_ROOT$
 >>> bash setup.sh 
 ```
 
@@ -19,7 +20,7 @@ Before running the demo code, you should compile and install corresponding depen
 
 **Step 3**: Compile dependencies of TP model as part of our code is implemented by C++.
 ``` bash
->>> cd mmdetection/third_party/text_perceptron/
+>>> cd $OCR_ROOT$/mmdetection/third_party/text_perceptron/
 >>> bash tp_setup.sh
 ```
 
@@ -33,7 +34,7 @@ Modified the paths of imgs/ pretrained_model/ work_space in the config files `de
 
 Run the following bash command in the command line,
 ``` bash
->>> cd demo/text_perceptron_det/
+>>> cd $OCR_ROOT$/demo/text_perceptron_det/
 >>> bash train.sh
 ```
 ## Inference
@@ -42,7 +43,7 @@ Directly modify the paths (`test_dataset`, `image_prefix`, etc.) in the testing 
 >>> python test.py 
 ```
 Some visualization of detection results are shown:
-[![](http://10.1.65.34/group1/M00/08/DF/CgFBIl_IifyAOXYrAAG-KdRue_k083.jpg)](http://10.1.65.34/group1/M00/08/DF/CgFBIl_IifyAOXYrAAG-KdRue_k083.jpg) [![](http://10.1.65.34/group1/M00/08/DF/CgFBIl_IigaAV03xAALhWChsgnQ216.jpg)](http://10.1.65.34/group1/M00/08/DF/CgFBIl_IigaAV03xAALhWChsgnQ216.jpg)
+[![](https://github.com/DAVAR-Lab/OCR/blob/main/demo/text_perceptron_det/visualizations/pred_img499.jpg)](https://github.com/DAVAR-Lab/OCR/blob/main/demo/text_perceptron_det/visualizations/pred_img499.jpg) [![](https://github.com/DAVAR-Lab/OCR/blob/main/demo/text_perceptron_det/visualizations/pred_img566.jpg)](https://github.com/DAVAR-Lab/OCR/blob/main/demo/text_perceptron_det/visualizations/pred_img566.jpg)
 
 ## Trained Model Download
 
@@ -51,10 +52,10 @@ Reported results on various datasets and trained models download:
 |                       | Pretrained | Precision | Recall | Hmean | Links               |
 | --------------------- | ---------- | --------- | ------ | ----- | ------------------- |
 | Total-Text (Reported) | SynthText  | 88.1      | 78.9   | 83.3  | -                   |
-| Total-Text            | SynthText  | 85.7      | 81.4   | 83.5  | [config](), [pth]() |
+| Total-Text            | SynthText  | 85.7      | 81.4   | 83.5  | [config](https://github.com/DAVAR-Lab/OCR/blob/main/demo/text_perceptron_det/config/tp_r50_3stages_enlarge.py), [pth](https://pan.baidu.com/s/1ZkccnlBvioqVrfb-g06yBQ ) (Access Code: vxzn)|
 | SCUT-CTW1500 (Reported) | SynthText  | 88.7      | 78.2   | 83.1  | -                   |
-| SCUT-CTW1500          | SynthText  | 86.1      | 80.0   | 82.9  | [config](), [pth]() |
-
+| SCUT-CTW1500          | SynthText  | 86.1      | 80.0   | 82.9  | [config](https://github.com/DAVAR-Lab/OCR/blob/main/demo/text_perceptron_det/config/tp_r50_3stages_enlarge.py), [pth](https://pan.baidu.com/s/1ZkccnlBvioqVrfb-g06yBQ ) (Access Code: vxzn)|
+> Note: Models are stored in BaiduYunPan.
 
 ## Citation
 
@@ -70,7 +71,7 @@ If you find this repository is helpful to your research, please feel free to cit
 }
 ```
 ## License
-This project is released under the [Apache 2.0 license](../../mmdetection/third_party/LICENSE)
+This project is released under the [Apache 2.0 license](https://github.com/DAVAR-Lab/OCR/blob/main/mmdetection/third_party/LICENSE)
 
 ## Copyright
-If there is any suggestion and problem, please feel free to contact the author with qiaoliang6@hikvision.com or chengzhanzhan@hikvision.com
+If there is any suggestion and problem, please feel free to contact the author with qiaoliang6@hikvision.com or chengzhanzhan@hikvision.com.

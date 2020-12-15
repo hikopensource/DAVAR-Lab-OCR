@@ -17,7 +17,7 @@ To date, we have released / will release the following algorithms:
 
 - TRIE (to be released) (ACM MM 2020)
 
-- [Text Perceptron](third_party/text_perceptron/) (AAAI 2020)
+- [Text Perceptron](mmdetection/third_party/text_perceptron) (AAAI 2020)
 
 - YORO (to be released) (ACM MM 2019)
 
@@ -37,7 +37,7 @@ We keep the main part of mmdetection and mmcv exactly same with the official ver
 
 To Download the repository and install the mmdetection and mmcv, please follow the instructions:
 ``` basic
->>> git clone https://github.com/DAVAR-Lab/DAVAR-OCR.git
+>>> git clone https://github.com/DAVAR-Lab/OCR.git
 >>> cd DAVAR-OCR/
 >>> bash setup.sh
 ```
@@ -54,4 +54,4 @@ This project is released under the [Apache 2.0 license](mmdetection/third_party/
 The copyright of corresponding contributions of our third-party modules belongs to *Davar-Lab, Hikvision Research Institute, China*, and other codes from open source repository follows the original distributive licenses.
 
 ## Welcome to DAVAR-LAB!
-See [latest news](https://davar-lab.github.io/news/) in DAVAR-Lab.
+See [latest news](https://davar-lab.github.io/) in DAVAR-Lab.
