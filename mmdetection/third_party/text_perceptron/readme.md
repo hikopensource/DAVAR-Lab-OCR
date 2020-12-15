@@ -43,8 +43,10 @@ Directly modify the paths (`test_dataset`, `image_prefix`, etc.) in the testing 
 >>> python test.py 
 ```
 Some visualization of detection results are shown:
-<img src="../../../demo/text_perceptron_det/visualizations/pred_img499.jpg", width="50%">
-<img src="../../../demo/text_perceptron_det/visualizations/pred_img566.jpg", width="50%">
+
+<img src="../../../demo/text_perceptron_det/visualizations/pred_img499.jpg", width="50%" />
+
+<img src="../../../demo/text_perceptron_det/visualizations/pred_img566.jpg", width="50%" />
 
 ## Trained Model Download
 
