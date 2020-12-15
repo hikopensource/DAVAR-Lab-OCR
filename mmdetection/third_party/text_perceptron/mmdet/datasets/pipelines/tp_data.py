@@ -17,6 +17,7 @@
 from ctypes import c_int, c_float
 import numpy as np
 import numpy.ctypeslib as ctl
+import os
 
 from mmcv.parallel import DataContainer as DC
 from mmdet.datasets.registry import PIPELINES
@@ -45,6 +46,13 @@ class TPDataGeneration():
                  lib_name=None,
                  lib_dir=None,
                  ):
+
+        # If there is no identified lib path, use the default path
+        if lib_name is None or not os.path.isfile(os.path.join(lib_dir, lib_name)):
+            cur_path = os.path.realpath(__file__)
+            lib_dir = cur_path.replace('\\', '/').split('/')[:-1]
+            lib_dir = "/".join(lib_dir)+'/lib'
+            lib_name = "tp_data.so"
 
         self.shrink_head_ratio = shrink_head_ratio
         self.shrink_bond_ratio = shrink_bond_ratio

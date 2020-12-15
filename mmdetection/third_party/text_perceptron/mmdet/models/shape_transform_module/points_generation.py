@@ -17,7 +17,7 @@ from ctypes import *
 
 import numpy as np
 import numpy.ctypeslib as ctl
-
+import os
 import torch
 import torch.nn as nn
 
@@ -46,10 +46,16 @@ class PointsGeneration(nn.Module):
                  thres_head=0.5,
                  thres_bond=0.5,
                  point_num=14,
-                 libname=None,
-                 libdir="./",
+                 lib_name=None,
+                 lib_dir="./",
                  ):
-        super(PointsGeneration, self).__init__()
+        # If there is no identified lib path, use the default path
+        if lib_name is None or not os.path.isfile(os.path.join(lib_dir, lib_name)):
+            cur_path = os.path.realpath(__file__)
+            lib_dir = cur_path.replace('\\', '/').split('/')[:-1]
+            lib_dir = "/".join(lib_dir) + '/lib'
+            lib_name = "tp_data.so"
+
         self.filter_ratio = filter_ratio
         self.thres_text = thres_text
         self.thres_head = thres_head
@@ -61,7 +67,7 @@ class PointsGeneration(nn.Module):
         assert 0.0 <= self.thres_head <= 1.0
         assert 0.0 <= self.thres_bond <= 1.0
 
-        lib = ctl.load_library(libname, libdir)
+        lib = ctl.load_library(lib_name, lib_dir)
         self.generate_func = lib.generate_result
         self.generate_func.argtypes = [ctl.ndpointer(np.float32, flags='C_CONTIGUOUS'),    # score_pred_text
                                        ctl.ndpointer(np.float32, flags='C_CONTIGUOUS'),    # score_pred_head
