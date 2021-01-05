@@ -2,7 +2,7 @@
 
 This code repository contains the implementations of the paper [Text Perceptron: Towards End-to-End Arbitrary-Shaped Text Spotting](https://arxiv.org/pdf/2002.06820.pdf) (AAAI 2020 oral).
 
-> To date, the detection part in the Text Perceptron is re-implemented based on the common repository [Davar-OCR](https://github.com/DAVAR-Lab/OCR), and the recognization part will be released in the future.
+> To date, the detection part in the Text Perceptron is re-implemented based on the common repository [Davar-OCR](https://github.com/hikopensource/DAVAR-Lab-OCR), and the recognization part will be released in the future.
 
 The model's implementation is in `mmdetection/third_party/text_perceptron`. The running scritps/demo is in `demo/text_perceptron_det/`.
 
@@ -10,9 +10,9 @@ The model's implementation is in `mmdetection/third_party/text_perceptron`. The 
 
 Before running the demo code, you should compile and install corresponding dependencies in `mmdetection/third_party/`.
 
-**Step 1**: Install Davar-OCR (complie mmdetection and mmcv) 
+**Step 1**: Install Davar-Lab-OCR (complie mmdetection and mmcv) 
 ``` bash
->>> cd $OCR_ROOT$
+>>> cd $DAVAR_LAB_OCR_ROOT$
 >>> bash setup.sh 
 ```
 
@@ -20,7 +20,7 @@ Before running the demo code, you should compile and install corresponding depen
 
 **Step 3**: Compile dependencies of TP model as part of our code is implemented by C++.
 ``` bash
->>> cd $OCR_ROOT$/mmdetection/third_party/text_perceptron/
+>>> cd $DAVAR_LAB_OCR_ROOT$/mmdetection/third_party/text_perceptron/
 >>> bash tp_setup.sh
 ```
 
@@ -34,7 +34,7 @@ Modified the paths of imgs/ pretrained_model/ work_space in the config files `de
 
 Run the following bash command in the command line,
 ``` bash
->>> cd $OCR_ROOT$/demo/text_perceptron_det/
+>>> cd $DAVAR_LAB_OCR_ROOT$/demo/text_perceptron_det/
 >>> bash train.sh
 ```
 ## Inference
@@ -44,8 +44,8 @@ Directly modify the paths (`test_dataset`, `image_prefix`, etc.) in the testing 
 ```
 Some visualization of detection results are shown:
 
-![https://github.com/DAVAR-Lab/OCR/blob/main/demo/text_perceptron_det/visualizations/pred_img499.jpg](https://github.com/DAVAR-Lab/OCR/blob/main/demo/text_perceptron_det/visualizations/pred_img499.jpg)
-![https://github.com/DAVAR-Lab/OCR/blob/main/demo/text_perceptron_det/visualizations/pred_img566.jpg](https://github.com/DAVAR-Lab/OCR/blob/main/demo/text_perceptron_det/visualizations/pred_img566.jpg)
+![https://github.com/hikopensource/DAVAR-Lab-OCR/blob/main/demo/text_perceptron_det/visualizations/pred_img499.jpg](https://github.com/hikopensource/DAVAR-Lab-OCR/blob/main/demo/text_perceptron_det/visualizations/pred_img499.jpg)
+![https://github.com/DAVAR-Lab/OCR/blob/main/demo/text_perceptron_det/visualizations/pred_img566.jpg](https://github.com/hikopensource/DAVAR-Lab-OCR/blob/main/demo/text_perceptron_det/visualizations/pred_img566.jpg)
 
 
 ## Trained Model Download
@@ -55,9 +55,9 @@ Reported results on various datasets and trained models download:
 |                       | Pretrained | Precision | Recall | Hmean | Links               |
 | --------------------- | ---------- | --------- | ------ | ----- | ------------------- |
 | Total-Text (Reported) | SynthText  | 88.1      | 78.9   | 83.3  | -                   |
-| Total-Text            | SynthText  | 85.7      | 81.4   | 83.5  | [config](https://github.com/DAVAR-Lab/OCR/blob/main/demo/text_perceptron_det/config/tp_r50_3stages_enlarge.py), [pth](https://pan.baidu.com/s/1ZkccnlBvioqVrfb-g06yBQ ) (Access Code: vxzn)|
+| Total-Text            | SynthText  | 85.7      | 81.4   | 83.5  | [config](https://github.com/hikopensource/DAVAR-Lab-OCR/blob/main/demo/text_perceptron_det/config/tp_r50_3stages_enlarge.py), [pth](https://pan.baidu.com/s/1ZkccnlBvioqVrfb-g06yBQ ) (Access Code: vxzn)|
 | SCUT-CTW1500 (Reported) | SynthText  | 88.7      | 78.2   | 83.1  | -                   |
-| SCUT-CTW1500          | SynthText  | 86.1      | 80.0   | 82.9  | [config](https://github.com/DAVAR-Lab/OCR/blob/main/demo/text_perceptron_det/config/tp_r50_3stages_enlarge.py), [pth](https://pan.baidu.com/s/1ZkccnlBvioqVrfb-g06yBQ ) (Access Code: vxzn)|
+| SCUT-CTW1500          | SynthText  | 86.1      | 80.0   | 82.9  | [config](https://github.com/hikopensource/DAVAR-Lab-OCR/blob/main/demo/text_perceptron_det/config/tp_r50_3stages_enlarge.py), [pth](https://pan.baidu.com/s/1ZkccnlBvioqVrfb-g06yBQ ) (Access Code: vxzn)|
 > Note: Models are stored in BaiduYunPan.
 
 ## Citation
@@ -74,7 +74,7 @@ If you find this repository is helpful to your research, please feel free to cit
 }
 ```
 ## License
-This project is released under the [Apache 2.0 license](https://github.com/DAVAR-Lab/OCR/blob/main/mmdetection/third_party/LICENSE)
+This project is released under the [Apache 2.0 license](https://github.com/hikopensource/DAVAR-Lab-OCR/blob/main/mmdetection/third_party/LICENSE)
 
 ## Copyright
 If there is any suggestion and problem, please feel free to contact the author with qiaoliang6@hikvision.com or chengzhanzhan@hikvision.com.
