@@ -38,7 +38,7 @@ We keep the main part of mmdetection and mmcv exactly same with the official ver
 To Download the repository and install the mmdetection and mmcv, please follow the instructions:
 ``` basic
 >>> git clone https://github.com/hikopensource/DAVAR-Lab-OCR.git
->>> cd DAVAR-OCR/
+>>> cd DAVAR-Lab-OCR/
 >>> bash setup.sh
 ```
 If you want to run some model, you can uncomment the corresponding importing statement in `mmdetection/third_party/__init__.py` directly in develop mode.
