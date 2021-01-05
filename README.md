@@ -37,7 +37,7 @@ We keep the main part of mmdetection and mmcv exactly same with the official ver
 
 To Download the repository and install the mmdetection and mmcv, please follow the instructions:
 ``` basic
->>> git clone https://github.com/DAVAR-Lab/OCR.git
+>>> git clone https://github.com/hikopensource/DAVAR-Lab-OCR.git
 >>> cd DAVAR-OCR/
 >>> bash setup.sh
 ```
