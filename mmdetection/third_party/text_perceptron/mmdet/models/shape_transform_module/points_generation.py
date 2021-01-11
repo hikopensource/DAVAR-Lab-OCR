@@ -49,6 +49,7 @@ class PointsGeneration(nn.Module):
                  lib_name=None,
                  lib_dir="./",
                  ):
+        super().__init__()
         # If there is no identified lib path, use the default path
         if lib_name is None or not os.path.isfile(os.path.join(lib_dir, lib_name)):
             cur_path = os.path.realpath(__file__)

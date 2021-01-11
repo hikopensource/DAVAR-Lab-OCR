@@ -55,8 +55,8 @@ model = dict(
     shape_transform_module=dict(
         type='PointsGeneration',
         # Re-implenmented in C++ (You can implement it in CUDA for further speed up)
-        libname='tp_points_generate.so',
-        libdir=os.path.join(third_party_path,
+        lib_name='tp_points_generate.so',
+        lib_dir=os.path.join(third_party_path,
                             'text_perceptron/mmdet/models/shape_transform_module/lib/'),
         # Parameters for points generating
         filter_ratio=0.6,
