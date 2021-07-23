@@ -1,0 +1,28 @@
+sudo: required
+dist: xenial
+language: python
+python:
+  - "3.6"
+install:
+  ## Start conda installation
+  # https://conda.io/docs/user-guide/tasks/use-conda-with-travis-ci.html
+  - sudo apt-get update
+  - wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh;
+  - bash miniconda.sh -b -p $HOME/miniconda
+  - export PATH="$HOME/miniconda/bin:$PATH"
+  - hash -r
+  - conda config --set always_yes yes --set changeps1 no
+  - conda update -q conda
+  # Useful for debugging any issues with conda
+  - conda info -a
+  ## End conda installation
+  
+  - conda create -q -n test-environment python=$TRAVIS_PYTHON_VERSION pytest pytest-flakes
+  - source activate test-environment
+  - conda install pytorch torchvision -c pytorch
+  - mkdir build && cd build && cmake .. && make && sudo make install && cd .. && sudo ldconfig
+  - cd pytorch_binding && python setup.py install && cd .. && sudo ldconfig
+
+script:
+  - cd pytorch_binding && py.test tests && cd ..
+  - cd pytorch_binding && py.test --flakes --ignore=warpctc_pytorch/_warp_ctc && cd ..
