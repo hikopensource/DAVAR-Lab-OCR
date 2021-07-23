@@ -70,12 +70,12 @@ Results on various datasets and trained models download:
 	<tr>
 		<td>resnet50+fpn+CMA+lstm</td>
 		<td>SynthText<br>SynthCurve</td>
-		<td>[cfg](./configs/mango_r50_ete_pretrain.py)<br>[pth](https://pan.baidu.com/s/18Zfgi7we8cXDMm8pt1Uwug) (Access Code: 677c)</td>
+		<td><p><a href="./configs/mango_r50_ete_pretrain.py">cfg </a>, <a href="https://pan.baidu.com/s/18Zfgi7we8cXDMm8pt1Uwug">pth </a> (Access Code: 677c)</p></td>
 	</tr>
 	<tr>
 		<td>resnet101+fpn+CMA+lstm</td>
 		<td>SynthText<br>SynthCurve</td>
-		<td>[cfg](./configs/mango_r101_ete_pretrain.py)<br>[pth](https://pan.baidu.com/s/18Zfgi7we8cXDMm8pt1Uwug) (Access Code: 677c)</td>
+		<td><p><a href="./configs/mango_r101_ete_pretrain.py">cfg </a>, <a href="https://pan.baidu.com/s/18Zfgi7we8cXDMm8pt1Uwug">pth </a> (Access Code: 677c)</p></td>
 	</tr>
 </table>
 
@@ -127,7 +127,7 @@ Results on various datasets and trained models download:
 		<td>88.4</td>
 		<td>92.7</td>
 		<td>93.7</td>
-		<td>[cfg](./configs/mango_r50_ete_finetune.py)<br>[pth](https://pan.baidu.com/s/1G6G0hLCNdPxOS1e7dPbNOQ ) (Access Code: ay86)</td>
+		<td><p><a href="./configs/mango_r50_ete_finetune.py">cfg </a>, <a href="https://pan.baidu.com/s/1G6G0hLCNdPxOS1e7dPbNOQ">pth </a> (Access Code: ay86)</p></td>
 	</tr>
 	<tr>
 		<td>ICDAR2013</td>
@@ -142,7 +142,7 @@ Results on various datasets and trained models download:
 		<td>90.7</td>
 		<td>93.8</td>
 		<td>94.0</td>
-		<td>[cfg](./configs/mango_r101_ete_finetune.py)<br>[pth](https://pan.baidu.com/s/1G6G0hLCNdPxOS1e7dPbNOQ) (Access Code: ay86)</td>
+		<td><p><a href="./configs/mango_r101_ete_finetune.py">cfg </a>, <a href="https://pan.baidu.com/s/1G6G0hLCNdPxOS1e7dPbNOQ">pth </a> (Access Code: ay86)</p></td>
 	</tr>
 	<tr>
 		<td>ICDAR2015 (Reported)</td>
@@ -172,7 +172,7 @@ Results on various datasets and trained models download:
 		<td>73.8</td>
 		<td>81.1</td>
 		<td>85</td>
-		<td>[cfg](./configs/mango_r50_ete_finetune.py)<br>[pth](https://pan.baidu.com/s/1kD-JTn1ecwLBxgG1dTPGBg) (Access Code: pw8a)</td>
+		<td><p><a href="./configs/mango_r50_ete_finetune.py">cfg </a>, <a href="https://pan.baidu.com/s/1kD-JTn1ecwLBxgG1dTPGBg">pth </a> (Access Code: pw8a)</p></td>
 	</tr>
 	<tr>
 		<td>ICDAR2015</td>
@@ -187,7 +187,7 @@ Results on various datasets and trained models download:
 		<td>75.7</td>
 		<td>83.4</td>
 		<td>86.6</td>
-		<td>[cfg](./configs/mango_r101_ete_finetune.py)<br>[pth](https://pan.baidu.com/s/1kD-JTn1ecwLBxgG1dTPGBg) (Access Code: pw8a)</td>
+		<td><p><a href="./configs/mango_r101_ete_finetune.py">cfg </a>, <a href="https://pan.baidu.com/s/1kD-JTn1ecwLBxgG1dTPGBg">pth </a> (Access Code: pw8a)</p></td>
 	</tr>
 </table>
 
@@ -233,7 +233,7 @@ Results on various datasets and trained models download:
 		<td>78.9</td>
 		<td>71.7</td>
 		<td>82.7</td>
-		<td>[cfg](./configs/mango_r50_ete_finetune.py)<br>[pth](https://pan.baidu.com/s/1NI1_Nl8gSDh9zTX-lof9OA) (Access Code: 6rz6)</td>
+		<td><p><a href="./configs/mango_r50_ete_finetune.py">cfg </a>, <a href="https://pan.baidu.com/s/1NI1_Nl8gSDh9zTX-lof9OA">pth </a> (Access Code: 6rz6)</p></td>
 	</tr>
 	<tr>
 		<td>Total-Text</td>
@@ -246,7 +246,7 @@ Results on various datasets and trained models download:
 		<td>79.9</td>
 		<td>73</td>
 		<td>83.9</td>
-		<td>[cfg](./configs/mango_r101_ete_finetune.py)<br>[pth](https://pan.baidu.com/s/1NI1_Nl8gSDh9zTX-lof9OA) (Access Code: 6rz6)</td>
+		<td><p><a href="./configs/mango_r101_ete_finetune.py">cfg </a>, <a href="https://pan.baidu.com/s/1NI1_Nl8gSDh9zTX-lof9OA">pth </a> (Access Code: 6rz6)</p></td>
 	</tr>
 </table>
 > Note: Models are stored in BaiduYunPan.

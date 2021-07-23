@@ -67,7 +67,7 @@ Results on various datasets and trained models download:
 	<tr>
 		<td>mask_rcnn_r50_fpn+rcg_r32+lstm+attention</td>
 		<td>SynthText</td>
-		<td>[cfg](./configs/mask_rcnn_spotter_pretrain.py)<br>[pth](https://pan.baidu.com/s/1PdCalgmaIqRw28WuaDxDNg) (Access Code: et32)</td>
+		<td><p><a href="./configs/mask_rcnn_spotter_pretrain.py">cfg </a>, <a href="https://pan.baidu.com/s/1PdCalgmaIqRw28WuaDxDNg">pth </a> (Access Code: et32)</p></td>
 	</tr>
 </table>
 
@@ -104,7 +104,7 @@ Results on various datasets and trained models download:
 		<td>86.13</td>
 		<td>90.44</td>
 		<td>91.11</td>
-		<td>[cfg](./configs/mask_rcnn_spotter_finetune.py)<br>[pth](https://pan.baidu.com/s/1V6MEviBJCCkxlWe2JKFjNw) (Access Code: 5j3c)</td>
+		<td><p><a href="./configs/mask_rcnn_spotter_finetune.py">cfg </a>, <a href="https://pan.baidu.com/s/1V6MEviBJCCkxlWe2JKFjNw">pth </a> (Access Code: 5j3c)</p></td>
 	</tr>
 	<tr>
 		<td>ICDAR2015</td>
@@ -119,7 +119,7 @@ Results on various datasets and trained models download:
 		<td>70.14</td>
 		<td>75.05</td>
 		<td>79.13</td>
-		<td>[cfg](./configs/mask_rcnn_spotter_finetune.py)<br>[pth](https://pan.baidu.com/s/1ei1mGacjBG6yxp1W_fC6jA) (Access Code: ne5l)</td>
+		<td><p><a href="./configs/mask_rcnn_spotter_finetune.py">cfg </a>, <a href="https://pan.baidu.com/s/1ei1mGacjBG6yxp1W_fC6jA">pth </a> (Access Code: ne5l)</p></td>
 	</tr>
 </table>
 
@@ -152,7 +152,7 @@ Results on various datasets and trained models download:
 		<td>71.48</td>
 		<td>65.25</td>
 		<td>75.82</td>
-		<td>[cfg](./configs/mask_rcnn_spotter_finetune.py)<br>[pth](https://pan.baidu.com/s/1TVmG8hh9r9mWfdaNynkqSg) (Access Code: 7npy)</td>
+		<td><p><a href="./configs/mask_rcnn_spotter_finetune.py">cfg </a>, <a href="https://pan.baidu.com/s/1TVmG8hh9r9mWfdaNynkqSg">pth </a> (Access Code: 7npy)</p></td>
 	</tr>
 </table>
 > Note: Models are stored in BaiduYunPan.
