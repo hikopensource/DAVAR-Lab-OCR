@@ -125,7 +125,7 @@ bash ./train.sh
         <td><center> 78.9 </center></td>
         <td><center> 80.6 </center></td>
         <td><center><p><a href="./res32_bilstm_ctc.py"> Config </a></p></center>
-        <td><center><p><a href="https://pan.baidu.com/s/1Ad91GOxnFm3XcGZJoR8XAQ"> Code:yc98 </a></p></center></td>
+        <td><center><p><a href="https://pan.baidu.com/s/1Ad91GOxnFm3XcGZJoR8XAQ"> pth </a>(Code:yc98)</p></center></td>
 	<tr>
     <tr>
 		<td><center> Attention(Report) </center></td>
@@ -150,7 +150,7 @@ bash ./train.sh
         <td><center> 82.5 </center></td>
         <td><center> 81.9 </center></td>
         <td><center><p><a href="./res32_bilstm_attn.py"> Config </a></p></center>
-        <td><center><p><a href="https://pan.baidu.com/s/1B5pBYYXTgdXNQNfue_ET9A"> Code:mdtf </a></p></center></td>
+        <td><center><p><a href="https://pan.baidu.com/s/1B5pBYYXTgdXNQNfue_ET9A"> pth  </a>(Code:mdtf)</p></center></td>
 	<tr>
 <table>
 > Note: Models are stored in BaiduYunPan.

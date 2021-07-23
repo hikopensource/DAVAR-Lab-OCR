@@ -132,7 +132,7 @@ bash ./test_scripts/test_gaspin.sh
         <td><center> 80.9 </center></td>
         <td><center> 83.0 </center></td>
         <td><center><p><a href="./configs/affine_res32_attn.py"> Config </a></p></center></td>
-        <td><center><p><a href="https://pan.baidu.com/s/1vnpzAfRYZ-Yuf3FzqhSNTg"> Code:1lcp </a></p></center></td>
+        <td><center><p><a href="https://pan.baidu.com/s/1vnpzAfRYZ-Yuf3FzqhSNTg"> pth </a> (Code:1lcp )</p></center></td>
 	<tr>
     <tr>
 		<td><center> TPS(Report) </center></td>
@@ -156,7 +156,7 @@ bash ./test_scripts/test_gaspin.sh
         <td><center> 82.6 </center></td>
         <td><center> 83.7 </center></td>
         <td><center><p><a href="./configs/tps_res32_attn.py"> Config </a></p></center></td>
-        <td><center><p><a href="https://pan.baidu.com/s/1vnpzAfRYZ-Yuf3FzqhSNTg"> Code:1lcp </a></p>
+        <td><center><p><a href="https://pan.baidu.com/s/1vnpzAfRYZ-Yuf3FzqhSNTg"> pth </a>(Code:1lcp)</p>
             </center></td>
 	<tr>
     <tr>
@@ -182,7 +182,7 @@ bash ./test_scripts/test_gaspin.sh
         <td><center> 83.7 </center></td>
         <td><center>
             <p><a href="./configs/spin_res32_attn.py"> Config </a></p></center></td>
-        <td><center><p><a href="https://pan.baidu.com/s/1vnpzAfRYZ-Yuf3FzqhSNTg"> Code:1lcp </a></p>
+        <td><center><p><a href="https://pan.baidu.com/s/1vnpzAfRYZ-Yuf3FzqhSNTg"> pth </a>(Code:1lcp)</p>
             </center></td>
 	<tr>
     <tr>
@@ -208,7 +208,7 @@ bash ./test_scripts/test_gaspin.sh
         <td><center> 84.7 </center></td>
         <td><center>
             <p><a href="./configs/gaspin_res32_attn.py"> Config </a></p></center></td>
-        <td><center><p><a href="https://pan.baidu.com/s/1pwRDQaJdoVIDwE5nYOiggw"> Code:sebs </a></p>
+        <td><center><p><a href="https://pan.baidu.com/s/1pwRDQaJdoVIDwE5nYOiggw"> pth </a>(Code:sebs)</p>
             </center></td>
 	<tr>
 <table>

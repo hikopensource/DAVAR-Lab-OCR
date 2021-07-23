@@ -126,7 +126,7 @@ bash ./train.sh
         <td><center> 86.7 </center></td>
         <td><center> 88.2 </center></td>
         <td><center><p><a href="./configs/res32_bilstm_visual.py"> Config </a></p></center></td>
-        <td><center><p><a href="https://pan.baidu.com/s/1nS4-s6TZdZM0LYXLQHy-TQ"> Code:opjk </a></p></center></td>
+        <td><center><p><a href="https://pan.baidu.com/s/1nS4-s6TZdZM0LYXLQHy-TQ"> pth </a> (Code:opjk)</p></center></td>
 	<tr>
     <tr>
         <td><center> RF-Learning total(Report) </center></td>
@@ -150,7 +150,7 @@ bash ./train.sh
         <td><center> 82.0 </center></td>
         <td><center> 84.7 </center></td>
         <td><center><p><a href="./configs/res32_bilstm_attn.py"> Config </a></p></center></td>
-        <td><center><p><a href="https://pan.baidu.com/s/1nS4-s6TZdZM0LYXLQHy-TQ"> Code:opjk </a></p></center></td>
+        <td><center><p><a href="https://pan.baidu.com/s/1nS4-s6TZdZM0LYXLQHy-TQ"> pth </a> (Code:opjk) </p></center></td>
 	<tr>
 <table>
 
@@ -165,10 +165,10 @@ Here is the picture for result visualization.
 ## Citation
 
 ``` markdown
-@inproceedings{rflearning,
+@article{rflearning,
   author={Hui Jiang and Yunlu Xu and Zhanzhan Cheng and Shiliang Pu and Yi Niu and Wenqi Ren and Fei Wu and Wenming Tan},
   title={Reciprocal Feature Learning via Explicit and Implicit Tasks in Scene Text Recognition},
-  booktitle={ICDAR 2021},
+  journal={CoRR},
   volume={abs/2105.06229},
   year={2021},
 }

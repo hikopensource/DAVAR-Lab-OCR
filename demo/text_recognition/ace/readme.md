@@ -121,7 +121,7 @@ bash ./test_ace.sh
         <td><center> 71.9 </center></td>
         <td><center> 77.1 </center></td>
         <td><center><p><a href="./configs/res32_ace.py"> Config </a></p></center></td>
-        <td><center><p><a href="https://pan.baidu.com/s/1j__kSmlFLYZXGabsqpZKQQ"> Code:brey </a></p></center></td>
+        <td><center><p><a href="https://pan.baidu.com/s/1j__kSmlFLYZXGabsqpZKQQ"> pth </a>(Code:brey)</p></center></td>
 	<tr>
 <table>
 
