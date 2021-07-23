@@ -1,4 +1,4 @@
-# Mask-RCNN Detector
+# EAST
 
 This code repository contains an implementation of EAST Text detector. [EAST: An Efficient and Accurate Scene Text Detector](https://arxiv.org/pdf/1704.03155v2.pdf) (CVPR 2017).
 
