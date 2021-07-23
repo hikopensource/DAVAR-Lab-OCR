@@ -1,3 +1,0 @@
-1 cat
-2 dog cow
-3 panda
