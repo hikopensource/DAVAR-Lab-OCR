@@ -33,7 +33,7 @@ To date, davarocr contains the following algorithms:
 
 ***Text Spotting***
 
-- [x] [Mask RCNN E2E](demo/text_spotting/mask_rcnn_e2e/) 
+- [x] [Mask RCNN E2E](demo/text_spotting/mask_rcnn_spot/) 
 
 - [x] [MANGO](demo/text_spotting/mango) (AAAI 2021)
 
