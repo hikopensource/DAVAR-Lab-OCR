@@ -70,6 +70,7 @@ bash ./train.sh
 
 
 ### Evaluation
+Run following scripts to compare different rectification modules.
 
 ```
 cd .
