@@ -45,7 +45,7 @@ To date, davarocr contains the following algorithms:
 
 - YORO (to be released) (ACM MM 2019)
 
-- FREE (to be released) (TIP 2020)
+- FREE (to be released) (TIP 2021)
 
 ***Layout Recognition***
 
@@ -81,6 +81,7 @@ Going to the specific algorithm's directory to see more details.
 
 ## Problem solution and collection
 For the problems existing in the process of installation and researching, we will reasonably collect them and provide corresponding solutions. Please refer to [FAQ.md](./docs/FAQ.md) for details. 
+
 
 ## Changelog
 

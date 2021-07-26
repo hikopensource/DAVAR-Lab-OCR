@@ -249,7 +249,7 @@ Results on various datasets and trained models download:
 		<td><p><a href="./configs/mango_r101_ete_finetune.py">cfg </a>, <a href="https://pan.baidu.com/s/1NI1_Nl8gSDh9zTX-lof9OA">pth </a> (Access Code: 6rz6)</p></td>
 	</tr>
 </table>
-> Note: Models are stored in BaiduYunPan.
+> Note: Models are stored in BaiduYunPan, and can also be downloaded from [Google Drive](https://drive.google.com/drive/folders/1VLVbdEabCSZ54dNLvbBsMaXV2nrGrx9G?usp=sharing)
 
 
 ## Citation

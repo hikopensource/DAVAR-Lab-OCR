@@ -46,7 +46,7 @@ Results on various datasets and trained models download:
 | ICDAR2015      | QUAD    | ResNet-50 |  ImageNet    | (L-1280, S-720) |  71.43   | 79.20  | 75.11 | [config](config/east_r50_quad.py), [pth](https://pan.baidu.com/s/1uAaXN6iCVfIKniJPID6K5Q ) (Access Code: lgu5 )         |
 | ICDAR2015      | QUAD    | ResNet-50 |  ImageNet    | (L-1600, S-900) |  71.52   | 79.30  | 75.21 | [config](config/east_r50_quad.py), [pth](https://pan.baidu.com/s/1uAaXN6iCVfIKniJPID6K5Q ) (Access Code: lgu5 )         |
 
-> Note: Models are stored in BaiduYunPan.
+> Note: Models are stored in BaiduYunPan, and can also be downloaded from [Google Drive](https://drive.google.com/drive/folders/1dWZN2uMKMgJalHcBHWvpAuku1eyXq-Jj?usp=sharing)
 
 ## Citation
 

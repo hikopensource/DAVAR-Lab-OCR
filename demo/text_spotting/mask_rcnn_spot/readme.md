@@ -155,7 +155,7 @@ Results on various datasets and trained models download:
 		<td><p><a href="./configs/mask_rcnn_spotter_finetune.py">cfg </a>, <a href="https://pan.baidu.com/s/1TVmG8hh9r9mWfdaNynkqSg">pth </a> (Access Code: 7npy)</p></td>
 	</tr>
 </table>
-> Note: Models are stored in BaiduYunPan.
+> Note: Models are stored in BaiduYunPan, and can also be downloaded from [Google Drive](https://drive.google.com/drive/folders/1tFtLw1Lm6Lc3ve_wNwrmedJ5dS0HPSh9?usp=sharing)
 
 
 ## Citation:

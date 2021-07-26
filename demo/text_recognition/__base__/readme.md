@@ -40,8 +40,7 @@ This code repository contains an implementation of (CRNN:[An End-to-End Trainabl
 
 ## 3. Getting Started
 ### Preparation
-A quick start can directly use the lmdb-formatted dataset [data_lmdb_release.zip](http://) contains the full benchmarks for scene text recognition tasks as belows.
-
+A quick start is to use above lmdb-formatted datasets that contain the full benchmarks for scene text recognition tasks as belows.
 ```
 Data Type: LMDB
 
@@ -125,7 +124,7 @@ bash ./train.sh
         <td><center> 78.9 </center></td>
         <td><center> 80.6 </center></td>
         <td><center><p><a href="./res32_bilstm_ctc.py"> Config </a></p></center>
-        <td><center><p><a href="https://pan.baidu.com/s/1Ad91GOxnFm3XcGZJoR8XAQ"> pth </a>(Code:yc98)</p></center></td>
+        <td><center><p> pth <a href="https://pan.baidu.com/s/1Ad91GOxnFm3XcGZJoR8XAQ">BaiduYunPan </a>(Code:yc98), <a href="https://drive.google.com/drive/folders/1VNYKzqSQ1tNPfBvglmfjDfaNWR6RQSFj?usp=sharing">Google Drive </a></p></center></td>
 	<tr>
     <tr>
 		<td><center> Attention(Report) </center></td>
@@ -150,10 +149,9 @@ bash ./train.sh
         <td><center> 82.5 </center></td>
         <td><center> 81.9 </center></td>
         <td><center><p><a href="./res32_bilstm_attn.py"> Config </a></p></center>
-        <td><center><p><a href="https://pan.baidu.com/s/1B5pBYYXTgdXNQNfue_ET9A"> pth  </a>(Code:mdtf)</p></center></td>
+        <td><center><p> pth <a href="https://pan.baidu.com/s/1B5pBYYXTgdXNQNfue_ET9A">BaiduYunPan </a> (Code:mdtf),  <a href="https://drive.google.com/drive/folders/1ZL_wyWq2AFURRN5Bcj6EN85-71b7MXVr?usp=sharing"> Google Drive</a> </p></center></td>
 	<tr>
 <table>
-> Note: Models are stored in BaiduYunPan.
 
 
 ### Visualization

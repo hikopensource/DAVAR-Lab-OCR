@@ -42,7 +42,7 @@ Aggregation cross-entropy (ACE: [Aggregation Cross-Entropy for Sequence Recognit
 
 ## 3. Getting Started
 ### Preparation
-A quick start can directly use the lmdb-formatted dataset [data_lmdb_release.zip](http://) contains the full benchmarks for scene text recognition tasks as belows.
+A quick start is to use above lmdb-formatted datasets that contain the full benchmarks for scene text recognition tasks as belows.
 
 ```
 Data Type: LMDB
@@ -121,7 +121,7 @@ bash ./test_ace.sh
         <td><center> 71.9 </center></td>
         <td><center> 77.1 </center></td>
         <td><center><p><a href="./configs/res32_ace.py"> Config </a></p></center></td>
-        <td><center><p><a href="https://pan.baidu.com/s/1j__kSmlFLYZXGabsqpZKQQ"> pth </a>(Code:brey)</p></center></td>
+        <td><center><p> pth<a href="https://pan.baidu.com/s/1j__kSmlFLYZXGabsqpZKQQ"> BaiduYunPan </a>(Code:brey),<a href="https://drive.google.com/drive/folders/1gplNfTC4bbiAsQVDSnlttIZ0F1ASsZbj?usp=sharing"> Google Drive </a> </p></center></td>
 	<tr>
 <table>
 

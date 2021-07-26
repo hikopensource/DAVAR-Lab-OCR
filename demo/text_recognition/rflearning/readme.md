@@ -42,7 +42,7 @@ This code repository contains an implementation of (RF-Learning: [Reciprocal Fea
 ## 3. Getting Started
 
 ### Preparation
-A quick start can directly use the lmdb-formatted dataset [data_lmdb_release.zip](http://) contains the full benchmarks for scene text recognition tasks as belows.
+A quick start is to use above lmdb-formatted datasets that contain the full benchmarks for scene text recognition tasks as belows.
 
 ```
 Data Type: LMDB
@@ -126,7 +126,7 @@ bash ./train.sh
         <td><center> 86.7 </center></td>
         <td><center> 88.2 </center></td>
         <td><center><p><a href="./configs/res32_bilstm_visual.py"> Config </a></p></center></td>
-        <td><center><p><a href="https://pan.baidu.com/s/1nS4-s6TZdZM0LYXLQHy-TQ"> pth </a> (Code:opjk)</p></center></td>
+        <td><center><p> pth <a href="https://pan.baidu.com/s/1nS4-s6TZdZM0LYXLQHy-TQ">BaiduYunPan </a> (Code:opjk),  <a href="https://drive.google.com/drive/folders/15n5b5XptYtvgZ3MfBpVpNoyNviJuknPb?usp=sharing">Google Drive </a> </p></center></td>
 	<tr>
     <tr>
         <td><center> RF-Learning total(Report) </center></td>
@@ -150,7 +150,7 @@ bash ./train.sh
         <td><center> 82.0 </center></td>
         <td><center> 84.7 </center></td>
         <td><center><p><a href="./configs/res32_bilstm_attn.py"> Config </a></p></center></td>
-        <td><center><p><a href="https://pan.baidu.com/s/1nS4-s6TZdZM0LYXLQHy-TQ"> pth </a> (Code:opjk) </p></center></td>
+         <td><center><p> pth <a href="https://pan.baidu.com/s/1nS4-s6TZdZM0LYXLQHy-TQ">BaiduYunPan </a> (Code:opjk),  <a href="https://drive.google.com/drive/folders/1l-49Gl-R1nW5MYjqoEjvFgvibJbISSYx?usp=sharing">Google Drive </a> </p></center></td>
 	<tr>
 <table>
 
