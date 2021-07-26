@@ -157,7 +157,6 @@ bash ./test_scripts/test_gaspin.sh
         <td><center> 83.7 </center></td>
         <td><center><p><a href="./configs/tps_res32_attn.py"> Config </a></p></center></td>
         <td><center><p> pth <a href="https://pan.baidu.com/s/1H7zr3Kh83Sjpd9SQ5plS7w">BaiduYunPan </a> (Code:a0tx), <a href="https://drive.google.com/drive/folders/1aF4L_0Wp5An_ogC_XdAgYi6CbODvYG4X?usp=sharing" > Google Drive</a></p></center></td>
-      
 	<tr>
     <tr>
 		<td><center> SPIN(Report) </center></td>
@@ -183,7 +182,6 @@ bash ./test_scripts/test_gaspin.sh
         <td><center>
             <p><a href="./configs/spin_res32_attn.py"> Config </a></p></center></td>
         <td><center><p> pth <a href="https://pan.baidu.com/s/17mw2FvNhscABOC7drkqT9g">BaiduYunPan </a> (Code:1vyj), <a href="https://drive.google.com/drive/folders/1AUK1Wt5NbMSeSvl3ttfqfbwl9cRkcetp?usp=sharing" > Google Drive</a></p></center></td>
-     
 	<tr>
     <tr>
 		<td><center> GA-SPIN(Report) </center></td>
