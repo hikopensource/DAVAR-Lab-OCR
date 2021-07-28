@@ -4,8 +4,8 @@
 # Filename       :    multimodal_context_module.py
 # Abstract       :    compute multimodal context for each bbox/ node.
 
-# Current Version:    1.0.0
-# Date           :    2021-05-20
+# Current Version:    1.0.1
+# Date           :    2021-07-28
 ######################################################################################################
 """
 import copy
@@ -127,9 +127,9 @@ class MultiModalContextModule(nn.Module):
         last_idx = 0
 
         # pack
-        for _ in enumerate(pos_feat):
+        for i, _ in enumerate(pos_feat):
             # visual feat
-            b_s = pos_feat[_].size(0)
+            b_s = pos_feat[i].size(0)
             img_feat = img_feat_all[0]
             img_feat_size = list(img_feat.size())
             img_feat_size[0] = max_length - b_s
@@ -144,8 +144,8 @@ class MultiModalContextModule(nn.Module):
                 torch.cat((img_feat[last_idx: last_idx + b_s], img_feat.new_full(img_feat_size, 0)), 0))
 
             # pos feat
-            per_pos_feat = pos_feat[_]
-            image_shape_h, image_shape_w = img_meta[_]['img_shape'][:2]
+            per_pos_feat = pos_feat[i]
+            image_shape_h, image_shape_w = img_meta[i]['img_shape'][:2]
             per_pos_feat_expand = per_pos_feat.new_full((per_pos_feat.size(0), 4), 0)
             per_pos_feat_expand[:, 0] = per_pos_feat[:, 0]
             per_pos_feat_expand[:, 1] = per_pos_feat[:, 1]
@@ -163,7 +163,7 @@ class MultiModalContextModule(nn.Module):
 
             # classification labels
             if info_labels is not None:
-                per_label = info_labels[_]
+                per_label = info_labels[i]
                 img_feat_size = list(per_label.size())
                 img_feat_size[0] = max_length - b_s
                 batched_img_label.append(
@@ -171,7 +171,7 @@ class MultiModalContextModule(nn.Module):
 
             # bieo labels
             if bieo_labels is not None:
-                per_label = copy.deepcopy(bieo_labels[_])
+                per_label = copy.deepcopy(bieo_labels[i])
                 per_label = torch.tensor(per_label, dtype=torch.long).to(img_feat.device)
 
                 img_feat_size = list(per_label.size())
