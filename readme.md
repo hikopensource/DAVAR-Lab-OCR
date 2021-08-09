@@ -70,11 +70,13 @@ The recommended environment requirements can be found in [mmdetection](https://g
 ## Installation and Development Instruction 
 
 To Download the repository and install the davarocr, please follow the instructions:
-``` basic
->>> git clone https://github.com/hikopensource/DAVAR-Lab-OCR.git
->>> cd DAVAR-Lab-OCR/
->>> bash setup.sh
+
+```shell
+git clone https://github.com/hikopensource/DAVAR-Lab-OCR.git
+cd DAVAR-Lab-OCR/
+bash setup.sh
 ```
+
 This script will automatically download and install the "mmdetection" and "mmcv-full". You can also manually install them followinging the [official instructions](https://github.com/open-mmlab/mmdetection/)
 
 Going to the specific algorithm's directory to see more details.

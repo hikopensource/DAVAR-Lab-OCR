@@ -62,7 +62,7 @@ File storage format:
 
 Run the following bash command in the command line,
 
-```
+```shell
 cd .
 bash ./train.sh 
 ```
@@ -70,11 +70,13 @@ bash ./train.sh
 
 ### Evaluation
 
-```
 1.Visual Stage
+```shell
   cd .
   bash ./test_scripts/test_rfl_visual.sh
-1.Visual Stage
+```
+2.Total Stage
+```shell
   cd .
   bash ./test_scripts/test_rfl_total.sh
 ```

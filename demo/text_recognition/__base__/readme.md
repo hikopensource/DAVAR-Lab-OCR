@@ -60,7 +60,7 @@ File storage format:
 
 Run the following bash command in the command line,
 
-```
+```shell
 cd .
 bash ./train_script/train_att.sh 
 
@@ -71,7 +71,7 @@ bash ./train_script/train_crnn.sh
 
 ### Evaluation
 
-```
+```shell
 cd .
 bash ./train.sh
 ```

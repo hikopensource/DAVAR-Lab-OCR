@@ -14,9 +14,9 @@ The formatted training datalist can be found in `demo/text_spotting/datalist`
 2.Modified the paths (`ann_file`, `img_prefix`, `work_dir`, etc..) in the config files `demo/text_spotting/mango/config/mango_r50_ete_finetune.py`.
 
 3.Run the following bash command in the command line
-``` bash
->>> cd $DAVAR_LAB_OCR_ROOT$/demo/text_spotting/mango/
->>> bash dist_train.sh
+```shell
+cd $DAVAR_LAB_OCR_ROOT$/demo/text_spotting/mango/
+bash dist_train.sh
 ```
 >Notice:We provide the implementation of online validation. If you want to close it to save training time, you may modify the startup script to add `--no-validate` command.
 
@@ -35,9 +35,9 @@ If you want to re-implement the model's performance from scratch, please followi
 
 ## Offline Inference and Evaluation
 We provide a demo of forward inference and evaluation. You can modify the parameter (`iou_constraint`, `lexicon_type`, etc..) in the testing script, and start testing:
-``` bash
->>> cd $DAVAR_LAB_OCR_ROOT$/demo/text_spotting/mango/tools/
->>> bash test_ic13.sh
+```shell
+cd $DAVAR_LAB_OCR_ROOT$/demo/text_spotting/mango/tools/
+bash test_ic13.sh
 ```
 
 The offline evaluation tool can be found in [`davarocr/demo/text_spotting/evaluation/`](../evalution/).
@@ -45,9 +45,10 @@ The offline evaluation tool can be found in [`davarocr/demo/text_spotting/evalua
 ## Visualization
 We provide a script to visualize the intermediate output results of the model, include visualization results of segmentation, activated grid map, text pred and attention map. You can modify the paths (`test_dataset`, `config_file`, etc..) in the script, and start generating 
 visualization results:
-``` bash
->>> cd $DAVAR_LAB_OCR_ROOT$/demo/text_spotting/mango/tools/
->>> python vis.py
+
+```shell
+cd $DAVAR_LAB_OCR_ROOT$/demo/text_spotting/mango/tools/
+python vis.py
 ```
 
 Some visualization results are shown:

@@ -61,7 +61,7 @@ File storage format:
 
 Run the following bash command in the command line,
 
-```
+```shell
 cd .
 bash ./train.sh
 ```
@@ -69,7 +69,7 @@ bash ./train.sh
 
 ### Evaluation
 
-```
+```shell
 cd ../test_scripts
 bash ./test_ace.sh
 ```

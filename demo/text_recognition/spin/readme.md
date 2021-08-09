@@ -61,7 +61,7 @@ File storage format:
 
 Run the following bash command in the command line,
 
-```
+```shell
 cd .
 bash ./train.sh 
 ```
@@ -72,16 +72,19 @@ bash ./train.sh
 ### Evaluation
 Run following scripts to compare different rectification modules.
 
-```
+```shell
 cd .
 bash ./test_scripts/test_affine.sh
-
+```
+```shell
 cd .
 bash ./test_scripts/test_tps.sh
-
+```
+```shell
 cd .
 bash ./test_scripts/test_spin.sh
-
+```
+```shell
 cd .
 bash ./test_scripts/test_gaspin.sh
 ```
