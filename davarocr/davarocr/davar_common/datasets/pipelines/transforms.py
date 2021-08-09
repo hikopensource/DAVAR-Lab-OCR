@@ -69,24 +69,16 @@ class DavarResize(Resize):
         """
         img_shape = results['img_shape']
         for key in results.get('bbox_fields', []):
-            if isinstance(results[key], np.ndarray) and (len(results[key] > 0) and len(results[key][0]) == 4):
-                # For 2-point rect bounding boxes, np.ndarray(K, 4)
-                bboxes = results[key] * results['scale_factor']
+            bboxes = []
+            for box in results[key]:
+                tmp_box = np.array(box, dtype=np.float32)
+                tmp_box[0::2] *= results['scale_factor'][0]
+                tmp_box[1::2] *= results['scale_factor'][1]
                 if self.bbox_clip_border:
-                    bboxes[:, 0::2] = np.clip(bboxes[:, 0::2], 0, img_shape[1])
-                    bboxes[:, 1::2] = np.clip(bboxes[:, 1::2], 0, img_shape[0])
-                results[key] = bboxes
-            else:
-                # For any n-point poly bounding boxes.
-                bboxes = []
-                for box in results[key]:
-                    tmp_box = np.array(box, dtype=np.float32)
-                    tmp_box[0::2] *= results['scale_factor'][0]
-                    tmp_box[1::2] *= results['scale_factor'][1]
-                    if self.bbox_clip_border:
-                        tmp_box[0::2] = np.clip(tmp_box[0::2], 0, img_shape[1])
-                        tmp_box[1::2] = np.clip(tmp_box[1::2], 0, img_shape[0])
-                    bboxes.append(tmp_box)
+                    tmp_box[0::2] = np.clip(tmp_box[0::2], 0, img_shape[1])
+                    tmp_box[1::2] = np.clip(tmp_box[1::2], 0, img_shape[0])
+                bboxes.append(tmp_box)
+            if len(results[key]) > 0:
                 results[key] = bboxes
 
     def _resize_cbboxes(self, results):
@@ -100,33 +92,21 @@ class DavarResize(Resize):
         """
         img_shape = results['img_shape']
         for key in results.get('cbbox_fields', []):
-            if isinstance(results[key], np.ndarray):
-                # For 2-point rect bounding boxes, np.ndarray(K, L, 4)
-                cbboxes = results[key] * results['scale_factor']
+            cbboxes = []
+            for cbox in results[key]:
+                tmp_cbox = np.array(cbox, dtype=np.float32)
+                new_tmp_cbox = []
+                for ccbox in tmp_cbox:
+                    ccbox = np.array(ccbox, dtype=np.float32)
+                    ccbox[0::2] *= results['scale_factor'][0]
+                    ccbox[1::2] *= results['scale_factor'][1]
+                    new_tmp_cbox.append(ccbox)
+                tmp_cbox = np.array(new_tmp_cbox, dtype=np.float32)
                 if self.bbox_clip_border:
-                    cbboxes[:, :, 0::2] = np.clip(cbboxes[:, :, 0::2], 0, img_shape[1])
-                    cbboxes[:, :, 1::2] = np.clip(cbboxes[:, :, 1::2], 0, img_shape[0])
-                results[key] = cbboxes
-            else:
-                # For n-point poly bounding boxes, LIST[ [ [[2*N]], [2*N]], [...] ..., [2*KN]]
-                cbboxes = []
-                for cbox in results[key]:
-                    tmp_cbox = np.array(cbox, dtype=np.float32)
-                    if tmp_cbox.shape[1] == 4:
-                        tmp_cbox = tmp_cbox * results['scale_factor']
-                    else:
-                        new_tmp_cbox = []
-                        for ccbox in tmp_cbox:
-                            ccbox = np.array(ccbox, dtype=np.float32)
-                            ccbox[0::2] *= results['scale_factor'][0]
-                            ccbox[1::2] *= results['scale_factor'][1]
-                            new_tmp_cbox.append(ccbox)
-                        tmp_cbox = np.array(new_tmp_cbox, dtype=np.float32)
-                    if self.bbox_clip_border:
-                        tmp_cbox[:, 0::2] = np.clip(tmp_cbox[:, 0::2], 0, img_shape[1])
-                        tmp_cbox[:, 1::2] = np.clip(tmp_cbox[:, 1::2], 0, img_shape[0])
-                    cbboxes.append(tmp_cbox)
-                results[key] = cbboxes
+                    tmp_cbox[:, 0::2] = np.clip(tmp_cbox[:, 0::2], 0, img_shape[1])
+                    tmp_cbox[:, 1::2] = np.clip(tmp_cbox[:, 1::2], 0, img_shape[0])
+                cbboxes.append(tmp_cbox)
+            results[key] = cbboxes
 
     def __call__(self, results):
         """ Main process of davar_resize
@@ -165,7 +145,7 @@ class DavarResize(Resize):
 
 @PIPELINES.register_module()
 class RandomRotate():
-    """Randomly rotate images and corresponding annotations"""
+    """ Randomly rotate images and corresponding annotations"""
 
     def __init__(self,
                  angles=None,
@@ -196,67 +176,51 @@ class RandomRotate():
         """
         angle = self.angle
         height, width = results['img_shape'][:2]
-
-        # Compute height and width of new image after rotation
-        height_new = int(width * fabs(sin(radians(angle))) + height * fabs(cos(radians(angle))))
-        width_new = int(height * fabs(sin(radians(angle))) + width * fabs(cos(radians(angle))))
-
         # Compute rotation matrix
-        mat_rotation = cv2.getRotationMatrix2D((width / 2, height / 2), angle, 1)
-        mat_rotation[0, 2] += (width_new - width) / 2
-        mat_rotation[1, 2] += (height_new - height) / 2
-
+        mat_rotation = cv2.getRotationMatrix2D((width / 2, height / 2), -angle, 1)
+        # Compute height and width of new image after rotation
+        cos = np.abs(mat_rotation[0, 0])
+        sin = np.abs(mat_rotation[0, 1])
+        width_new = height * sin + width * cos
+        height_new = height * cos + width * sin
+        mat_rotation[0, 2] += (width_new - width) * 0.5
+        mat_rotation[1, 2] += (height_new - height) * 0.5
+        width = int(np.round(width_new))
+        height = int(np.round(height_new))
+        
         # Rotate image
-        img_rotation = cv2.warpAffine(results['img'], mat_rotation, (width_new, height_new),
+        img_rotation = cv2.warpAffine(results['img'], mat_rotation, (width, height),
                                       borderValue=self.borderValue)
         results['img'] = img_rotation
 
         # Rotate corresponding annotations: all boxes in bbox_fields
         for key in results.get('bbox_fields', []):
             gt_boxes_ret = []
-            for poly in results[key]:
+            for bbox in results[key]:
                 rot_array = []
                 # Convert to np.array of shape (:, 2)
+                poly = bbox.copy()
+                if len(bbox) == 4:
+                    poly = [poly[0], poly[1], poly[2], poly[1], poly[2], poly[3], poly[0], poly[3]]
+
                 for i in range(0, len(poly), 2):
-                    rot_array.append(np.array([int(poly[i]), int(poly[i + 1])]))
+                    rot_array.append(np.array([poly[i], poly[i + 1]]))
                 rot_array = np.array([rot_array])
 
                 # Rotate corresponding annotations
                 rot_array = cv2.transform(rot_array, mat_rotation).squeeze().reshape(len(poly))
+                if len(bbox) == 4:
+                    x_coords = rot_array[0::2]
+                    y_coords = rot_array[1::2]
+                    rot_array = np.array([
+                        np.min(x_coords),
+                        np.min(y_coords),
+                        np.max(x_coords),
+                        np.max(y_coords)
+                    ])
                 gt_boxes_ret.append(rot_array)
-            results[key] = gt_boxes_ret
-
-        # Edit gt_bboxes according to gt_poly_bboxes
-        if "gt_bboxes" in results["bbox_fields"] and "gt_poly_bboxes" in results["bbox_fields"]:
-            gt_poly_bboxes = results["gt_poly_bboxes"]
-            gt_poly_bboxes_ignore = results["gt_poly_bboxes_ignore"]
-            gt_bboxes = []
-            gt_bboxes_ignore = []
-
-            for poly_box in gt_poly_bboxes:
-                x_coords = poly_box[0::2]
-                y_coords = poly_box[1::2]
-                aligned_box = [
-                    np.min(x_coords),
-                    np.min(y_coords),
-                    np.max(x_coords),
-                    np.max(y_coords)
-                ]
-                gt_bboxes.append(aligned_box)
-
-            for poly_box_ignore in gt_poly_bboxes_ignore:
-                x_coords = poly_box_ignore[0::2]
-                y_coords = poly_box_ignore[1::2]
-                aligned_box = [
-                    np.min(x_coords),
-                    np.min(y_coords),
-                    np.max(x_coords),
-                    np.max(y_coords)
-                ]
-                gt_bboxes_ignore.append(aligned_box)
-
-            results["gt_bboxes"] = gt_bboxes
-            results["gt_bboxes_ignore"] = gt_bboxes_ignore
+            if len(results[key]) > 0:
+                results[key] = gt_boxes_ret
 
         # Rotate corresponding annotations: all boxes in cbbox_fields
         for key in results.get('cbbox_fields', []):
@@ -267,9 +231,8 @@ class RandomRotate():
                     rot_array = []
                     # Convert to np.array of shape (:, 2)
                     for i in range(0, len(poly), 2):
-                        rot_array.append(np.array([int(poly[i]), int(poly[i + 1])]))
+                        rot_array.append(np.array([poly[i], poly[i + 1]]))
                     rot_array = np.array([rot_array])
-
                     # Rotate corresponding annotations
                     rot_array = cv2.transform(rot_array, mat_rotation).squeeze().reshape(len(poly))
                     tmp_cboxes.append(rot_array)
@@ -279,16 +242,19 @@ class RandomRotate():
         # Rotate corresponding annotations: all masks in mask_fields
         for key in results.get('mask_fields', []):
             mask = results[key].masks.transpose((1, 2, 0))
-            # Rotate mask
-            mask_rotation = cv2.warpAffine(mask, mat_rotation, (width_new, height_new),
-                                          borderValue=self.borderValue)
-            if mask_rotation.ndim == 2:
-                # case when only one mask, (h, w)
-                mask_rotation = mask_rotation[:, :, None]  # (h, w, 1)
-            mask_rotation = mask_rotation.transpose((2, 0, 1))
-            results[key].masks = mask_rotation
-            results[key].height = height_new
-            results[key].width = width_new
+            if len(results[key].masks) == 0:
+                results[key] = results[key].resize((width, height))
+            else:
+                # Rotate mask
+                mask_rotation = cv2.warpAffine(mask, mat_rotation, (width, height),
+                                               borderValue=self.borderValue)
+                if mask_rotation.ndim == 2:
+                    # case when only one mask, (h, w)
+                    mask_rotation = mask_rotation[:, :, None]  # (h, w, 1)
+                mask_rotation = mask_rotation.transpose((2, 0, 1))
+                results[key].masks = mask_rotation
+                results[key].height = height
+                results[key].width = width
 
     def __call__(self, results):
         """ Main process of davar_resize
