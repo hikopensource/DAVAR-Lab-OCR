@@ -70,7 +70,7 @@ bash ./train.sh
 
 ### Evaluation
 
-1.Visual Stage
+1.Visual Character Counting Stage
 ```shell
   cd .
   bash ./test_scripts/test_rfl_visual.sh
@@ -107,7 +107,7 @@ bash ./train.sh
         <td><center>Model</center></td>
 	<tr>
     <tr>
-        <td><center> RF-Learning visual(Report)</center></td>
+        <td><center> RF-Learning visual character counting(Report)</center></td>
         <td><center> 95.7 </center></td>
         <td><center> 94.0 </center></td>
         <td><center> 96.0 </center></td>
@@ -119,7 +119,7 @@ bash ./train.sh
         <td><center><p>-</p></center></td>
 	<tr>
     <tr>
-        <td><center> RF-Learning visual</center></td>
+        <td><center> RF-Learning visual character counting</center></td>
         <td><center> 96.0 </center></td>
         <td><center> 94.7 </center></td>
         <td><center> 96.2 </center></td>
