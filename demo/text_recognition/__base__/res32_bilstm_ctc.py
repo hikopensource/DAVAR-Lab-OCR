@@ -130,8 +130,8 @@ data_types = [
 
 # File prefix path of the traning dataset
 img_prefixes = [
-    '/dataset/chengzhanzhan/TextRecognition/LMDB/BenchEn/train/',
-    '/dataset/chengzhanzhan/TextRecognition/LMDB/BenchEn/train/',
+    '*******/TextRecognition/LMDB/BenchEn/train/',  # path to the training dataset
+    '*******/TextRecognition/LMDB/BenchEn/train/',  # path to the training dataset
 ]
 
 
@@ -233,6 +233,7 @@ data = dict(
     val=dict(
         type=dataset_type,
         batch_ratios=1,
+        samples_per_gpu=400,
         test_mode=True,
         dataset=dict(
             type="DavarRCGDataset",
@@ -386,7 +387,7 @@ evaluation = dict(start=3,
                   start_iter=0.5,
                   save_best="accuracy",
                   iter_interval=1,
-                  model_type="recognizor",
+                  model_type="RECOGNIZOR",
                   eval_mode="lightweight",
                   by_epoch=True,
                   by_iter=True,
