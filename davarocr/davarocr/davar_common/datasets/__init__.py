@@ -9,7 +9,7 @@
 ##################################################################################################
 """
 from mmdet.datasets.builder import DATASETS, build_dataloader, build_dataset
-from .pipelines import DavarLoadAnnotations, DavarLoadImageFromFile, DavarResize, RandomRotate
+from .pipelines import DavarLoadAnnotations, DavarLoadImageFromFile, DavarResize, RandomRotate, DavarRandomCrop, DavarRandomFlip
 from .davar_custom import DavarCustomDataset
 from .davar_multi_dataset import DavarMultiDataset
 from .builder import SAMPLER, build_sampler, davar_build_dataset, davar_build_dataloader
@@ -23,6 +23,8 @@ __all__ = [
     'DavarLoadAnnotations',
     'DavarResize',
     'RandomRotate',
+    'DavarRandomCrop',
+    'DavarRandomFlip',
     'DavarCustomDataset',
     'build_sampler',
     'SAMPLER',

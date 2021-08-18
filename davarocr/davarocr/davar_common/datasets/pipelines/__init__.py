@@ -9,7 +9,7 @@
 ##################################################################################################
 """
 from .davar_loading import DavarLoadAnnotations, DavarLoadImageFromFile
-from .transforms import DavarResize, RandomRotate, ColorJitter, ResizeNormalize
+from .transforms import DavarResize, RandomRotate, ColorJitter, ResizeNormalize, DavarRandomCrop, DavarRandomFlip
 from .davar_formating import DavarCollect, DavarDefaultFormatBundle
 
 __all__ = [
@@ -17,6 +17,8 @@ __all__ = [
     'DavarLoadImageFromFile',
     'DavarResize',
     'RandomRotate',
+    'DavarRandomCrop',
+    'DavarRandomFlip',
     'ColorJitter',
     'ResizeNormalize',
     'DavarCollect',
