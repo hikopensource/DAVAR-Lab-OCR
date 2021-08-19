@@ -502,11 +502,11 @@ class RandomRotate():
         else:
             angle = np.random.choice(self.angles)
         self.angle = angle
-		try:
-			self._rotate_img(results)
-		except Exception as e:
-			print(e)
-			return None
+        try:
+	    self._rotate_img(results)
+        except Exception as e:
+	    print(e)
+	    return None
         return results
 
     def __repr__(self):
