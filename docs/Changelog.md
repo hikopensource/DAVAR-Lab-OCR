@@ -1,5 +1,12 @@
 # Changelog
 
+### v0.2.0  (24/08/2021)
+
+**Highlights**
+
+- Add support for video text task, and release the implementations of YORO.
+- Some bug fixes.
+
 ### v0.1.0  (23/07/2021)
 
 **Highlights**
