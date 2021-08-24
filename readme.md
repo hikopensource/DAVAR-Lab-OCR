@@ -43,7 +43,7 @@ To date, davarocr contains the following algorithms:
 
 ***Video Text Spotting***
 
-- YORO (to be released) (ACM MM 2019)
+- [x] [YORO] (demo/videotext/yoro) (ACM MM 2019)
 
 - FREE (to be released) (TIP 2021)
 
