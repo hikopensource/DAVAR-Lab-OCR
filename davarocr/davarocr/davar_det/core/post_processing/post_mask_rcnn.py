@@ -80,33 +80,32 @@ class PostMaskRCNN(BasePostDetector):
         det_results = []
 
         for result in batch_result:
-            box_result, seg_result = result
-            boxes_pred = box_result[0]
-            seg_pred = seg_result[0]
             det_result = dict()
+            box_result, seg_result = result
             det_result['points'] = []
             det_result['confidence'] = []
+            det_result['labels'] = []
+            for i in range(len(box_result)):
+                boxes_pred = box_result[i]
+                seg_pred = seg_result[i]
+                assert boxes_pred.shape[0] == len(seg_pred)
+                for box_id in range(boxes_pred.shape[0]):
+                    prob = boxes_pred[box_id, 4]
+                    seg = seg_pred[box_id]
+                    seg = np.array(seg[:,:, np.newaxis], dtype='uint8')
 
-            assert boxes_pred.shape[0] == len(seg_pred)
+                    curve_poly = self.approx_poly(seg)
+                    if len(curve_poly) == 0:
+                        continue
+                    curve_poly = curve_poly[0].squeeze()
+                    if len(curve_poly.shape) < 2:
+                        continue
 
-            for box_id in range(boxes_pred.shape[0]):
-                prob = boxes_pred[box_id, 4]
-                seg = seg_pred[box_id]
-                seg = np.array(seg[:,:, np.newaxis], dtype='uint8')
-                curve_poly = self.approx_poly(seg)
-
-                if len(curve_poly) == 0:
-                    continue
-
-                curve_poly = curve_poly[0].squeeze()
-
-                # Filter out curve poly with less than 2 points.
-                curve_poly = curve_poly.astype(np.int)
-                if len(curve_poly.shape) < 2:
-                    continue
-                curve_poly = curve_poly.reshape(-1).tolist()
-                det_result['points'].append(curve_poly)
-                det_result['confidence'].append(prob)
+                    curve_poly = curve_poly.astype(np.int)
+                    curve_poly = curve_poly.reshape(-1).tolist()
+                    det_result['points'].append(curve_poly)
+                    det_result['confidence'].append(prob)
+                    det_result['labels'].append([i])
             det_results.append(det_result)
 
         return det_results
