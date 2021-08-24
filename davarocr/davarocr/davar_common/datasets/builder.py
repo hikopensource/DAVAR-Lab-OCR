@@ -11,22 +11,23 @@
 import copy
 import platform
 from functools import partial
-
+import torch
 from torch.utils.data import DataLoader
 
 from mmcv.utils import Registry
 from mmcv.utils import build_from_cfg
 from mmcv.parallel import collate
 from mmcv.runner import get_dist_info
+from mmcv.parallel import DataContainer as DC
 
 from mmdet.datasets import DATASETS
 from mmdet.models.builder import build
 from mmdet.datasets.builder import worker_init_fn
 from mmdet.datasets.samplers import DistributedGroupSampler, GroupSampler, DistributedSampler
+from mmdet.datasets.pipelines.formating import to_tensor
 
 from .davar_dataset_wrappers import DavarConcatDataset
 from .davar_multi_dataset import DavarMultiDataset
-
 
 if platform.system() != 'Windows':
     # https://github.com/pytorch/pytorch/issues/973
@@ -86,6 +87,8 @@ def davar_build_dataloader(dataset,
     else:
         sampler = kwargs.pop('sampler', None)
 
+    cfg_collate = kwargs.pop('cfg_collate', None)
+
     # if choose distributed sampler
     if dist:
         # whether to shuffle data
@@ -134,7 +137,8 @@ def davar_build_dataloader(dataset,
         batch_size=batch_size,
         sampler=sampler,
         num_workers=num_workers,
-        collate_fn=partial(collate, samples_per_gpu=samples_per_gpu),
+        collate_fn=multi_frame_collate if cfg_collate == 'multi_frame_collate' else partial(collate, samples_per_gpu=
+                                                                                            samples_per_gpu),
         pin_memory=False,
         worker_init_fn=init_fn,
         **kwargs)
@@ -283,3 +287,58 @@ def parameter_align(cfg):
         align_para.append(temp_dict)
 
     return align_para
+
+
+def multi_frame_collate(batch):
+    """
+    Args:
+        batch (list): one batch data
+    Returns:
+        dict: collate batch data
+    """
+    data = dict()
+    # this collate func only support batch[0] contains multi instances
+    if isinstance(batch[0], list):
+        img_meta = []
+        img = []
+        gt_mask = []
+        max_w, max_h = 0, 0
+        max_mask_w, max_mask_h = 0, 0
+
+        # calculate the max width and max height to pad
+        for i in range(len(batch)):
+            for j in range(len(batch[i])):
+                size = batch[i][j]['img'].data.size()
+                size_mask = batch[i][j]['gt_masks'].data.shape
+                if max_w < size[1]:
+                    max_w = size[1]
+                if max_h < size[2]:
+                    max_h = size[2]
+                if max_mask_w < size_mask[1]:
+                    max_mask_w = size_mask[1]
+                if max_mask_h < size_mask[2]:
+                    max_mask_h = size_mask[2]
+
+        # pad each img and gt into max width and height
+        for i in range(len(batch)):
+            for j in range(len(batch[i])):
+                img_meta.append(batch[i][j]['img_metas'].data)
+                c, w, h = batch[i][j]['img'].data.size()
+                tmp_img = torch.zeros((c, max_w, max_h), dtype=torch.float)
+                tmp_img[:, 0:w, 0:h] = batch[i][j]['img'].data
+                img.append(tmp_img)
+                c_mask, w_mask, h_mask = batch[i][j]['gt_masks'].data.shape
+                tmp_mask = torch.zeros((c_mask, max_mask_w, max_mask_h), dtype=torch.float)
+                mask = to_tensor(batch[i][j]['gt_masks'].data)
+                tmp_mask[:, :w_mask, :h_mask] = mask
+                gt_mask.append(tmp_mask)
+
+        img = DC([torch.stack(img, dim=0)])
+        gt_mask = DC([torch.stack(gt_mask, dim=0)])
+        data['img_metas'] = DC([img_meta], cpu_only=True)
+        data['img'] = img
+        data['gt_masks'] = gt_mask
+
+    else:
+        raise "not support type {} of batch".format(type(batch[0]))
+    return data

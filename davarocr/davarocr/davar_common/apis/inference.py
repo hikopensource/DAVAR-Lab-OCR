@@ -57,6 +57,9 @@ def init_model(config, checkpoint=None, device='cuda:0', cfg_options=None):
     elif cfg_types == "SPOTTER":
         from davarocr.davar_spotting.models.builder import build_spotter
         model = build_spotter(config.model, test_cfg=config.get('test_cfg'))
+    elif cfg_types == "NER":
+        from davarocr.davar_ner.models.builder import build_ner
+        model = build_ner(config.model, test_cfg=config.get('test_cfg'))
     else:
         raise NotImplementedError
 
@@ -97,7 +100,12 @@ def inference_model(model, imgs):
     test_pipeline = Compose(cfg.data.test.pipeline)
 
     # Prepare data
-    if isinstance(imgs, (str, np.ndarray)):
+    if isinstance(imgs, dict):
+        data = imgs
+        data = test_pipeline(data)
+        device = int(str(device).split(":")[-1])
+        data = scatter(collate([data], samples_per_gpu=1), [device])[0]
+    elif isinstance(imgs, (str, np.ndarray)):
         # If the input is single image
         data = dict(img=imgs)
         data = test_pipeline(data)
@@ -107,11 +115,14 @@ def inference_model(model, imgs):
         # If the input are batch of images
         batch_data = []
         for img in imgs:
-            data = dict(img=img)
+            if isinstance(img, dict):
+                data = dict(img_info=img)
+            else:
+                data = dict(img=img)
             data = test_pipeline(data)
             batch_data.append(data)
         data_collate = collate(batch_data, samples_per_gpu=len(batch_data))
-        device = int(str(device).split(":")[-1])
+        device = int(str(device).rsplit(':', maxsplit=1)[-1])
         data = scatter(data_collate, [device])[0]
 
     # Forward inference
