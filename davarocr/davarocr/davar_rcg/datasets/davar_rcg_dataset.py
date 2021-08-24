@@ -546,20 +546,33 @@ class DavarRCGDataset(Dataset):
                 # calculate the accuracy
                 if pred == label:
                     n_correct += 1
-                norm_ed += edit_distance(pred, label) / len(label)
+
+                if len(label):
+                    norm_ed += edit_distance(pred, label) / len(label)
+                elif not len(label) and len(pred):
+                    norm_ed += edit_distance(pred, label) / len(pred)
+                else:
+                    norm_ed += 0
 
             if isinstance(pred, int):
                 # calculate the counting accuracy
                 if pred == len(label):
                     n_correct += 1
                 norm_ed = 0
+
             if isinstance(pred, tuple):
                 cnt_flag = True
                 if pred[1] == len(label):
                     cnt_correct += 1
                 if pred[0] == label:
                     n_correct += 1
-                    norm_ed += edit_distance(pred[0], label) / len(label)
+
+                    if len(label):
+                        norm_ed += edit_distance(pred[0], label) / len(label)
+                    elif not len(label) and len(pred[0]):
+                        norm_ed += edit_distance(pred[0], label) / len(pred[0])
+                    else:
+                        norm_ed += 0
 
         accuracy = n_correct / float(length_of_data) * 100
 
