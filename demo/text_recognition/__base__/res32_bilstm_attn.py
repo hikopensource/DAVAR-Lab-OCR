@@ -243,7 +243,7 @@ data = dict(
             type="DavarRCGDataset",
             data_type="LMDB_Standard",
             ann_file='mixture',
-            img_prefix='/dataset/chengzhanzhan/TextRecognition/LMDB/BenchEn/validation/',
+            img_prefix='/path/to/validation/',
             batch_max_length=25,
             used_ratio=1,
             test_mode=True,
@@ -257,7 +257,7 @@ data = dict(
             type="DavarRCGDataset",
             data_type='LMDB_Standard',
             ann_file='IIIT5k_3000',
-            img_prefix='/dataset/chengzhanzhan/TextRecognition/LMDB/BenchEn/evaluation/',
+            img_prefix='/path/to/evaluation/',
             batch_max_length=25,
             used_ratio=1,
             test_mode=True,
@@ -410,7 +410,7 @@ dist_params = dict(backend='nccl')
 log_level = 'INFO'
 
 # The path where the model is saved
-work_dir = '/data1/workdir/davar_opensource/att_base/'
+work_dir = '//path/to/davar_opensource/att_base/'
 
 # Load from Pre-trained model path
 load_from = None

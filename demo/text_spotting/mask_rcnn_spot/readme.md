@@ -16,9 +16,9 @@ The formatted training datalists can be found in `demo/text_spotting/datalist`
 2.Modified the paths (`ann_file`, `img_prefix`, `work_dir`, etc..) in the config files `demo/text_spotting/mask_rcnn_spot/config/mask_rcnn_spotter_finetune.py`.
 
 3.Run the following bash command in the command line
-```shell
-cd $DAVAR_LAB_OCR_ROOT$/demo/text_spotting/mask_rcnn_spot/
-bash dist_train.sh
+``` bash
+>>> cd $DAVAR_LAB_OCR_ROOT$/demo/text_spotting/mask_rcnn_spot/
+>>> bash dist_train.sh
 ```
 >Notice:We provide the implementation of online validation. If you want to close it to save training time, you may modify the startup script to add `--no-validate` command.
 
@@ -35,18 +35,18 @@ If you want to re-implement the model's performance from scratch, please followi
 
 ## Offline Inference and Evaluation
 We provide a demo of forward inference and evaluation. You can modify the parameter (`iou_constraint`, `lexicon_type`, etc..) in the testing script, and start testing:
-```shell
-cd $DAVAR_LAB_OCR_ROOT$/demo/text_spotting/mask_rcnn_spot/tools/
-bash test_ic13.sh
+``` bash
+>>> cd $DAVAR_LAB_OCR_ROOT$/demo/text_spotting/mask_rcnn_spot/tools/
+>>> bash test_ic13.sh
 ```
 
 The offline evaluation tool can be found in [`davarocr/demo/text_spotting/evaluation/`](../evalution/).
 
 ## Visualization
 We provide a script to visualize the intermediate output results of the model. You can modify the paths (`test_dataset`, `config_file`, etc..) in the script, and start generating visualization results:
-```shell
-cd $DAVAR_LAB_OCR_ROOT$/demo/text_spotting/mask_rcnn_spot/tools/
-python vis.py
+``` bash
+>>> cd $DAVAR_LAB_OCR_ROOT$/demo/text_spotting/mask_rcnn_spot/tools/
+>>> python vis.py
 ```
 
 Some visualization results are shown:

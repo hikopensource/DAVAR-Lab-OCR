@@ -58,8 +58,8 @@ class GeneralRecognizor(BaseRecognizor):
             sequence_head (dict): sequence_head parameter
             neck (dict): neck parameter
             transformation (dict): transformation parameter
-            train_cfg (dict): model training cfg parameter
-            test_cfg (dict): model test cfg parameter
+            train_cfg (mmcv.config): model training cfg parameter
+            test_cfg (mmcv.config): model test cfg parameter
             pretrained (str): model path of the pre_trained model
         """
         super(GeneralRecognizor, self).__init__()

@@ -43,8 +43,8 @@ class RFLRecognizor(BaseRecognizor):
             neck_s2v (dict): recognition to visual feature strengthened neck parameter
             transformation (dict): transformation parameter
             sequence_module (dict): sequence_module parameter
-            train_cfg (dict): model training cfg parameter
-            test_cfg (dict): model test cfg parameter
+            train_cfg (mmcv.config): model training cfg parameter
+            test_cfg (mmcv.config): model test cfg parameter
             pretrained (str): model path of the pre_trained model
             train_type (str): training type：
                                       1、"visual" - training visual counting branch

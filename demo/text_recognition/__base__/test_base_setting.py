@@ -12,7 +12,7 @@
 # encoding=utf-8
 
 # recognition dictionary
-character = "/data1/open-source/demo/text_recognition/__dictionary__/Scene_text_68.txt"
+character = "/path/to/demo/text_recognition/__dictionary__/Scene_text_68.txt"
 
 # dataset settings
 dataset_type = 'DavarMultiDataset'
@@ -50,70 +50,70 @@ test_pipeline = [
 testsets = [
     {
         'Name': 'IIIT5k',
-        'FilePre': '/dataset/chengzhanzhan/TextRecognition/LMDB/BenchEn/evaluation/',
+        'FilePre': '/path/to/evaluation/',
         'AnnFile': 'IIIT5k_3000/',
         'Type': 'LMDB_Standard',
         'PipeLine': test_pipeline,
     },
     {
         'Name': 'SVT',
-        'FilePre': '/dataset/chengzhanzhan/TextRecognition/LMDB/BenchEn/evaluation/',
+        'FilePre': '/path/to/evaluation/',
         'AnnFile': 'SVT/',
         'Type': 'LMDB_Standard',
         'PipeLine': test_pipeline,
     },
     {
         'Name': 'IC03_860',
-        'FilePre': '/dataset/chengzhanzhan/TextRecognition/LMDB/BenchEn/evaluation/',
+        'FilePre': '/path/to/evaluation/',
         'AnnFile': 'IC03_860/',
         'Type': 'LMDB_Standard',
         'PipeLine': test_pipeline,
     },
     {
         'Name': 'IC03_867',
-        'FilePre': '/dataset/chengzhanzhan/TextRecognition/LMDB/BenchEn/evaluation/',
+        'FilePre': '/path/to/evaluation/',
         'AnnFile': 'IC03_867/',
         'Type': 'LMDB_Standard',
         'PipeLine': test_pipeline,
     },
     {
         'Name': 'IC13_857',
-        'FilePre': '/dataset/chengzhanzhan/TextRecognition/LMDB/BenchEn/evaluation/',
+        'FilePre': '/path/to/evaluation/',
         'AnnFile': 'IC13_857/',
         'Type': 'LMDB_Standard',
         'PipeLine': test_pipeline,
     },
     {
         'Name': 'IC13_1015',
-        'FilePre': '/dataset/chengzhanzhan/TextRecognition/LMDB/BenchEn/evaluation/',
+        'FilePre': '/path/to/evaluation/',
         'AnnFile': 'IC13_1015/',
         'Type': 'LMDB_Standard',
         'PipeLine': test_pipeline,
     },
     {
         'Name': 'IC15_1811',
-        'FilePre': '/dataset/chengzhanzhan/TextRecognition/LMDB/BenchEn/evaluation/',
+        'FilePre': '/path/to/evaluation/',
         'AnnFile': 'IC15_1811/',
         'Type': 'LMDB_Standard',
         'PipeLine': test_pipeline,
     },
     {
         'Name': 'IC15_2077',
-        'FilePre': '/dataset/chengzhanzhan/TextRecognition/LMDB/BenchEn/evaluation/',
+        'FilePre': '/path/to/evaluation/',
         'AnnFile': 'IC15_2077/',
         'Type': 'LMDB_Standard',
         'PipeLine': test_pipeline,
     },
     {
         'Name': 'SVTP',
-        'FilePre': '/dataset/chengzhanzhan/TextRecognition/LMDB/BenchEn/evaluation/',
+        'FilePre': '/path/to/evaluation/',
         'AnnFile': 'SVTP/',
         'Type': 'LMDB_Standard',
         'PipeLine': test_pipeline,
     },
     {
         'Name': 'CUTE80',
-        'FilePre': '/dataset/chengzhanzhan/TextRecognition/LMDB/BenchEn/evaluation/',
+        'FilePre': '/path/to/evaluation/',
         'AnnFile': 'CUTE80/',
         'Type': 'LMDB_Standard',
         'PipeLine': test_pipeline,

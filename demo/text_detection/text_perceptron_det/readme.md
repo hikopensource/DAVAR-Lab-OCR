@@ -14,17 +14,17 @@ The formatted training datalist and test datalist can be found in `demo/text_det
 Modified the paths of "imgs"/ "pretrained_model"/ "work_space" in the config files `demo/text_detection/text_perceptron_det/config/tp_r50_3stages_enlarge.py`.
 
 Run the following bash command in the command line,
-```shell
-cd $DAVAR_LAB_OCR_ROOT$/demo/text_detection/text_perceptron_det/
-bash dist_train.sh
+``` bash
+>>> cd $DAVAR_LAB_OCR_ROOT$/demo/text_detection/text_perceptron_det/
+>>> bash dist_train.sh
 ```
 
 > We provide the implementation of online validation. If you want to close it to save training time, you may modify the startup script to add `--no-validate` command.
 
 ## Offline Inference and Evaluation
 We provide a demo of forward inference and visualization. You can modify the paths (`test_dataset`, `image_prefix`, etc.) in the testing script, and start testing:
-```shell
-python test.py 
+``` bash
+>>> python test.py 
 ```
 Some visualization of detection results are shown:
 

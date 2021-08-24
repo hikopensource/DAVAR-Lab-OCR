@@ -125,8 +125,8 @@ data_types = [
 
 # File prefix path of the traning dataset
 img_prefixes = [
-    '/dataset/chengzhanzhan/TextRecognition/LMDB/BenchEn/train/',
-    '/dataset/chengzhanzhan/TextRecognition/LMDB/BenchEn/train/',
+    '*****/TextRecognition/LMDB/BenchEn/train/',  # path to the training dataset
+    '*****/TextRecognition/LMDB/BenchEn/train/',  # path to the training dataset
 ]
 
 
@@ -229,12 +229,13 @@ data = dict(
     val=dict(
         type=dataset_type,
         batch_ratios=1,
+        samples_per_gpu=400,
         test_mode=True,
         dataset=dict(
             type="DavarRCGDataset",
             data_type="LMDB_Standard",
             ann_file='mixture',
-            img_prefix='/dataset/chengzhanzhan/TextRecognition/LMDB/BenchEn/validation/',
+            img_prefix='/path/to/validation/',
             batch_max_length=25,
             used_ratio=1,
             test_mode=True,
@@ -248,7 +249,7 @@ data = dict(
             type="DavarRCGDataset",
             data_type='LMDB_Standard',
             ann_file='IIIT5k_3000',
-            img_prefix='/dataset/chengzhanzhan/TextRecognition/LMDB/BenchEn/evaluation/',
+            img_prefix='/path/to/evaluation/',
             batch_max_length=25,
             used_ratio=1,
             test_mode=True,
@@ -312,10 +313,10 @@ runner = dict(type='EpochBasedRunner', max_epochs=6)
 find_unused_parameters = True
 
 # Load from Pre-trained model path
-load_from = '/data1/workdir/davar_opensource/rflearning_visual/RFL_visual_pretrained-2654bc6b.pth'
+load_from = '/path/to/davar_opensource/rflearning_visual/RFL_visual_pretrained-2654bc6b.pth'
 
 # work directory
-work_dir = '/data1/workdir/davar_opensource/rflearning_total/'
+work_dir = '/path/to/davar_opensource/rflearning_total/'
 
 # distributed training setting
 dist_params = dict(backend='nccl')

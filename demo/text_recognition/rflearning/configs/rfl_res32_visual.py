@@ -13,7 +13,7 @@ _base_ = [
     './baseline.py'
 ]
 
-character = "/data1/open-source/demo/text_recognition/__dictionary__/Scene_text_36.txt"
+character = "/path/to/demo/text_recognition/__dictionary__/Scene_text_36.txt"
 
 """
 1. Model Settings
@@ -123,8 +123,8 @@ data_types = [
 
 # File prefix path of the traning dataset
 img_prefixes = [
-    '/dataset/chengzhanzhan/TextRecognition/LMDB/BenchEn/train/',
-    '/dataset/chengzhanzhan/TextRecognition/LMDB/BenchEn/train/',
+    '*****/TextRecognition/LMDB/BenchEn/train/',  # path to the training dataset
+    '*****/TextRecognition/LMDB/BenchEn/train/',  # path to the training dataset
 ]
 
 
@@ -227,12 +227,13 @@ data = dict(
     val=dict(
         type=dataset_type,
         batch_ratios=1,
+        samples_per_gpu=400,
         test_mode=True,
         dataset=dict(
             type="DavarRCGDataset",
             data_type="LMDB_Standard",
             ann_file='mixture',
-            img_prefix='/dataset/chengzhanzhan/TextRecognition/LMDB/BenchEn/validation/',
+            img_prefix='/path/to/validation/',
             batch_max_length=25,
             used_ratio=1,
             test_mode=True,
@@ -246,7 +247,7 @@ data = dict(
             type="DavarRCGDataset",
             data_type='LMDB_Standard',
             ann_file='IIIT5k_3000',
-            img_prefix='/dataset/chengzhanzhan/TextRecognition/LMDB/BenchEn/evaluation/',
+            img_prefix='/path/to/evaluation/',
             batch_max_length=25,
             used_ratio=1,
             test_mode=True,
@@ -299,7 +300,7 @@ find_unused_parameters = True
 load_from = None
 
 # work directory
-work_dir = '/data1/workdir/davar_opensource/rflearning_visual/'
+work_dir = '/path/to/davar_opensource/rflearning_visual/'
 
 # distributed training setting
 dist_params = dict(backend='nccl')

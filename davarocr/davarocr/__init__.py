@@ -13,6 +13,7 @@ from .davar_det import *
 from .davar_rcg import *
 from .davar_spotting import *
 from .davar_ie import *
+from .davar_videotext import *
 from .mmcv import *
 from .version import __version__
 
