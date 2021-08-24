@@ -395,7 +395,11 @@ class RandomRotate():
             gt_boxes_ret = []
             for poly in results[key]:
                 rot_array = []
-                
+                poly_length = len(poly)
+
+                if poly_length == 4:
+                    poly = [poly[0], poly[1], poly[2], poly[1], poly[2], poly[3], poly[0], poly[3]]
+
                 # Convert to np.array of shape (:, 2)
                 for i in range(0, len(poly), 2):
                     rot_array.append(np.array([poly[i], poly[i + 1]]))
@@ -403,14 +407,26 @@ class RandomRotate():
                 # Rotate corresponding annotations
                 rot_array = np.array([rot_array])
                 rot_array = cv2.transform(rot_array, mat_rotation).squeeze().reshape(len(poly))
+
+                if poly_length == 4:
+                    x_coords = rot_array[0::2]
+                    y_coords = rot_array[1::2]
+                    rot_array = np.array([
+                        np.min(x_coords),
+                        np.min(y_coords),
+                        np.max(x_coords),
+                        np.max(y_coords)
+                    ])
+
                 gt_boxes_ret.append(rot_array)
-            results[key] = gt_boxes_ret
+            if len(results[key]) > 0:
+                results[key] = gt_boxes_ret
 
         # Rotate gt_bboxes according to gt_poly_bboxes
-        if 'gt_bboxes' in results:
-            assert 'gt_poly_bboxes' in results
+        if 'gt_bboxes' in results and 'gt_poly_bboxes' in results:
             gt_bboxes = []
             gt_bboxes_ignore = []
+
             for poly in results['gt_poly_bboxes']:
                 poly = np.array(poly, dtype=np.double)
                 x_coords = poly[0::2]
@@ -502,11 +518,7 @@ class RandomRotate():
         else:
             angle = np.random.choice(self.angles)
         self.angle = angle
-        try:
-	    self._rotate_img(results)
-        except Exception as e:
-	    print(e)
-	    return None
+        self._rotate_img(results)
         return results
 
     def __repr__(self):
