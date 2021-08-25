@@ -1,6 +1,6 @@
 # DAVAR-OCR
 
-This the opensourced OCR repository of [DAVAR Lab](https://davar-lab.github.io/), from Hikvision Research Institute, China. 
+This is the opensourced OCR repository of [DAVAR Lab](https://davar-lab.github.io/), from Hikvision Research Institute, China. 
 
 We begin to maintain this code repository to release the implementations of our recent academic publishments and some re-implementations of previous popular algorithms/modules in OCR. 
 
