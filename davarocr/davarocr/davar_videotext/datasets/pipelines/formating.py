@@ -10,7 +10,7 @@
 """
 from mmdet.datasets.builder import PIPELINES
 
-from davarocr.davar_common.datasets import DavarCollect
+from davarocr.davar_common.datasets.pipelines import DavarCollect
 from davarocr.davar_det.datasets import SegFormatBundle
 
 

@@ -123,10 +123,10 @@ The formatted training datalist and test datalist can be found in `demo/videotex
 
 ### Offline Evaluation
 1. Detection Evaluation
-    The general evaluation tool can be found in [`davarocr/demo/text_detection/evaluation/`](../evalution/).
+    The general evaluation tool can be found in [`davarocr/demo/text_detection/evaluation/`](demo/text_detection/evaluation/).
 
 2. Spotting Evaluation
-    The general evaluation tool can be found in [`davarocr/demo/videotext/evaluation/`](../evalution/).
+    The general evaluation tool can be found in [`davarocr/demo/videotext/evaluation/`](demo/videotext/evaluation/).
     
 ## Trained Model Download
 All of the models are re-implemented and well trained in the based on the opensourced framework mmdetection.
@@ -146,10 +146,11 @@ due to the simplification, So the results may have a dither compared with result
 
 2.Text Recommender Results
 
-|   Dataset      |Test Scale| Precision-R | Recall-R | F-score | ATA-R | MOTA-R | MOTP-R | 
-| ---------------| ----     |--------- | ------ | ----- | ----- | ----- | ----- |
-| ICDAR2015 TiV (Reported)| (L-100, S-32) |  -    | -  | - | 0.63  | 0.69  | 0.76  | 
-| ICDAR2015 TiV | (L-100, S-32) |  71.13    | 68.88  | 69.50 | 0.63  | 0.68  | 0.74  |   
+
+|   Dataset      |Test Scale| ATA | MOTA | MOTP | Precision-R | Recall-R | F-score | ATA-R | MOTA-R | MOTP-R |  Links               |
+| ---------------| ----     | ----- | ----- | ----- | --------- | ------ | ----- | ----- | ----- | ----- |  ------------------- |
+| ICDAR2015 TiV (Reported)| (L-100, S-32) |  0.65    | 0.68  | 0.76 |  68.28    | 67.21  | 67.74 | 0.63  | 0.69  | 0.76  |    -    |
+| ICDAR2015 TiV | (L-100, S-32) |  0.65   | 0.71  | 0.74 |  71.13    | 68.88  | 69.50 | 0.63  | 0.68  | 0.74  | [config](demo/videotext/yoro/rcg/config/ic15_qscore_rgb_res32_bilstm_attn.py), [pth](https://pan.baidu.com/s/1fMYYW2mk6L6E7B28aqxiwA) (Access code: 37r2)      |
 > Note: Models are stored in BaiduYunPan, and can also be downloaded from Google Drive (link will be updated soon).
 
 

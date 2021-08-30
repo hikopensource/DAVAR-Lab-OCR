@@ -16,7 +16,7 @@ import numpy as np
 
 from mmdet.datasets.pipelines import Pad, Normalize
 from mmdet.datasets.builder import PIPELINES
-from davarocr.davar_common.datasets import DavarResize, RandomRotate, ResizeNormalize, ColorJitter
+from davarocr.davar_common.datasets.pipelines import DavarResize, RandomRotate, ResizeNormalize, ColorJitter
 
 
 @PIPELINES.register_module()
