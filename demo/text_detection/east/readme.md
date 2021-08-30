@@ -11,17 +11,17 @@ The formatted training datalist and test datalist can be found in `demo/text_det
 Modified the paths ("imgs"/ "pretrained_model"/ "work_space", etc.) in the config files `demo/text_detection/east/config/east_r50_rbox.py`.
 
 Run the following bash command in the command line,
-``` bash
->>> cd $DAVAR_LAB_OCR_ROOT$/demo/text_detection/east/
->>> bash dist_train.sh
+``` shell
+cd $DAVAR_LAB_OCR_ROOT$/demo/text_detection/east/
+bash dist_train.sh
 ```
 
 > We provide the implementation of online validation. If you want to close it to save training time, you may modify the startup script to add `--no-validate` command.
 
 ## Offline Inference and Evaluation
 We provide a demo of forward inference and visualization. You can modify the paths (`test_dataset`, `image_prefix`, etc.) in the testing script, and start testing:
-``` bash
->>> python test.py 
+``` shell
+python test.py 
 ```
 Some visualization of detection results are shown:
 
