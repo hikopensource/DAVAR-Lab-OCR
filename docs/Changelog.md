@@ -1,5 +1,12 @@
 # Changelog
 
+### v0.2.1  (16/09/2021)
+
+**Highlights**
+
+- Add the end-to-end model of Text-Perceptron-Spot.
+- Update end-to-end model of Mask-RCNN-Spot.
+
 ### v0.2.0  (24/08/2021)
 
 **Highlights**
