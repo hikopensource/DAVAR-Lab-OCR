@@ -36,6 +36,10 @@ class SegFormatBundle():
             results['img'] = DC(to_tensor(img).float(), stack=True)
         if 'gt_masks' in results:
             results['gt_masks'] = DC(to_tensor(results['gt_masks']), stack=True)
+        if 'gt_texts' in results:
+            results['gt_texts'] = DC(results['gt_texts'], cpu_only=True)
+        if 'gt_poly_bboxes' in results:
+            results['gt_poly_bboxes'] = DC(results['gt_poly_bboxes'], cpu_only=True)
 
         return results
 

@@ -5,7 +5,7 @@
 # Abstract       :    Script for visualization
 
 # Current Version:    1.0.0
-# Date           :    2020-06-24
+# Date           :    2021-06-24
 ##################################################################################################
 """
 import mmcv
@@ -16,14 +16,14 @@ import time
 import json
 from show_masks import show_text, show_segmentation, show_cate, show_mask_att
 
-config_file = '../configs/mask_rcnn_spotter_finetune.py'
-checkpoint_file = '../log/checkpoint/res50_ete_finetune_tt.pth'  # Model weights
+config_file = '../configs/mask_rcnn_r50_e2e_finetune.py'
+checkpoint_file = '../log/checkpoint/mask_rcnn_r50_e2e_finetune.pth'  # Model weights
 
 model = init_model(config_file, checkpoint_file, device='cuda:0')
 cfg = model.cfg
 
-test_dataset = '../../datalist/total_text_test_datalist.json'
-img_prefix = '/path/to/Total-Text/'
+test_dataset = '../../datalist/icdar2013_test_datalist.json'
+img_prefix = '/path/to/ICDAR2013-Focused-Scene-Text/'
 
 with open(test_dataset) as load_f:
     test_file = json.load(load_f, encoding="utf-8" )
@@ -32,7 +32,6 @@ time_sum = 0.0
 out_dict = {}
 for filename in test_file:
     # Load images
-
     img_path= img_prefix + filename
     img = mmcv.imread(img_path)
     img_copy = img.copy()

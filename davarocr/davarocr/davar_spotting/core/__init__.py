@@ -8,7 +8,7 @@
 # Date           :    2020-05-31
 ##################################################################################################
 """
-from .post_processing import PostMango, PostTwoStageSpotter, BasePostSpotter
+from .post_processing import PostMango, PostMaskRCNNSpot, BasePostSpotter
 from .evaluation import evaluate_method
 
-__all__ = ['PostMango', 'evaluate_method', 'PostTwoStageSpotter', 'BasePostSpotter']
+__all__ = ['PostMango', 'evaluate_method', 'PostMaskRCNNSpot', 'BasePostSpotter']

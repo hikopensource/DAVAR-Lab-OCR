@@ -115,6 +115,7 @@ class PostMango(BasePostSpotter):
                                  'text_preds', predict transcriptions, list(["text1", "text2", ...],...[]), len = num_grid^2
                                  'character_mask_att_preds': cma visualization, Tensor(B, K, L, H, W)
             img_metas (dict): image meta info
+            **kwargs: other parameters
 
         Returns:
             list(dict): Format results, like [{'points':[[x1, y1, ..., xn, yn],[],...], 'texts':["apple", "banana",...],

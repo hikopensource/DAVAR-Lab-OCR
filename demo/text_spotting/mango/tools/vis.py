@@ -5,7 +5,7 @@
 # Abstract       :    Script for visualization
 
 # Current Version:    1.0.0
-# Date           :    2020-06-24
+# Date           :    2021-06-24
 ##################################################################################################
 """
 import mmcv
@@ -18,12 +18,13 @@ from show_masks import show_text, show_segmentation, show_cate, show_mask_att
 
 config_file = '../configs/mango_r50_ete_finetune.py'
 checkpoint_file = '../log/checkpoint/res50_ete_finetune_ic13.pth'  # Model weights
+
 cfg_options = dict(model=dict(test_cfg=dict(postprocess=dict(do_visualization=True))))
 
 model = init_model(config_file, checkpoint_file, cfg_options=cfg_options, device='cuda:0')
 cfg = model.cfg
 
-test_dataset= '/path/to/ICDAR2013-Focused-Scene-Text/Datalist/test_datalist.json'
+test_dataset = '../../datalist/icdar2013_test_datalist.json'
 img_prefix = '/path/to/ICDAR2013-Focused-Scene-Text/'
 
 with open(test_dataset) as load_f:
@@ -33,7 +34,6 @@ time_sum = 0.0
 out_dict = {}
 for filename in test_file:
     # Load images
-
     img_path= img_prefix + filename
     img = mmcv.imread(img_path)
     img_copy = img.copy()

@@ -9,5 +9,8 @@
 ##################################################################################################
 """
 from .mask_roi_extractor import MaskRoIExtractor
+from .masked_roi_extractor import MaskedRoIExtractor
+from .tps_roi_extractor import TPSRoIExtractor
 
-__all__ = ['MaskRoIExtractor']
+
+__all__ = ['MaskRoIExtractor', 'MaskedRoIExtractor', 'TPSRoIExtractor']

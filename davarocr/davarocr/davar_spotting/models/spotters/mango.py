@@ -13,6 +13,7 @@ import torch.nn as nn
 from mmdet.models.builder import build_backbone, build_neck, build_head
 from davarocr.davar_common.models.builder import build_connect
 from davarocr.davar_common.core.builder import build_postprocess
+
 from ..builder import SPOTTER
 from .base import BaseEndToEnd
 

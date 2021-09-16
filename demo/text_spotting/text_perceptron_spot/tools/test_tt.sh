@@ -1,0 +1,1 @@
+python ./test_tt.py -g=../../evaluation/gts/total-text-gt.zip -iou=0.5 -word_spotting=false

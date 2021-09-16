@@ -233,13 +233,15 @@ def evaluate_method(det_results, gt_results, evaluationParams):
 
         return transcription
     
-    matchedSum = 0
+    matchedSum_det = 0
+    matchedSum_spot = 0
 
     numGlobalCareGt = 0
     numGlobalCareDet = 0
 
     for gt_result, det_result in zip(gt_results, det_results):
 
+        detMatched = 0
         detCorrect = 0
         gtPols = []
         detPols = []
@@ -316,6 +318,7 @@ def evaluate_method(det_results, gt_results, evaluationParams):
                         if iouMat[gtNum, detNum] > evaluationParams['IOU_CONSTRAINT']:
                             gtRectMat[gtNum] = 1
                             detRectMat[detNum] = 1
+                            detMatched += 1
                             # detection matched only if transcription is equal
                             if evaluationParams['WORD_SPOTTING']:
                                 correct = gtTrans[gtNum].upper() == detTrans[detNum].upper()
@@ -332,19 +335,26 @@ def evaluate_method(det_results, gt_results, evaluationParams):
         numGtCare = (len(gtPols) - len(gtDontCarePolsNum))
         numDetCare = (len(detPols) - len(detDontCarePolsNum))
 
-        matchedSum += detCorrect
+        matchedSum_det += detMatched
+        matchedSum_spot += detCorrect
         numGlobalCareGt += numGtCare
         numGlobalCareDet += numDetCare
 
-    methodRecall = 0 if numGlobalCareGt == 0 else float(matchedSum) / numGlobalCareGt
-    methodPrecision = 0 if numGlobalCareDet == 0 else float(matchedSum) / numGlobalCareDet
-    methodHmean = 0 if methodRecall + methodPrecision == 0 else 2 * methodRecall * methodPrecision / (
-            methodRecall + methodPrecision)
+    det_recall = 0 if numGlobalCareGt == 0 else float(matchedSum_det) / numGlobalCareGt
+    det_precision = 0 if numGlobalCareDet == 0 else float(matchedSum_det) / numGlobalCareDet
+    det_hmean = 0 if det_recall + det_precision == 0 else 2 * det_recall * det_precision / (
+    det_recall + det_precision)
 
-    methodMetrics = {'precision':methodPrecision, 'recall':methodRecall,'hmean': methodHmean,
+    spot_recall = 0 if numGlobalCareGt == 0 else float(matchedSum_spot) / numGlobalCareGt
+    spot_precision = 0 if numGlobalCareDet == 0 else float(matchedSum_spot) / numGlobalCareDet
+    spot_hmean = 0 if spot_recall + spot_precision == 0 else 2 * spot_recall * spot_precision / (
+    spot_recall + spot_precision)
+
+    methodMetrics = {'det_precision':det_precision, 'det_recall':det_recall,'det_hmean': det_hmean,
+                     'spot_precision':spot_precision, 'spot_recall':spot_recall,'spot_hmean': spot_hmean,
                      "IOU_CONSTRAINT": evaluationParams['IOU_CONSTRAINT'],
                      "AREA_PRECISION_CONSTRAINT": evaluationParams['AREA_PRECISION_CONSTRAINT']
                      }
-    resDict = {'summary': methodMetrics}   
+    resDict = {'summary': methodMetrics}
     return resDict
 

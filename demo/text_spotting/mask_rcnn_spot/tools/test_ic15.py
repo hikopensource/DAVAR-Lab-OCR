@@ -1,11 +1,11 @@
 """
 #################################################################################################
 # Copyright Info :    Copyright (c) Davar Lab @ Hikvision Research Institute. All rights reserved.
-# Filename       :    test_ic13.py
+# Filename       :    test_ic15.py
 # Abstract       :    Script for inference
 
 # Current Version:    1.0.0
-# Date           :    2020-06-24
+# Date           :    2021-06-24
 #################################################################################################
 """
 import mmcv
@@ -40,8 +40,8 @@ def packing(out_dir, pack_dir):
 
 lexicon_type = 'NONE'
 
-config_file = '../configs/mask_rcnn_spotter_finetune.py'
-checkpoint_file = '../log/checkpoint/res50_ete_finetune_ic15.pth'  # Model weights
+config_file = '../configs/mask_rcnn_r50_conv6_e2e_finetune.py'
+checkpoint_file = '../log/checkpoint/mask_rcnn_r50_conv6_e2e_finetune.pth'  # Model weights
 
 model = init_model(config_file, checkpoint_file, device='cuda:0')
 cfg = model.cfg
@@ -126,7 +126,7 @@ for filename, _ in tqdm(test_file.items()):
             final_text_results[i] = new_text
 
     # ============== Write Results ================
-    txt = open(out_dir + filename.split("/")[-1].replace(".jpg",".txt"), "w")
+    txt = open(out_dir + filename.split("/")[-1].replace(".jpg",".txt"), "w", encoding="utf-8")
     for j, box in enumerate(final_box_results):
         for point in box:
             txt.write(str(int(point))+",")

@@ -286,7 +286,10 @@ def evaluate_method(gtFilePath, submFilePath, evaluationParams):
 
     perSampleMetrics = {}
 
-    matchedSum = 0
+    matchedSum_det = 0
+    matchedSum_tiouGt = 0
+    matchedSum_tiouDt = 0
+    matchedSum_spot = 0
 
     Rectangle = namedtuple('Rectangle', 'xmin ymin xmax ymax')
 
@@ -309,7 +312,12 @@ def evaluate_method(gtFilePath, submFilePath, evaluationParams):
         recall = 0
         precision = 0
         hmean = 0
+        
+        detMatched = 0
+        detMatched_tiouGt = 0
+        detMatched_tiouDt = 0
         detCorrect = 0
+
         iouMat = np.empty([1, 1])
         gtPols = []
         detPols = []
@@ -405,6 +413,7 @@ def evaluate_method(gtFilePath, submFilePath, evaluationParams):
                             if iouMat[gtNum, detNum] > evaluationParams['IOU_CONSTRAINT']:
                                 gtRectMat[gtNum] = 1
                                 detRectMat[detNum] = 1
+                                detMatched += 1
                                 # detection matched only if transcription is equal
                                 if evaluationParams['WORD_SPOTTING']:
                                     correct = gtTrans[gtNum].upper() == detTrans[detNum].upper()
@@ -448,7 +457,9 @@ def evaluate_method(gtFilePath, submFilePath, evaluationParams):
 
         hmean = 0 if (precision + recall) == 0 else 2.0 * precision * recall / (precision + recall)
 
-        matchedSum += detCorrect
+        matchedSum_det += detMatched
+        matchedSum_spot += detCorrect
+
         numGlobalCareGt += numGtCare
         numGlobalCareDet += numDetCare
         totalNumDetPols += len(detPols)
@@ -475,17 +486,28 @@ def evaluate_method(gtFilePath, submFilePath, evaluationParams):
     if evaluationParams['CONFIDENCES']:
         AP = compute_ap(arrGlobalConfidences, arrGlobalMatches, numGlobalCareGt)
 
-    methodRecall = 0 if numGlobalCareGt == 0 else float(matchedSum) / numGlobalCareGt
-    methodPrecision = 0 if numGlobalCareDet == 0 else float(matchedSum) / numGlobalCareDet
-    methodHmean = 0 if methodRecall + methodPrecision == 0 else 2 * methodRecall * methodPrecision / (
-    methodRecall + methodPrecision)
+    det_recall = 0 if numGlobalCareGt == 0 else float(matchedSum_det) / numGlobalCareGt
+    det_precision = 0 if numGlobalCareDet == 0 else float(matchedSum_det) / numGlobalCareDet
+    det_hmean = 0 if det_recall + det_precision == 0 else 2 * det_recall * det_precision / (
+    det_recall + det_precision)
 
-    methodMetrics = {'precision': methodPrecision, 'recall': methodRecall, 'hmean': methodHmean, 'AP': AP}
+    spot_recall = 0 if numGlobalCareGt == 0 else float(matchedSum_spot) / numGlobalCareGt
+    spot_precision = 0 if numGlobalCareDet == 0 else float(matchedSum_spot) / numGlobalCareDet
+    spot_hmean = 0 if spot_recall + spot_precision == 0 else 2 * spot_recall * spot_precision / (
+    spot_recall + spot_precision)
+
+    rcg_accuracy = matchedSum_spot / matchedSum_det
+
+    methodMetrics = {'precision': spot_precision, 'recall': spot_recall, 'hmean': spot_hmean, 'AP': AP}
 
     print('num_gt, num_det: ', numGlobalCareGt, totalNumDetPols)
     print("Origin:")
-    print("recall: ", round(methodRecall, 4), "precision: ", round(methodPrecision, 4), "hmean: ",
-          round(methodHmean, 4))
+    print("det_recall: ", round(det_recall, 4), "det_precision: ", round(det_precision, 4), "det_hmean: ",
+          round(det_hmean, 4))
+    print("spot_recall: ", round(spot_recall, 4), "spot_precision: ", round(spot_precision, 4), "spot_hmean: ",
+          round(spot_hmean, 4))
+    print("rcg_accuracy: ", round(rcg_accuracy, 4))
+
     resDict = {'calculated': True, 'Message': '', 'method': methodMetrics, 'per_sample': perSampleMetrics}
 
     return resDict

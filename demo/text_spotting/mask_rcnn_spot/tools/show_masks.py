@@ -1,3 +1,13 @@
+"""
+#################################################################################################
+# Copyright Info :    Copyright (c) Davar Lab @ Hikvision Research Institute. All rights reserved.
+# Filename       :    show_masks.py
+# Abstract       :    Script for visualization
+
+# Current Version:    1.0.0
+# Date           :    2021-06-24
+#################################################################################################
+"""
 import numpy as np
 from PIL import Image, ImageDraw, ImageFont
 import cv2

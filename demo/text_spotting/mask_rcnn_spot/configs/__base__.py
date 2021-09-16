@@ -9,10 +9,10 @@
 #################################################################################################
 """
 character = '../../datalist/character_list.txt'
-batch_max_length = 25
+batch_max_length = 32
 type='SPOTTER'
 model = dict(
-    type='TwoStageEndToEnd',
+    type='MaskRCNNSpot',
     pretrained=None,
     backbone=dict(
         type='ResNet',
@@ -78,14 +78,16 @@ model = dict(
                 type='CrossEntropyLoss', use_mask=True, loss_weight=1.0))),
     # rcg
     rcg_roi_extractor=dict(
-        type='MaskRoIExtractor',
-        roi_layer=dict(type='RoIAlign', output_size=(32, 100), sampling_ratio=0),
+        type='MaskedRoIExtractor',
+        in_channels=256,
         out_channels=256,
-        featmap_strides=[4, 8, 16, 32]),
+        output_size=(8, 32),
+        featmap_strides=[4],),
     rcg_backbone=dict(
-        type='ResNet32',
-        input_channel=256,
-        output_channel=512,),
+        type='LightCRNN',
+        in_channels=256,
+        out_channels=256
+    ),
     rcg_transformation=None,
     rcg_neck=None,
     rcg_sequence_module=dict(
@@ -93,7 +95,7 @@ model = dict(
         rnn_modules=[
             dict(
                 type='BidirectionalLSTM',
-                input_size=512,
+                input_size=256,
                 hidden_size=256,
                 output_size=256,
                 with_linear=True,
@@ -102,12 +104,12 @@ model = dict(
                 type='BidirectionalLSTM',
                 input_size=256,
                 hidden_size=256,
-                output_size=512,
+                output_size=256,
                 with_linear=True,
                 bidirectional=True,), ]),
     rcg_sequence_head=dict(
         type='AttentionHead',
-        input_size=512,
+        input_size=256,
         hidden_size=256,
         batch_max_length=batch_max_length,
         converter=dict(
@@ -181,14 +183,27 @@ model = dict(
             max_per_img=100,
             mask_thr_binary=0.5),
         postprocess=dict(
-            type="PostTwoStageSpotter"
+            type="PostMaskRCNNSpot"
         )),
 )
 
-train_cfg = None
-test_cfg = None
-# dataset settings
-dataset_type = 'TextSpotDataset'
+# training and testing settings
+train_cfg = dict()
+test_cfg = dict()
+
+# Training dataset load type
+dataset_type = 'DavarMultiDataset'
+
+# File prefix path of the traning dataset
+img_prefixes = [
+    '/path/to/Image/'
+]
+
+# Dataset Name
+ann_files = [
+    '/path/to/datalist/train_datalist.json'
+]
+
 img_norm_cfg = dict(
     mean=[123.675, 116.28, 103.53], std=[58.395, 57.12, 57.375], to_rgb=True)
 train_pipeline = [
@@ -196,24 +211,28 @@ train_pipeline = [
     dict(type='DavarLoadAnnotations',
          with_bbox=True,            # Bounding Rect
          with_poly_mask=True,       # Mask
-         with_poly_bbox=False,      # bouding poly
+         with_poly_bbox=True,       # bouding poly
          with_label=True,           # Bboxes' labels
          with_care=True,            # Ignore or not
          with_text=True,            # Transcription
          with_cbbox=False,          # Character bounding
-         text_profile=dict(text_max_length=batch_max_length, sensitive="same", filtered=False)
+         text_profile=dict(text_max_length=batch_max_length, sensitive='same', filtered=False)
     ),
-    dict(type='DavarResize', img_scale=[(640, 720), (1600, 1800)], keep_ratio=True, multiscale_mode='range'),
+    dict(type='ColorJitter', brightness=32.0 / 255, saturation=0.5),
     dict(type='Normalize', **img_norm_cfg),
+    dict(type='DavarRandomCrop', instance_key='gt_bboxes'),
+    dict(type='RandomRotate', angles=[-15, 15], borderValue=(0, 0, 0)),
+    dict(type='DavarResize', img_scale=[(768, 768)], multiscale_mode='value', keep_ratio=True),
     dict(type='Pad', size_divisor=32),
     dict(type='DavarDefaultFormatBundle'),
     dict(type='DavarCollect', keys=['img', 'gt_bboxes', 'gt_labels', 'gt_texts', 'gt_masks']),
 ]
+
 test_pipeline = [
     dict(type='DavarLoadImageFromFile'),
     dict(
         type='MultiScaleFlipAug',
-        img_scale=(1440, 1280),
+        img_scale=(1350, 950),
         flip=False,
         transforms=[
             dict(type='Resize', keep_ratio=True),
@@ -225,35 +244,45 @@ test_pipeline = [
 ]
 
 data = dict(
-    samples_per_gpu=4,
+    samples_per_gpu=8,
     workers_per_gpu=4,
+    sampler=dict(
+        type='DistBatchBalancedSampler',  # BatchBalancedSampler and DistBatchBalancedSampler
+        mode=0,
+        # model 0:  Balance in batch, calculate the epoch according to the first iterative data set
+        # model 1:  Balance in batch, calculate the epoch according to the last iterative data set
+        # model 2:  Balance in batch, record unused data
+        # model -1: Each dataset is directly connected and shuffled
+    ),
     train=dict(
         type=dataset_type,
-        ann_file='/path/to/datalist/train_datalist.json',
-        img_prefix='/path/to/Image/',
-        pipeline=train_pipeline),
+        batch_ratios=['1.0'],
+        dataset=dict(
+            type='TextSpotDataset',
+            ann_file=ann_files,
+            img_prefix=img_prefixes,
+            test_mode=False,
+            pipeline=train_pipeline)
+    ),
     val=dict(
-        type=dataset_type,
+        type='TextSpotDataset',
         ann_file='/path/to/datalist/test_datalist.json',
         img_prefix='/path/to/Image/',
         pipeline=test_pipeline),
     test=dict(
-        type=dataset_type,
+        type='TextSpotDataset',
         ann_file='/path/to/datalist/test_datalist.json',
         img_prefix='/path/to/Image/',
         pipeline=test_pipeline))
+
 # optimizer
 find_unused_parameters = True
-optimizer = dict(
-    type='AdamW',
-    betas=(0.9, 0.999),
-    eps=1e-8,
-    lr=1e-3,
-    weight_decay=0)
+optimizer = dict(type='AdamW', lr=1e-3, weight_decay=0)
 optimizer_config = dict(grad_clip=dict(max_norm=5, norm_type=2))
 lr_config = dict(
     policy='step',
-    step=[2, 3])
+    step=[2, 3]
+)
 runner = dict(type='EpochBasedRunner', max_epochs=4)
 checkpoint_config = dict(type="DavarCheckpointHook", interval=1, filename_tmpl='checkpoint/checkpoint_name_epoch_{}.pth')
 

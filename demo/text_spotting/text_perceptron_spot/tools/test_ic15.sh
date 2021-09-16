@@ -1,0 +1,1 @@
+python ./test_ic15.py -g=../../evaluation/gts/gt-icdar2015.zip -iou=0.5 -word_spotting=false

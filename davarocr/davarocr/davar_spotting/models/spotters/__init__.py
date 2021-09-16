@@ -8,8 +8,10 @@
 # Date           :    2021-03-19
 ##################################################################################################
 """
-from .base import BaseEndToEnd
-from .two_stage_e2e import TwoStageEndToEnd
+from .base import BaseEndToEnd, TwoStageEndToEnd, SegBasedEndToEnd
+from .mask_rcnn_spot import MaskRCNNSpot
+from .text_perceptron_spot import TextPerceptronSpot
 from .mango import MANGO
 
-__all__ = ['BaseEndToEnd',  'MANGO', 'TwoStageEndToEnd']
+
+__all__ = ['BaseEndToEnd', 'SegBasedEndToEnd', 'TwoStageEndToEnd', 'MANGO', 'MaskRCNNSpot', 'TextPerceptronSpot']

@@ -2,7 +2,7 @@
 
 This code repository contains the implementations of the paper [Text Perceptron: Towards End-to-End Arbitrary-Shaped Text Spotting](https://arxiv.org/pdf/2002.06820.pdf) (AAAI 2020).
 
-> To date, the detection part in the Text Perceptron is re-implemented based on the common repository [Davar-OCR](https://github.com/hikopensource/DAVAR-Lab-OCR), and the recognition part will be released in the future.
+> This repository only contains the detection part of Text Perceptron. For the entire end-to-end implementation, please going to [Text Perceptron Spot](../../text_spotting/text_perceptron_spot)
 
 
 ## Preparing Dataset

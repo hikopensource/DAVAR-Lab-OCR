@@ -68,7 +68,7 @@ class TextSpotDataset(DavarCustomDataset):
                                  e.g., [{'points': [x1, y2, ..., xn,yn],
                                         'confidence':[1, 0,8,...],
                                         'texts':['apple','banana',...]},{},{},...]
-            metric (str): default "e2e_hmean"
+            metric (str | list(str)): default "e2e_hmean"
             logger (obj): obj to print/ write logs
             **eval_kwargs: evaluation parameters, which stored in
                            eval_kwargs['eval_func_params']= dict(
@@ -85,8 +85,10 @@ class TextSpotDataset(DavarCustomDataset):
                   )
                   
         """
-        
-        assert metric == "hmean"
+        if not isinstance(metric, str):
+            assert "hmean" in metric
+        else:
+            assert metric == "hmean"
         assert len(results) == len(self)
         eval_func_params = eval_kwargs["eval_func_params"]
         if eval_func_params is not None and isinstance(eval_func_params, dict):
@@ -137,13 +139,20 @@ class TextSpotDataset(DavarCustomDataset):
             gt_results.append(formated_gt_result)
 
         evaluate_result = evaluate_method(det_results, gt_results, self.eval_func_params)
-        output['precision'] = evaluate_result['summary']['precision']
-        output['recall'] = evaluate_result['summary']['recall']
-        output['hmean'] = evaluate_result['summary']['hmean']
+        output['precision'] = evaluate_result['summary']['spot_precision']
+        output['recall'] = evaluate_result['summary']['spot_recall']
+        output['hmean'] = evaluate_result['summary']['spot_hmean']
 
         print("Finish evaluation !")
 
-        print_log("Evaluation results: Precision: {}, Recall: {}, hmean: {}".format(output['precision'],
-                                                                                    output['recall'],
-                                                                                    output['hmean']), logger=logger)
+        print_log("Detection evaluation results: Precision: {}, Recall: {}, hmean: {}".
+          format(evaluate_result['summary']['det_precision'],
+                 evaluate_result['summary']['det_recall'],
+                 evaluate_result['summary']['det_hmean']), logger=logger)
+
+        print_log("Spotting evaluation results: Precision: {}, Recall: {}, hmean: {}".
+          format(evaluate_result['summary']['spot_precision'],
+                 evaluate_result['summary']['spot_recall'],
+                 evaluate_result['summary']['spot_hmean']), logger=logger)
+
         return output

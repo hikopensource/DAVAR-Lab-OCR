@@ -9,7 +9,7 @@
 ##################################################################################################
 """
 from .post_mango import PostMango
-from .post_two_stage_spotter import PostTwoStageSpotter
+from .post_mask_rcnn_spot import PostMaskRCNNSpot
 from .post_spotter_base import BasePostSpotter
 
-__all__ = ['PostMango', 'PostTwoStageSpotter', 'BasePostSpotter']
+__all__ = ['PostMango', 'PostMaskRCNNSpot', 'BasePostSpotter']

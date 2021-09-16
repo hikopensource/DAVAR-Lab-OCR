@@ -9,13 +9,15 @@
 ##################################################################################################
 """
 from .builder import SPOTTER, build_spotter
-from .spotters import MANGO, TwoStageEndToEnd
+from .spotters import MANGO, TwoStageEndToEnd, SegBasedEndToEnd, MaskRCNNSpot, TextPerceptronSpot
 from .seg_heads import CenterlineSegHead, CharacterMaskAttentionHead, GridCategoryHead
 from .sequence_heads import MultiRecogSeqHead
 from .connect_modules import AttFuseModule
-from .roi_extractors import MaskRoIExtractor
+from .roi_extractors import TPSRoIExtractor, MaskedRoIExtractor, MaskRoIExtractor
+from .backbone import LightCRNN
 
-__all__ = [ 'SPOTTER','build_spotter', 'MANGO', 'TwoStageEndToEnd',
-            'CenterlineSegHead', 'CharacterMaskAttentionHead', 'GridCategoryHead',
-            'MultiRecogSeqHead', 'AttFuseModule', 'MaskRoIExtractor'
+__all__ = [ 'SPOTTER', 'build_spotter', 'MANGO', 'TwoStageEndToEnd', 'SegBasedEndToEnd', 
+            'MaskRCNNSpot', 'TextPerceptronSpot', 'CenterlineSegHead', 'CharacterMaskAttentionHead',
+            'GridCategoryHead', 'MultiRecogSeqHead', 'AttFuseModule', 'TPSRoIExtractor', 
+            'MaskedRoIExtractor', 'MaskRoIExtractor', 'LightCRNN'
           ]

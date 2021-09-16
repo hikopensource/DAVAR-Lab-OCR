@@ -485,7 +485,7 @@ class RandomRotate():
         for key in results.get('mask_fields', []):
             mask = results[key].masks.transpose((1, 2, 0))
             if len(results[key].masks) == 0:
-                results[key] = results[key].resize((width_new, height_new))
+                results[key] = results[key].resize((height_new, width_new))
             else:
                 # Rotate mask
                 mask_rotation = cv2.warpAffine(mask, mat_rotation, (width_new, height_new),
@@ -620,15 +620,17 @@ class DavarRandomCrop:
 
     def __init__(self,
                  max_tries=50,
-                 min_crop_side_ratio=0.1):
+                 min_crop_side_ratio=0.1,
+                 instance_key='gt_bboxes'):
         """
         Args:
-            key (str): crop according to key
             max_tries (int): maximum number of attempts.
             min_crop_side_ratio (float): minimum crop ratio.
+            instance_key (str): crop according to instance_key
         """
         self.max_tries = max_tries
         self.min_crop_side_ratio = min_crop_side_ratio
+        self.instance_key = instance_key
 
     def _random_crop(self, img, polys):
         """ Randomly crop image
@@ -693,11 +695,14 @@ class DavarRandomCrop:
             dict: updated data flow.
         """
         img = results['img']
-        polys = results['gt_bboxes']
+        polys = results[self.instance_key]
         x_min, y_min, x_max, y_max = self._random_crop(img, polys)
-        poly_in_area = (polys[:, 0::2] >= x_min) & (polys[:, 1::2] >= y_min) & \
-                       (polys[:, 0::2] <= x_max) & (polys[:, 1::2] <= y_max)
-        kept_idx = np.where(np.all(poly_in_area, axis=1) == True)[0]
+        kept_idx = []
+        for idx, poly in enumerate(polys):
+            if np.all((poly[0::2] >= x_min) & (poly[1::2] >= y_min) & \
+                      (poly[0::2] <= x_max) & (poly[1::2] <= y_max)):
+                kept_idx.append(idx)
+        kept_idx = np.array(kept_idx)
         # crop img
         results['img'] = img[y_min : y_max, x_min : x_max, :]
         results['img_shape'] = results['img'].shape
