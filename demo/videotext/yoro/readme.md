@@ -151,7 +151,7 @@ due to the simplification, So the results may have a dither compared with result
 | ---------------| ----     | ----- | ----- | ----- | --------- | ------ | ----- | ----- | ----- | ----- |  ------------------- |
 | ICDAR2015 TiV (Reported)| (L-100, S-32) |  0.65    | 0.68  | 0.76 |  68.28    | 67.21  | 67.74 | 0.63  | 0.69  | 0.76  |    -    |
 | ICDAR2015 TiV | (L-100, S-32) |  0.65   | 0.71  | 0.74 |  71.13    | 68.88  | 69.50 | 0.63  | 0.68  | 0.74  | [config](demo/videotext/yoro/rcg/config/ic15_qscore_rgb_res32_bilstm_attn.py), [pth](https://pan.baidu.com/s/1fMYYW2mk6L6E7B28aqxiwA) (Access code: 37r2)      |
-> Note: Models are stored in BaiduYunPan, and can also be downloaded from Google Drive (link will be updated soon).
+> Note: Models are stored in BaiduYunPan, and can also be downloaded from [Google Drive](https://drive.google.com/drive/folders/1Y55wIvGMyeqEpz3wYZ9xJPclIR2tSE9x?usp=sharing).
 
 
 ## Citation
