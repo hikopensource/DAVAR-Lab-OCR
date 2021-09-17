@@ -15,7 +15,8 @@ model = dict(
         type='MaskRoIExtractor',
         roi_layer=dict(type='RoIAlign', output_size=(32, 100), sampling_ratio=0),
         out_channels=256,
-        featmap_strides=[4, 8, 16, 32]),
+        featmap_strides=[4, 8, 16, 32],
+        _delete_=True),
     rcg_backbone=dict(
         type='ResNet32',
         input_channel=256,

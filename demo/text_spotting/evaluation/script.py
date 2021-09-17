@@ -496,8 +496,6 @@ def evaluate_method(gtFilePath, submFilePath, evaluationParams):
     spot_hmean = 0 if spot_recall + spot_precision == 0 else 2 * spot_recall * spot_precision / (
     spot_recall + spot_precision)
 
-    rcg_accuracy = matchedSum_spot / matchedSum_det
-
     methodMetrics = {'precision': spot_precision, 'recall': spot_recall, 'hmean': spot_hmean, 'AP': AP}
 
     print('num_gt, num_det: ', numGlobalCareGt, totalNumDetPols)
@@ -506,7 +504,6 @@ def evaluate_method(gtFilePath, submFilePath, evaluationParams):
           round(det_hmean, 4))
     print("spot_recall: ", round(spot_recall, 4), "spot_precision: ", round(spot_precision, 4), "spot_hmean: ",
           round(spot_hmean, 4))
-    print("rcg_accuracy: ", round(rcg_accuracy, 4))
 
     resDict = {'calculated': True, 'Message': '', 'method': methodMetrics, 'per_sample': perSampleMetrics}
 
