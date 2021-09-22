@@ -49,13 +49,15 @@ To date, davarocr contains the following algorithms:
 
 - FREE (to be released) (TIP 2021)
 
+
+***Table Recognition***
+
+- [x] [LGPMA](demo/table_recognition/lgpma) (ICDAR 2021)
+
 ***Layout Recognition***
 
 - VSR (to be released) (ICDAR 2021)
 
-***Table Recognition***
-
-- LGPMA (to be released) (ICDAR 2021)
 
 ## Development Environment
 The recommended environment requirements can be found in [mmdetection](https://github.com/open-mmlab/mmdetection/). Follows are the lowest compatible environment.
@@ -89,7 +91,7 @@ For the problems existing in the process of installation and researching, we wil
 
 ## Changelog
 
-DavarOCR v0.2.1 was released in 16/09/2021.
+DavarOCR v0.3.0 was released in 22/09/2021.
 Please refer to [Changelog.md](./docs/Changelog.md) for details and release history.
 
 

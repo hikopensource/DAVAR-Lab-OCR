@@ -1,5 +1,13 @@
 # Changelog
 
+### v0.3.0  (22/09/2021)
+
+**Highlights**
+
+- Add the support for table recognition.
+- Release the implementations of LGPMA.
+
+
 ### v0.2.1  (16/09/2021)
 
 **Highlights**
