@@ -5,17 +5,11 @@
 # Abstract       :
 
 # Current Version:    1.0.0
-# Date           :    2020-05-31
+# Date           :    2021-09-18
 ##################################################################################################
 """
-from .davar_common import *
-from .davar_det import *
-from .davar_rcg import *
-from .davar_spotting import *
-from .davar_ie import *
-from .davar_videotext import *
-from .davar_table import *
-from .mmcv import *
-from .version import __version__
 
-__all__ = ['__version__']
+from .gpma_data import GPMADataGeneration
+from .davar_loading_table import DavarLoadTableAnnotations
+
+__all__ = ['GPMADataGeneration', 'DavarLoadTableAnnotations']
