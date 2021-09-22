@@ -29,10 +29,15 @@ python test_pub.py
 Some visualization of detection results are shown:
 
 ![./vis/PMC2871264_002_00.png](./vis/PMC2871264_002_00.png)
+
 ![./vis/PMC3160368_005_00.png](./vis/PMC3160368_005_00.png)
+
 ![./vis/PMC3250619_005_01.png](./vis/PMC3250619_005_01.png)
+
 ![./vis/PMC3551656_004_00.png](./vis/PMC3551656_004_00.png)
+
 ![./vis/PMC3568059_003_00.png](./vis/PMC3568059_003_00.png)
+
 ![./vis/PMC3824233_004_00.png](./vis/PMC3824233_004_00.png)
 
 The offline evaluation tool can be found in `demo/table_recognition/lgpma/tools/eval_pub/`
