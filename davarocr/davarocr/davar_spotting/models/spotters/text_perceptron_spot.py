@@ -187,7 +187,7 @@ class TextPerceptronSpot(SegBasedEndToEnd):
             return results
 
         # Compute normalized fiducial points
-        fiducial_points = self.recog_roi_extractor.normalize_fiducial_points(img, img_meta, fiducial_points)
+        fiducial_points = self.recog_roi_extractor.rescale_fiducial_points(img, img_meta, fiducial_points)
 
         # Extract feature according to fiducial point
         recog_feats = self.recog_roi_extractor(feat[:self.recog_roi_extractor.num_inputs], fiducial_points)

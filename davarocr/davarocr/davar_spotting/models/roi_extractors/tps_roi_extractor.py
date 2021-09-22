@@ -76,30 +76,47 @@ class TPSRoIExtractor(nn.Module):
         Returns:
             Tensor: rectification feature of shape [K x C x output_size]
         """
-        # only using 4x feature
-        x = self.relu(self.bn(self.conv(feats[0])))
-
         roi_feats = []
-        for batch_id in range(len(x)):
-            batch_C_prime = fiducial_points[batch_id]
-            if len(batch_C_prime) == 0:
+        scale_factor = 4
+
+        # only using 4x feature
+        feats = self.relu(self.bn(self.conv(feats[0])))
+        _, _, height, width = feats.size()
+
+        for feat, points in zip(feats, fiducial_points):
+            if len(points) == 0:
                 continue
-            # B x point_num x 2
-            batch_C_prime = torch.Tensor(batch_C_prime).cuda(device=x.device)
-            # B x C x H x W
-            batch_I = x[batch_id].unsqueeze(0).expand(len(batch_C_prime), -1, -1, -1)
-            # B x N (= output_size[0] x output_size[1]) x 2
-            build_P_prime = self.GridGenerator.build_P_prime(batch_C_prime)
-            # B x output_size x 2
-            build_P_prime_reshape = build_P_prime.reshape([build_P_prime.size(0),
-                                                           self.output_size[0],
-                                                           self.output_size[1],
-                                                           2])
-            # B x C x output_size
-            batch_I_r = F.grid_sample(batch_I,
-                                      build_P_prime_reshape,
-                                      padding_mode='border')
-            roi_feats.append(batch_I_r)
+            points = torch.Tensor(points).cuda(device=feat.device)
+            points = points / scale_factor
+            for point in points:
+                # Clip points
+                point[:, 0] = torch.clip(point[:, 0], 0, width)
+                point[:, 1] = torch.clip(point[:, 1], 0, height)
+
+                # Caculate points boundary
+                x1 = int(torch.min(point[:, 0]))
+                x2 = int(torch.max(point[:, 0])) + 1
+                y1 = int(torch.min(point[:, 1]))
+                y2 = int(torch.max(point[:, 1])) + 1
+
+                # Normalize points for tps
+                point[:, 0] = 2 * (point[:, 0] - x1) / (x2 - x1) - 1
+                point[:, 1] = 2 * (point[:, 1] - y1) / (y2 - y1) - 1
+
+                # B x N (= output_size[0] x output_size[1]) x 2
+                build_P_prime = self.GridGenerator.build_P_prime(point.unsqueeze(0))
+                # B x output_size x 2
+                build_P_prime_reshape = build_P_prime.reshape([build_P_prime.size(0),
+                                                               self.output_size[0],
+                                                               self.output_size[1],
+                                                               2])
+                # Crop feature according to points boundary
+                crop_feat = feat[:, y1:y2, x1:x2].unsqueeze(0)
+                # B x C x output_size
+                batch_I_r = F.grid_sample(crop_feat,
+                                          build_P_prime_reshape,
+                                          padding_mode='border')
+                roi_feats.append(batch_I_r)
         roi_feats = torch.cat(roi_feats)
         return roi_feats
 
@@ -151,15 +168,11 @@ class TPSRoIExtractor(nn.Module):
             if len(batch_bboxes) > 0:
                 batch_fiducial_points = np.stack(batch_fiducial_points, axis=0)
 
-                # Normalize fiducial points
-                batch_fiducial_points[:, :, 0] = (2 * batch_fiducial_points[:, :, 0] - width) / width
-                batch_fiducial_points[:, :, 1] = (2 * batch_fiducial_points[:, :, 1] - height) / height
-
             fiducial_points.append(batch_fiducial_points)
         return fiducial_points
 
-    def normalize_fiducial_points(self, imgs, img_metas, fiducial_points):
-        """ Normalize the fiducial points coordinates to [0,1].
+    def rescale_fiducial_points(self, imgs, img_metas, fiducial_points):
+        """ Rescale the fiducial points coordinates.
 
         Args:
             imgs (Tensor): input image.
@@ -167,7 +180,7 @@ class TPSRoIExtractor(nn.Module):
             fiducial_points list(np.array): tps fiducial points.
 
         Returns:
-            list(np.array): normalized points
+            list(np.array): Rescaled points
         """
         normalized_fiducial_points = []
         for img, img_meta, point in zip(imgs, img_metas, fiducial_points):
@@ -180,10 +193,7 @@ class TPSRoIExtractor(nn.Module):
                 point[:, :, 0] = point[:, :, 0] * scale_factor[0]
                 point[:, :, 1] = point[:, :, 1] * scale_factor[1]
 
-                # Normalize
-                point[:, :, 0] = (2 * point[:, :, 0] - width) / width
-                point[:, :, 1] = (2 * point[:, :, 1] - height) / height
-
+                # Change points order
                 point_num = int(point.shape[1] / 2)
                 point[:, point_num:, :] = point[:, point_num:, :][:, ::-1, :]
             normalized_fiducial_points.append(point)
