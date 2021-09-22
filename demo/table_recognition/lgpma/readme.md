@@ -50,7 +50,7 @@ Results on various datasets and trained models download:
 | Dataset                | Test Scale     | TEDS-struc| Links             |
 |-----------------------|----------------|-----------|-------------------|
 | PubTabNet(reported)    | L-768| 96.7      |                   |
-| PubTabNet             | 1.5x    | 96.7      | [config](config/lgpma_pub), [pth](https://pan.baidu.com/s/1Z-1gMaiJWbpyn09Biq5YXg ) (Access Code: gygm)|
+| PubTabNet             | 1.5x    | 96.7      | [config](config/lgpma_pub.py), [pth](https://pan.baidu.com/s/1Z-1gMaiJWbpyn09Biq5YXg ) (Access Code: gygm)|
 
 > The release model only contains structure-level result. You may use the [text recognition module](../../text_recognition) for the complete result.
 
