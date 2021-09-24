@@ -4,8 +4,8 @@
 # Filename       :    post_lgpma.py
 # Abstract       :    Post processing of lgpma detector. Get the format html output.
 
-# Current Version:    1.0.0
-# Date           :    2021-09-18
+# Current Version:    1.0.1
+# Date           :    2021-09-23
 ##################################################################################################
 """
 
@@ -98,8 +98,9 @@ class PostLGPMA(BasePostDetector):
             list(str): Format results, like [html of table1 (str), html of table2 (str), ...]
         """
 
-        html_list = []
+        table_results = []
         for result in batch_result:
+            table_result = dict()
             # Processing bboxes of aligned cells, such as nms between all classes and bboxes refined according to lgpma
             bboxes_results = result[0]
             if self.nms_inter:
@@ -137,6 +138,9 @@ class PostLGPMA(BasePostDetector):
             # Generate html of each table.
             texts_tokens = [[""]] * len(labels)  # The final html is available if text recognition results are used.
             html_str_rec, html_text_rec = area_to_html(arearec, labels, texts_tokens)
-            html_list.append(format_html(html_str_rec, html_text_rec))
+            table_result['html'] = format_html(html_str_rec, html_text_rec)
+            table_result['bboxes'] = bboxes
+            table_result['labels'] = labels
+            table_results.append(table_result)
 
-        return html_list
+        return table_results
