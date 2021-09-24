@@ -56,7 +56,7 @@ Results on various datasets and trained models download:
 
 > The Trained Model on dataset SciTSR and ICDAR 2013 will release soon.
 
-> Note: Models are stored in BaiduYunPan, and can also be downloaded from [Google Drive](https://drive.google.com/file/d/13OPJch2IjpXKuDbffCC_4_XgliSlE2zi/view?usp=sharing)
+> Note: Models are stored in BaiduYunPan, and can also be downloaded from [Google Drive](https://drive.google.com/drive/folders/1Ik3KCiSATgOlCK4P5TXnbIMBZDOxrv4V?usp=sharing)
 
 ## Citation
 
