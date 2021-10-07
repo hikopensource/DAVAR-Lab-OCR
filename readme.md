@@ -71,6 +71,8 @@ The recommended environment requirements can be found in [mmdetection](https://g
 | torchvision | 0.4.1+  |
 | opencv      | 3.0.0+  |
 
+> For some of the algorithms (EAST, Text Perceptron), C++ version [opencv](https://opencv.org/) are required. If you do not need to use these algorithms, you could temporarily ignore the error about 'opencv.hpp' or remove the related codes temporarily. 
+> 
 ## Installation and Development Instruction 
 
 To Download the repository and install the davarocr, please follow the instructions:
