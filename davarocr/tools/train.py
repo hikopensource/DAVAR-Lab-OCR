@@ -36,7 +36,6 @@ from davarocr.davar_rcg.models.builder import build_recognizor
 
 from davarocr.davar_spotting.models.builder import build_spotter
 
-from davarocr.davar_ner.models.builder import build_ner
 
 
 def parse_args():
@@ -220,7 +219,7 @@ def main():
             train_cfg=cfg.get('train_cfg', None),
             test_cfg=cfg.get('test_cfg', None))
     elif model_type == "NER":
-        model = build_ner(cfg.model,train_cfg=cfg.get('train_cfg', None),test_cfg=cfg.get('test_cfg', None))
+        raise NotImplementedError
     else:
         raise NotImplementedError
 
