@@ -250,7 +250,7 @@ Results on various datasets and trained models download:
 	</tr>
 </table>
 
-Note: Above links are from BaiduYunPan. Models can also be downloaded from [Google Drive](https://drive.google.com/drive/folders/1VLVbdEabCSZ54dNLvbBsMaXV2nrGrx9G?usp=sharing)
+> **Note**: Above links are from BaiduYunPan. Models can also be downloaded from [Google Drive](https://drive.google.com/drive/folders/1VLVbdEabCSZ54dNLvbBsMaXV2nrGrx9G?usp=sharing)
 
 
 ## Citation

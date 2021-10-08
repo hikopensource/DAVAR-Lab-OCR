@@ -196,7 +196,7 @@ Results on various datasets and trained models download:
 	</tr>
 </table>
 
-Note: Above links are from BaiduYunPan. Mdels can also be downloaded from  [Google Drive](https://drive.google.com/drive/folders/1tFtLw1Lm6Lc3ve_wNwrmedJ5dS0HPSh9?usp=sharing)
+> **Note**: Above links are from BaiduYunPan. Mdels can also be downloaded from  [Google Drive](https://drive.google.com/drive/folders/1tFtLw1Lm6Lc3ve_wNwrmedJ5dS0HPSh9?usp=sharing)
 
 
 ## Citation:

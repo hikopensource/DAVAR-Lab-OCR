@@ -52,7 +52,7 @@ Results on various datasets and trained models download:
 | PubTabNet(reported)    | L-768| 96.7      |                   |    |
 | PubTabNet             | 1.5x    | 96.7      | [config](configs/lgpma_pub.py), [pth](https://pan.baidu.com/s/1Z-1gMaiJWbpyn09Biq5YXg ) (Access Code: gygm)| 
 
-Note: Above links are from BaiduYunPan. Models can also be downloaded from [Google Drive](https://drive.google.com/drive/folders/1Ik3KCiSATgOlCK4P5TXnbIMBZDOxrv4V?usp=sharing)
+> **Note**: Above links are from BaiduYunPan. Models can also be downloaded from [Google Drive](https://drive.google.com/drive/folders/1Ik3KCiSATgOlCK4P5TXnbIMBZDOxrv4V?usp=sharing)
 
 > The release model only contains structure-level result. You may use the [text recognition module](../../text_recognition) for the complete result.
 

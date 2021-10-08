@@ -34,7 +34,7 @@ Results on various datasets and trained models can be download as follows:
 | :---------: | :------: | :--------: | :---------: | :--------: | :------: | :---: |
 | Wildreceipt | ResNet50 |  ImageNet  | (512, 512)  | (512, 512) |  87.08   |  [config](./configs/wildreceipt_gt_trie.py), [pth](https://pan.baidu.com/s/1TO8dtZ7HrCQrycOLAy5frg) (Access Code:parf)     |
 
-Note: Above links are from BaiduYunPan. Models can also be downloaded from [Google Drive](https://drive.google.com/drive/folders/1RWZJsYDYTzH7PjL48bbjBgy2BCfe0WRn?usp=sharing)
+> **Note**: Above links are from BaiduYunPan. Models can also be downloaded from [Google Drive](https://drive.google.com/drive/folders/1RWZJsYDYTzH7PjL48bbjBgy2BCfe0WRn?usp=sharing)
 
 
 ## Citation

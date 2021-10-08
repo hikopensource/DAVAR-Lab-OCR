@@ -50,9 +50,10 @@ Results on various datasets and trained models download:
 | SCUT-CTW1500  (considers NOT CARE) | ResNet-50-3stages-enlarge| SynthText  |   L-1250 | 85.9      | 83.6   | 84.7  | [config](config/tp_det_r50_3stages_enlarge_ctw.py), [pth](https://pan.baidu.com/s/1HfYLzuybdqDTChbPYuCgrg ) (Access Code: t2z9)|
 | SCUT-CTW1500                       | ResNet-50                | SynthText+IC17, [pth](https://pan.baidu.com/s/17lnY0shAtvDlHZXz_E1vSQ) (Access Code: 8dn0)|  L-1250 |  87.7 | 79.8 | 83.6| [config](config/tp_det_r50.py), [pth](https://pan.baidu.com/s/1dZ2Pa-I0JE3bNPUDGL70wA)(Access Code: duuo)|
 | SCUT-CTW1500  (considers NOT CARE) | ResNet-50                | SynthText+IC17, [pth](https://pan.baidu.com/s/17lnY0shAtvDlHZXz_E1vSQ) (Access Code: 8dn0)|   L-1250 | 87.5 | 84.5 | 85.9| [config](config/tp_det_r50.py), [pth](https://pan.baidu.com/s/1dZ2Pa-I0JE3bNPUDGL70wA)(Access Code: duuo)|
+
 > The original SCUT-CTW1500 was released to only support text detection task, where all text instances are considered. When this dataset was used in text spotting task, some instances (blurred or in other languages) were labeled as not care.   
 
-Note: Above links are from BaiduYunPan. Models can also be downloaded from [Google Drive](https://drive.google.com/drive/folders/1BuIt7fhzCh3kFXEVbtR1MS-kYVXmjsNq?usp=sharing)
+> **Note**: Above links are from BaiduYunPan. Models can also be downloaded from [Google Drive](https://drive.google.com/drive/folders/1BuIt7fhzCh3kFXEVbtR1MS-kYVXmjsNq?usp=sharing)
 
 ## Citation
 

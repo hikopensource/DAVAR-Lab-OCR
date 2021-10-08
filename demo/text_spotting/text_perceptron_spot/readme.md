@@ -187,7 +187,7 @@ Results on various datasets and trained models download:
 	</tr>
 </table>
 
-Note: Above links are from BaiduYunPan. Models can also be downloaded from [Google Drive](https://drive.google.com/drive/folders/1xQXdHRvBNmm2J7jt5zkDAfQ7Xw54COr9?usp=sharing)
+> **Note**: Above links are from BaiduYunPan. Models can also be downloaded from [Google Drive](https://drive.google.com/drive/folders/1xQXdHRvBNmm2J7jt5zkDAfQ7Xw54COr9?usp=sharing)
 
 ## Citation:
 
