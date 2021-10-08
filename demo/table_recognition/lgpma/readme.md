@@ -47,10 +47,12 @@ All of the models are re-implemented and well trained in the based on the openso
 
 Results on various datasets and trained models download:
 
-| Dataset                | Test Scale     | TEDS-struc| Links(BaiduYunPan)       | Links (Google Drive) |
-|-----------------------|----------------|-----------|-------------------|------|
+| Dataset                | Test Scale     | TEDS-struc| Links |
+|-----------------------|----------------|-----------|----------------------|
 | PubTabNet(reported)    | L-768| 96.7      |                   |    |
-| PubTabNet             | 1.5x    | 96.7      | [config](configs/lgpma_pub.py), [pth](https://pan.baidu.com/s/1Z-1gMaiJWbpyn09Biq5YXg ) (Access Code: gygm)| [pth](https://drive.google.com/drive/folders/1Ik3KCiSATgOlCK4P5TXnbIMBZDOxrv4V?usp=sharing)|
+| PubTabNet             | 1.5x    | 96.7      | [config](configs/lgpma_pub.py), [pth](https://pan.baidu.com/s/1Z-1gMaiJWbpyn09Biq5YXg ) (Access Code: gygm)| 
+
+Note: Above links are from BaiduYunPan. Models can also be downloaded from [Google Drive](https://drive.google.com/drive/folders/1Ik3KCiSATgOlCK4P5TXnbIMBZDOxrv4V?usp=sharing)
 
 > The release model only contains structure-level result. You may use the [text recognition module](../../text_recognition) for the complete result.
 

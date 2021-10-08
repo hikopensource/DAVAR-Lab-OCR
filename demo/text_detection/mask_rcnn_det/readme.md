@@ -47,8 +47,11 @@ Results on various datasets and trained models download:
 | SCUT-CTW1500 (considers NOT CARE)  | ResNet-101| COCO   |  L-1080|   | 87.24     | 79.22  | 83.04 | -        |
 | ICDAR 2015            | ResNet-50 | COCO       |  L-1600| 89.19     | 77.03     | 82.67 |[config](config/mask_rcnn_r101_ctw.py), [pth](https://pan.baidu.com/s/1VzKduWXSqMhmvX6YFmlCJQ) (Access Code: k17n)|
 | ICDAR 2015            | ResNet-101 | COCO       | L-1600| 90.43     | 75.11     | 82.06|[config](config/mask_rcnn_r101_ctw.py), [pth](https://pan.baidu.com/s/1VzKduWXSqMhmvX6YFmlCJQ) (Access Code: k17n)|
-> Note: Models are stored in BaiduYunPan, and can also be downloaded from [Google Drive](https://drive.google.com/drive/folders/1w2cwYiuneb2qRM3e-82pylIUqGr8hs0d?usp=sharing)
+
+Note: Above links are from BaiduYunPan. Models can also be downloaded from [Google Drive](https://drive.google.com/drive/folders/1w2cwYiuneb2qRM3e-82pylIUqGr8hs0d?usp=sharing)
+
 > Pretrained model on COCO can be download in the repository of [mmdetection/mask_rcnn](https://github.com/open-mmlab/mmdetection/tree/master/configs/mask_rcnn).
+
 
 ## Citation
 
