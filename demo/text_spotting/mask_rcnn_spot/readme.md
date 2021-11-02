@@ -13,7 +13,7 @@ The formatted training datalists can be found in [`demo/text_spotting/datalist`]
 ## Train On Your Own Dataset
 1.Download the pre-trained model (well trained on SynthText and COCO-Text), [[link](https://pan.baidu.com/s/1PdCalgmaIqRw28WuaDxDNg) (Access Code: et32)]
 
-2.Modified the paths (`ann_file`, `img_prefix`, `work_dir`, etc..) in the config files [`demo/text_spotting/mask_rcnn_spot/config/mask_rcnn_r50_conv6_e2e_finetune.py`](./configs/mask_rcnn_r50_conv6_e2e_finetune.py).
+2.Modified the paths (`ann_file`, `img_prefix`, `work_dir`, etc..) in the config files [`demo/text_spotting/mask_rcnn_spot/config/mask_rcnn_r50_conv6_e2e_finetune_ic13.py`](./configs/mask_rcnn_r50_conv6_e2e_finetune_ic13.py).
 
 3.Run the following bash command in the command line
 ``` shell
@@ -27,7 +27,7 @@ If you want to re-implement the model's performance from scratch, please followi
 
 1.End-to-End pre-training using the SynthText and COCO-Text. See [`demo/text_spotting/mask_rcnn_spot/configs/mask_rcnn_r50_conv6_e2e_pretrain.py`](./configs/mask_rcnn_r50_conv6_e2e_pretrain.py) for more details.
 
-2.Fine-tune model on the mixed real dataset (include:ICADR2013, ICDAR2015, ICDAR2017-MLT, Total-Text). See [`demo/text_spotting/mask_rcnn_spot/configs/mask_rcnn_r50_conv6_e2e_finetune.py`](./configs/mask_rcnn_r50_conv6_e2e_finetune.py) for more details.
+2.Fine-tune model on the mixed real dataset (include:ICADR2013, ICDAR2015, ICDAR2017-MLT, Total-Text). See [`demo/text_spotting/mask_rcnn_spot/configs/mask_rcnn_r50_conv6_e2e_finetune_ic13.py`](./configs/mask_rcnn_r50_conv6_e2e_finetune_ic13.py) for more details.
 
 >Notice:We provide the implementation of online validation, if you want to close it to save training time, you may modify the startup script to add `--no-validate` command.
 
@@ -54,8 +54,8 @@ Some visualization results are shown:
 
 ## Trained Model Download
 All of the models are re-implemented and well trained in the based on the opensourced framework mmdetection.
->Note: The following trained model based on [mask_rcnn_r50_fpn+res32+bilstm+attention](./configs/mask_rcnn_r50_r32_e2e_finetune.py) 
->uses only synthtext pre-training, and does not use random crop, color jitter, mix-train strategy, so the reported performance is slightly worse than that of [mask_rcnn_r50_fpn+conv6+bilstm+attention](./configs/mask_rcnn_r50_conv6_e2e_finetune.py).
+>Note: The following trained model based on [mask_rcnn_r50_fpn+res32+bilstm+attention](./configs/mask_rcnn_r50_r32_e2e_pretrain.py) 
+>uses only synthtext pre-training, and does not use random crop, color jitter, mix-train strategy, so the reported performance is slightly worse than that of [mask_rcnn_r50_fpn+conv6+bilstm+attention](./configs/mask_rcnn_r50_conv6_e2e_pretrain.py).
 
 Results on various datasets and trained models download:
 <table>
@@ -67,12 +67,12 @@ Results on various datasets and trained models download:
 	<tr>
 		<td>mask_rcnn_r50_fpn+conv6+bilstm+attention</td>
 		<td>SynthText<br>COCO-Text</td>
-		<td><p><a href="./configs/mask_rcnn_r50_conv6_e2e_finetune.py">cfg </a>, <a href="https://pan.baidu.com/s/1zu4gQXV18wtYs1hDWC3Igw">pth </a> (Access Code: hayl)</p></td>
+		<td><p><a href="./configs/mask_rcnn_r50_conv6_e2e_pretrain.py">cfg </a>, <a href="https://pan.baidu.com/s/1zu4gQXV18wtYs1hDWC3Igw">pth </a> (Access Code: hayl)</p></td>
 	</tr>
 	<tr>
 		<td>mask_rcnn_r50_fpn+res32+bilstm+attention</td>
 		<td>SynthText</td>
-		<td><p><a href="./configs/mask_rcnn_r50_r32_e2e_finetune.py">cfg </a>, <a href="https://pan.baidu.com/s/1HyUQXIoNmmq3tZnQIatEJQ">pth </a> (Access Code: jy0w)</p></td>
+		<td><p><a href="./configs/mask_rcnn_r50_r32_e2e_pretrain.py">cfg </a>, <a href="https://pan.baidu.com/s/1HyUQXIoNmmq3tZnQIatEJQ">pth </a> (Access Code: jy0w)</p></td>
 	</tr>
 </table>
 
@@ -107,7 +107,7 @@ Results on various datasets and trained models download:
 		<td>85.6</td>
 		<td>89.9</td>
 		<td>90.5</td>
-		<td><p><a href="./configs/mask_rcnn_r50_conv6_e2e_finetune.py">cfg </a>, <a href="https://pan.baidu.com/s/1lxHmm5tN5nYoAeLDsa2qVw">pth </a> (Access Code: hu7s)</p></td>
+		<td><p><a href="./configs/mask_rcnn_r50_conv6_e2e_finetune_ic13.py">cfg </a>, <a href="https://pan.baidu.com/s/1lxHmm5tN5nYoAeLDsa2qVw">pth </a> (Access Code: hu7s)</p></td>
 	</tr>
 	<tr>
 		<td>ICDAR2013</td>
@@ -121,7 +121,7 @@ Results on various datasets and trained models download:
 		<td>86.1</td>
 		<td>90.4</td>
 		<td>91.1</td>
-		<td><p><a href="./configs/mask_rcnn_r50_r32_e2e_finetune.py">cfg </a>, <a href="https://pan.baidu.com/s/104Ggdtk1VJfd4Gfc0Y862A">pth </a> (Access Code: eify)</p></td>
+		<td><p><a href="./configs/mask_rcnn_r50_r32_e2e_finetune_ic13.py">cfg </a>, <a href="https://pan.baidu.com/s/104Ggdtk1VJfd4Gfc0Y862A">pth </a> (Access Code: eify)</p></td>
 	</tr>
 	<tr>
 		<td>ICDAR2015</td>
@@ -135,7 +135,7 @@ Results on various datasets and trained models download:
 		<td>66.7</td>
 		<td>78.1</td>
 		<td>81.7</td>
-		<td><p><a href="./configs/mask_rcnn_r50_conv6_e2e_finetune.py">cfg </a>, <a href="https://pan.baidu.com/s/1lxHmm5tN5nYoAeLDsa2qVw">pth </a> (Access Code: hu7s)</p></td>
+		<td><p><a href="./configs/mask_rcnn_r50_conv6_e2e_finetune_ic15.py">cfg </a>, <a href="https://pan.baidu.com/s/1lxHmm5tN5nYoAeLDsa2qVw">pth </a> (Access Code: hu7s)</p></td>
 	</tr>
 	<tr>
 		<td>ICDAR2015</td>
@@ -149,7 +149,7 @@ Results on various datasets and trained models download:
 		<td>63.5</td>
 		<td>75.0</td>
 		<td>79.1</td>
-		<td><p><a href="./configs/mask_rcnn_r50_r32_e2e_finetune.py">cfg </a>, <a href="https://pan.baidu.com/s/1OIWbSi84azMTcu8UQtFWdQ">pth </a> (Access Code: q747)</p></td>
+		<td><p><a href="./configs/mask_rcnn_r50_r32_e2e_finetune_ic15.py">cfg </a>, <a href="https://pan.baidu.com/s/1OIWbSi84azMTcu8UQtFWdQ">pth </a> (Access Code: q747)</p></td>
 	</tr>
 </table>
 
@@ -180,7 +180,7 @@ Results on various datasets and trained models download:
 		<td>72.2</td>
 		<td>66.1</td>
 		<td>76.5</td>
-		<td><p><a href="./configs/mask_rcnn_r50_conv6_e2e_finetune.py">cfg </a>, <a href="https://pan.baidu.com/s/1lxHmm5tN5nYoAeLDsa2qVw">pth </a> (Access Code: hu7s)</p></td>
+		<td><p><a href="./configs/mask_rcnn_r50_conv6_e2e_finetune_tt.py">cfg </a>, <a href="https://pan.baidu.com/s/1lxHmm5tN5nYoAeLDsa2qVw">pth </a> (Access Code: hu7s)</p></td>
 	</tr>
 	<tr>
 		<td>Total-Text</td>
@@ -192,7 +192,7 @@ Results on various datasets and trained models download:
 		<td>71.5</td>
 		<td>65.2</td>
 		<td>75.8</td>
-		<td><p><a href="./configs/mask_rcnn_r50_r32_e2e_finetune.py">cfg </a>, <a href="https://pan.baidu.com/s/1IP8K2uk033fD9xsT-alTDw">pth </a> (Access Code: o66n)</p></td>
+		<td><p><a href="./configs/mask_rcnn_r50_r32_e2e_finetune_tt.py">cfg </a>, <a href="https://pan.baidu.com/s/1IP8K2uk033fD9xsT-alTDw">pth </a> (Access Code: o66n)</p></td>
 	</tr>
 </table>
 

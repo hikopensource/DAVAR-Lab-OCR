@@ -11,7 +11,7 @@ The formatted training datalist and test datalist can be found in [`demo/text_sp
 ## Train On Your Own Dataset
 1.Download the pre-trained model (well trained on SynthText and COCO-Text), [[link](https://pan.baidu.com/s/1KDWKlhU3s1WcKBBpKw9leA) (Access Code: hnda)]
 
-2.Modified the paths (`ann_file`, `img_prefix`, `work_dir`, etc..) in the config files [`demo/text_spotting/text_perceptron_spot/config/tp_r50_e2e_finetune.py`](./configs/tp_r50_e2e_finetune.py).
+2.Modified the paths (`ann_file`, `img_prefix`, `work_dir`, etc..) in the config files [`demo/text_spotting/text_perceptron_spot/config/tp_r50_e2e_finetune_ic13.py`](./configs/tp_r50_e2e_finetune_ic13.py).
 
 3.Run the following bash command in the command line
 ``` shell
@@ -25,7 +25,7 @@ If you want to re-implement the model's performance from scratch, please followi
 
 1.End-to-End pre-training using the SynthText and COCO-Text. See [`demo/text_spotting/text_perceptron_spot/configs/tp_r50_e2e_pretrain.py`](./configs/tp_r50_e2e_pretrain.py) for more details.
 
-2.Fine-tune model on the mixed real dataset (include:ICADR2013, ICDAR2015, ICDAR2017-MLT, Total-Text). See [`demo/text_spotting/text_perceptron_spot/configs/tp_r50_e2e_finetune.py`](./configs/tp_r50_e2e_finetune.py) for more details.
+2.Fine-tune model on the mixed real dataset (include:ICADR2013, ICDAR2015, ICDAR2017-MLT, Total-Text). See [`demo/text_spotting/text_perceptron_spot/configs/tp_r50_e2e_finetune_ic13.py`](./configs/tp_r50_e2e_finetune_ic13.py) for more details.
 
 >Notice:We provide the implementation of online validation, if you want to close it to save training time, you may modify the startup script to add `--no-validate` command.
 
@@ -112,7 +112,7 @@ Results on various datasets and trained models download:
 		<td>90.9</td>
 		<td>93.8</td>
 		<td>94.2</td>
-		<td><p><a href="./configs/tp_r50_e2e_finetune.py">cfg </a>, <a href="https://pan.baidu.com/s/1U7CDtbTTpZ11zw0Vg7zYYA">pth </a> (Access Code: 20bj)</p></td>
+		<td><p><a href="./configs/tp_r50_e2e_finetune_ic13.py">cfg </a>, <a href="https://pan.baidu.com/s/1U7CDtbTTpZ11zw0Vg7zYYA">pth </a> (Access Code: 20bj)</p></td>
 	</tr>
 	<tr>
 		<td>ICDAR2015<br>(Reported)</td>
@@ -140,7 +140,7 @@ Results on various datasets and trained models download:
 		<td>70.8</td>
 		<td>79.8</td>
 		<td>83.2</td>
-		<td><p><a href="./configs/tp_r50_e2e_finetune.py">cfg </a>, <a href="https://pan.baidu.com/s/1U7CDtbTTpZ11zw0Vg7zYYA">pth </a> (Access Code: 20bj)</p></td>
+		<td><p><a href="./configs/tp_r50_e2e_finetune_ic15.py">cfg </a>, <a href="https://pan.baidu.com/s/1U7CDtbTTpZ11zw0Vg7zYYA">pth </a> (Access Code: 20bj)</p></td>
 	</tr>
 </table>
 
@@ -183,7 +183,7 @@ Results on various datasets and trained models download:
 		<td>77.3</td>
 		<td>73.9</td>
 		<td>81.8</td>
-		<td><p><a href="./configs/tp_r50_e2e_finetune.py">cfg </a>, <a href="https://pan.baidu.com/s/1U7CDtbTTpZ11zw0Vg7zYYA">pth </a> (Access Code: 20bj)</p></td>
+		<td><p><a href="./configs/tp_r50_e2e_finetune_tt.py">cfg </a>, <a href="https://pan.baidu.com/s/1U7CDtbTTpZ11zw0Vg7zYYA">pth </a> (Access Code: 20bj)</p></td>
 	</tr>
 </table>
 
