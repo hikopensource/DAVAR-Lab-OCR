@@ -1,7 +1,7 @@
 """
 ####################################################################################################
 # Copyright Info :    Copyright (c) Davar Lab @ Hikvision Research Institute. All rights reserved.
-# Filename       :    mango_r50_ete_finetune.py
+# Filename       :    mango_r50_ete_finetune_ic13.py
 # Abstract       :    Model settings for mango end-to-end train on realdata.
 
 # Current Version:    1.0.0
@@ -15,7 +15,13 @@ text_max_length = 25
 model = dict(
     multi_mask_att_head=dict(
         loss_char_mask_att=None
-    )
+    ),
+    test_cfg=dict(
+        postprocess=dict(
+            seg_thr=0.1,
+            cate_thr=0.1,
+        ),
+    ),
 )
 
 img_norm_cfg = dict(mean=[123.675, 116.28, 103.53], std=[58.395, 57.12, 57.375], to_rgb=True)
@@ -38,6 +44,21 @@ train_pipeline = [
     dict(type='Pad', size_divisor=32),
     dict(type='DavarDefaultFormatBundle'),
     dict(type='DavarCollect', keys=['img', 'gt_poly_bboxes', 'gt_texts']),
+]
+
+test_pipeline = [
+    dict(type='DavarLoadImageFromFile'),
+    dict(
+        type='MultiScaleFlipAug',
+        img_scale=(1440, 960),
+        flip=False,
+        transforms=[
+            dict(type='Resize', keep_ratio=True),
+            dict(type='Normalize', **img_norm_cfg),
+            dict(type='Pad', size_divisor=32),
+            dict(type='ImageToTensor', keys=['img']),
+            dict(type='DavarCollect', keys=['img']),
+        ])
 ]
 
 data = dict(
@@ -67,6 +88,7 @@ data = dict(
     test=dict(
         ann_file='/path/to/datalist/icdar2013_test_datalist.json',
         img_prefix='/path/to/ICDAR2013-Focused-Scene-Text/',
+        pipeline=test_pipeline
     )
 )
 optimizer=dict(lr=1e-3)

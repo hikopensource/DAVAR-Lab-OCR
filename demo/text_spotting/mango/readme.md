@@ -28,7 +28,7 @@ If you want to re-implement the model's performance from scratch, please followi
 2.Secondly, end-to-end training using the SynthText and SynthCurve containing only word-level annotations. See `demo/text_spotting/mango/configs/mango_r50_ete_pretrain.py` for more details.
 > Notice:At the beginning of training, attention module and recognition module are trained together to prevent attention module from collapsing. The pretrained model is provided as mentioned above.
 
-3.Thirdly, Fine-tune model on the mixed real dataset (include:ICADR2013~2019, Total-Text). See `demo/text_spotting/mango/configs/mango_r50_ete_finetune.py` for more details.
+3.Thirdly, Fine-tune model on the mixed real dataset (include:ICADR2013~2019, Total-Text). See `demo/text_spotting/mango/configs/mango_r50_ete_finetune_ic13.py` for more details.
 
 4.Finally, Fine-tune on the ICDAR2013, ICDAR2015 and Total-Text separately for testing and evaluation.
 >Notice:Fine-tune on the ICDAR2015 with num_gird=60, and on the ICDAR2013 and Total-Text with num_grid=40
