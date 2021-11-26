@@ -8,7 +8,7 @@ Original images can be downloaded from: [pubtabnet](https://developer.ibm.com/ex
 
 The test datalist and the example of formatted training datalist can be found in `demo/table_recognition/datalist/`
 
-The whole formatted training datalist can be downloaded from: [PubTabNet_train_datalist_all.json](https://pan.baidu.com/s/1ubUre07SybTml9UF6wyZ-A) [extraction code is 7gto].
+The whole formatted training/validating datalist can be downloaded from: [PubTabNet_train_datalist_all.json](https://pan.baidu.com/s/1ubUre07SybTml9UF6wyZ-A) (Access Code: 7gto].  [PubTabNet_2.0.0_val.jsonl](https://pan.baidu.com/s/1-A4JfK_SR45v649gW5KkYw) (Access Code: mlp2). You may also download from [Google Drive](https://drive.google.com/drive/folders/1Ik3KCiSATgOlCK4P5TXnbIMBZDOxrv4V?usp=sharing).
 
 ## Training
 Modified the paths of "ann_file", "img_prefix", "pretrained_model" and "work_space" in the config files `demo/table_recognition/lgpma/config/lgpma_pub.py`.
