@@ -1,7 +1,6 @@
 import mmcv
-from davarocr.davar_videotext.apis import inference_model
 from davarocr.davar_videotext.tools import test_utils
-from davarocr.davar_common.apis import init_model
+from davarocr.davar_common.apis import init_model, inference_model
 import cv2
 import time
 import json
