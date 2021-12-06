@@ -89,7 +89,7 @@ if __name__ == '__main__':
             pre_features = final_result['pre_features']
             img_metas = final_result['img_metas']
         else:
-            final_result = inference_model(model, imgs[-1])
+            final_result = inference_model(model, [imgs[-1]])
             pre_features = pre_features[1:]
             img_metas = img_metas[1:]
             pre_features = torch.cat((pre_features, final_result['pre_features']), dim=0)

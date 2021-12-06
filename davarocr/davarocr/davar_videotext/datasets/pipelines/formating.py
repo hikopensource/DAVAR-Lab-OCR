@@ -51,12 +51,18 @@ class ConsistCollect(DavarCollect):
 
         # Deal with one sample when data loader call 'get_item' func which only return one sample
         if isinstance(results, dict):
+            for key in self.meta_keys:
+                if key in results['img_info']:
+                    results[key] = results['img_info'][key]
             data = super().__call__(results)
 
         # Deal with multi samples when data loader call 'get_item' func which return multi samples
         elif isinstance(results, list):
             data = []
             for instance in results:
+                for key in self.meta_keys:
+                    if key in results['img_info']:
+                        results[key] = results['img_info'][key]
                 instance = super().__call__(instance)
                 data.append(instance)
         else:
