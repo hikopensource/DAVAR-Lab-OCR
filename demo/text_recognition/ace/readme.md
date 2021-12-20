@@ -121,7 +121,7 @@ bash ./test_ace.sh
         <td><center> 71.9 </center></td>
         <td><center> 77.1 </center></td>
         <td><center><p><a href="./configs/res32_ace.py"> Config </a></p></center></td>
-        <td><center><p> pth<a href="https://pan.baidu.com/s/1j__kSmlFLYZXGabsqpZKQQ"> BaiduYunPan </a>(Code:brey),<a href="https://drive.google.com/drive/folders/1gplNfTC4bbiAsQVDSnlttIZ0F1ASsZbj?usp=sharing"> Google Drive </a> </p></center></td>
+        <td><center><p> pth <a href="https://one.hikvision.com/#/link/JMY7vYXkJmdCCahm2GPe"> [Link] </a>(Access Code: 2glz) </p></center></td>
 	<tr>
 <table>
 

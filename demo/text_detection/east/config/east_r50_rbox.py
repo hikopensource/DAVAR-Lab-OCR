@@ -95,6 +95,7 @@ data = dict(
         ),
     test=dict(
         type=dataset_type,
+        samples_per_gpu=1,
         ann_file='/path/to/datalist/icdar2015_test_datalist.json',
         img_prefix='/path/to/ICDAR2015',
         pipeline=test_pipeline

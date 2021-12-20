@@ -8,10 +8,13 @@
 # Date           :    2021-05-01
 ##################################################################################################
 """
-from .general import GeneralRecognizor
-from .rf_learning import RFLRecognizor
+from .backbones import *
+from .losses import *
+from .sequence_heads import *
+from .transformations import *
+from .recognizors import *
+from .connects import *
 
-__all__ = [
-    'GeneralRecognizor',
-    'RFLRecognizor',
-]
+from .builder import (TRANSFORMATIONS, RECOGNIZORS)
+from .builder import (build_transformation, build_recognizor)
+

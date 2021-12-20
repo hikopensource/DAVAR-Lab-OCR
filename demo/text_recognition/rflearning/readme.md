@@ -128,7 +128,7 @@ bash ./train.sh
         <td><center> 86.7 </center></td>
         <td><center> 88.2 </center></td>
         <td><center><p><a href="./configs/res32_bilstm_visual.py"> Config </a></p></center></td>
-        <td><center><p> pth <a href="https://pan.baidu.com/s/1nS4-s6TZdZM0LYXLQHy-TQ">BaiduYunPan </a> (Code:opjk),  <a href="https://drive.google.com/drive/folders/15n5b5XptYtvgZ3MfBpVpNoyNviJuknPb?usp=sharing">Google Drive </a> </p></center></td>
+        <td><center><p> pth <a href="https://one.hikvision.com/#/link/J5HJY06LgDcutqiOZVFa"> [Link]</a> (Access Code: IE7A)</p></center></td>
 	<tr>
     <tr>
         <td><center> RF-Learning total(Report) </center></td>
@@ -152,7 +152,7 @@ bash ./train.sh
         <td><center> 82.0 </center></td>
         <td><center> 84.7 </center></td>
         <td><center><p><a href="./configs/res32_bilstm_attn.py"> Config </a></p></center></td>
-         <td><center><p> pth <a href="https://pan.baidu.com/s/1nS4-s6TZdZM0LYXLQHy-TQ">BaiduYunPan </a> (Code:opjk),  <a href="https://drive.google.com/drive/folders/1l-49Gl-R1nW5MYjqoEjvFgvibJbISSYx?usp=sharing">Google Drive </a> </p></center></td>
+         <td><center><p> pth <a href="https://one.hikvision.com/#/link/fziDiQSKw2LUM226mHPN"> [Link] </a> (Access Code: S02V)</p></center></td>
 	<tr>
 <table>
 

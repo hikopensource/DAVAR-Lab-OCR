@@ -32,9 +32,8 @@ Results on various datasets and trained models can be download as follows:
 
 |   Dataset   | Backbone | Pretrained | Train Scale | Test Scale | F1-score | Links |
 | :---------: | :------: | :--------: | :---------: | :--------: | :------: | :---: |
-| Wildreceipt | ResNet50 |  ImageNet  | (512, 512)  | (512, 512) |  87.08   |  [config](./configs/wildreceipt_gt_trie.py), [pth](https://pan.baidu.com/s/1TO8dtZ7HrCQrycOLAy5frg) (Access Code:parf)     |
+| Wildreceipt | ResNet50 |  ImageNet  | (512, 512)  | (512, 512) |  87.08   |  [config](./configs/wildreceipt_gt_trie.py), [pth](https://one.hikvision.com/#/link/J9ON6sW8PTxrF0RuWL3a) (Access Code:0od6)     |
 
-> **Note**: Above links are from BaiduYunPan. Models can also be downloaded from [Google Drive](https://drive.google.com/drive/folders/1RWZJsYDYTzH7PjL48bbjBgy2BCfe0WRn?usp=sharing)
 
 
 ## Citation

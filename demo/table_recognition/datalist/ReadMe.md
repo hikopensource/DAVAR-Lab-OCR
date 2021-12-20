@@ -7,6 +7,8 @@ PubTabNet_train_datalist.json: The formated annotation of training dataset in Pu
 
 PubTabNet_train_datalist_examples.json: Exapmles of PubTabNet_train_datalist.json.
 
+Datalists can be downloaded from [link](https://one.hikvision.com/#/link/FwYq7B0aXzovYhSwNykT) (Access Code：oX9V)
+
 #### annotation example：
 ``` markdown
 {

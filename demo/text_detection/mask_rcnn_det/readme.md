@@ -39,16 +39,15 @@ Results on various datasets and trained models download:
 
 |   Dataset             | Backbone  | Pretrained |Test Scale| Precision | Recall | Hmean | Links               |
 | --------------------- |---------- | ---------- | ----     |--------- | ------ | ----- | ------------------- |
-| Total-Text            | ResNet-50 |  COCO      | L-1350| 84.90     | 82.26  | 83.56 | [config](config/mask_rcnn_r50_fpn_tt.py), [pth](https://pan.baidu.com/s/1VzKduWXSqMhmvX6YFmlCJQ) (Access Code: k17n)         |
-| Total-Text            | ResNet-101|  COCO      |  L-1350|86.55     | 81.90  | 84.16 | [config](config/mask_rcnn_r101_fpn_tt.py), [pth](https://pan.baidu.com/s/1VzKduWXSqMhmvX6YFmlCJQ) (Access Code: k17n)         |
-| SCUT-CTW1500          | ResNet-50 |  COCO      |  L-1080|83.22     | 77.15  | 80.07 | [config](config/mask_rcnn_r50_fpn_ctw.py), [pth](https://pan.baidu.com/s/1VzKduWXSqMhmvX6YFmlCJQ) (Access Code: k17n)         |
+| Total-Text            | ResNet-50 |  COCO      | L-1350| 84.90     | 82.26  | 83.56 | [config](config/mask_rcnn_r50_fpn_tt.py), [pth](https://one.hikvision.com/#/link/Fdzu9SzkKHGYVmtx4eV7) (Access Code: 8cJC)         |
+| Total-Text            | ResNet-101|  COCO      |  L-1350|86.55     | 81.90  | 84.16 | [config](config/mask_rcnn_r101_fpn_tt.py), [pth](https://one.hikvision.com/#/link/b76tFxVKRBv6d5dtwdtw) (Access Code: 2WGB)         |
+| SCUT-CTW1500          | ResNet-50 |  COCO      |  L-1080|83.22     | 77.15  | 80.07 | [config](config/mask_rcnn_r50_fpn_ctw.py), [pth](https://one.hikvision.com/#/link/Mjtuk0j7m2KdfgsKIZ6P) (Access Code: Twdg)         |
 | SCUT-CTW1500 (considers NOT CARE)  | ResNet-50 |  COCO  |  L-1080|   | 87.65     | 77.63  | 82.33 | -       |
-| SCUT-CTW1500          | ResNet-101 |  COCO     |  L-1080| 82.76     | 78.7  | 80.68 | [config](config/mask_rcnn_r101_ctw.py), [pth](https://pan.baidu.com/s/1VzKduWXSqMhmvX6YFmlCJQ) (Access Code: k17n)        |
+| SCUT-CTW1500          | ResNet-101 |  COCO     |  L-1080| 82.76     | 78.7  | 80.68 | [config](config/mask_rcnn_r101_fpn_ctw.py), [pth](https://one.hikvision.com/#/link/gz2Qn2GkqenZQRn5Bjej) (Access Code: kKeQ)        |
 | SCUT-CTW1500 (considers NOT CARE)  | ResNet-101| COCO   |  L-1080|   | 87.24     | 79.22  | 83.04 | -        |
-| ICDAR 2015            | ResNet-50 | COCO       |  L-1600| 89.19     | 77.03     | 82.67 |[config](config/mask_rcnn_r101_ctw.py), [pth](https://pan.baidu.com/s/1VzKduWXSqMhmvX6YFmlCJQ) (Access Code: k17n)|
-| ICDAR 2015            | ResNet-101 | COCO       | L-1600| 90.43     | 75.11     | 82.06|[config](config/mask_rcnn_r101_ctw.py), [pth](https://pan.baidu.com/s/1VzKduWXSqMhmvX6YFmlCJQ) (Access Code: k17n)|
+| ICDAR 2015            | ResNet-50 | COCO       |  L-1600| 89.19     | 77.03     | 82.67 |[config](config/mask_rcnn_r50_fpn_ctw.py), [pth](https://one.hikvision.com/#/link/fTkt67MegLACjUUXxwWb) (Access Code: wg46)|
+| ICDAR 2015            | ResNet-101 | COCO       | L-1600| 90.43     | 75.11     | 82.06|[config](config/mask_rcnn_r101_fpn_ctw.py), [pth](https://one.hikvision.com/#/link/C27tt77RFkYWrpQFQ98y) (Access Code: 0qt1)|
 
-> **Note**: Above links are from BaiduYunPan. Models can also be downloaded from [Google Drive](https://drive.google.com/drive/folders/1w2cwYiuneb2qRM3e-82pylIUqGr8hs0d?usp=sharing)
 
 > Pretrained model on COCO can be download in the repository of [mmdetection/mask_rcnn](https://github.com/open-mmlab/mmdetection/tree/master/configs/mask_rcnn).
 

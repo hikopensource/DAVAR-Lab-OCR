@@ -21,7 +21,7 @@ from mmdet.datasets.pipelines import Compose
 from davarocr.davar_common.datasets.davar_custom import DavarCustomDataset
 
 
-@DATASETS.register_module
+@DATASETS.register_module()
 class MultiFrameDataset(DavarCustomDataset):
     """ Implementation of the common video text dataset, which supports tasks of video text detection
 

@@ -136,7 +136,7 @@ bash ./test_scripts/test_gaspin.sh
         <td><center> 80.9 </center></td>
         <td><center> 83.0 </center></td>
         <td><center><p><a href="./configs/affine_res32_attn.py"> Config </a></p></center></td>
-        <td><center><p> pth <a href="https://pan.baidu.com/s/1jt8kb71GP1nrLa1KzRSwFw">BaiduYunPan </a> (Code:4les), <a href="https://drive.google.com/drive/folders/17kJNCRZ79GiVJIDvxcSBTDBmtmp5q-hh?usp=sharing" > Google Drive</a></p></center></td>
+        <td><center><p> pth <a href="https://one.hikvision.com/#/link/JvpdkCUGWnrPFnXzsn8P"> [Link] </a> (Access Code: fwdk)</p></center></td>
 	<tr>
     <tr>
 		<td><center> TPS(Report) </center></td>
@@ -160,7 +160,7 @@ bash ./test_scripts/test_gaspin.sh
         <td><center> 82.6 </center></td>
         <td><center> 83.7 </center></td>
         <td><center><p><a href="./configs/tps_res32_attn.py"> Config </a></p></center></td>
-        <td><center><p> pth <a href="https://pan.baidu.com/s/1H7zr3Kh83Sjpd9SQ5plS7w">BaiduYunPan </a> (Code:a0tx), <a href="https://drive.google.com/drive/folders/1aF4L_0Wp5An_ogC_XdAgYi6CbODvYG4X?usp=sharing" > Google Drive</a></p></center></td>
+        <td><center><p> pth <a href="https://one.hikvision.com/#/link/ccyPeJdRzJ0Gk09jFoeF"> [Link]</a> (Acceess Code: mfgv)</p></center></td>
 	<tr>
     <tr>
 		<td><center> SPIN(Report) </center></td>
@@ -185,7 +185,7 @@ bash ./test_scripts/test_gaspin.sh
         <td><center> 83.7 </center></td>
         <td><center>
             <p><a href="./configs/spin_res32_attn.py"> Config </a></p></center></td>
-        <td><center><p> pth <a href="https://pan.baidu.com/s/17mw2FvNhscABOC7drkqT9g">BaiduYunPan </a> (Code:1vyj), <a href="https://drive.google.com/drive/folders/1AUK1Wt5NbMSeSvl3ttfqfbwl9cRkcetp?usp=sharing" > Google Drive</a></p></center></td>
+        <td><center><p> pth <a href="https://one.hikvision.com/#/link/KL9rvfdi067aYx5Pz96t"> [Link] </a> (Code:T6yW)</p></center></td>
 	<tr>
     <tr>
 		<td><center> GA-SPIN(Report) </center></td>
@@ -210,7 +210,7 @@ bash ./test_scripts/test_gaspin.sh
         <td><center> 84.7 </center></td>
         <td><center>
             <p><a href="./configs/gaspin_res32_attn.py"> Config </a></p></center></td>
-       <td><center><p> pth <a href="https://pan.baidu.com/s/1paseZdViDSAnxoK8A-FPlQ">BaiduYunPan </a> (Code:o4ob), <a href="https://drive.google.com/drive/folders/1-yAU-BIyqk3ouRAkCTf00Gx12apkjNfi?usp=sharing" > Google Drive</a></p></center></td>
+       <td><center><p> pth <a href="https://one.hikvision.com/#/link/BpCvNSim2grIGU6e4oSh"> [Link] </a> (Access Code: Xr19)</p></center></td>
 	<tr>
 <table>
 

@@ -1,5 +1,14 @@
 # Changelog
 
+### v0.3.1  (20/12/2021)
+
+**Highlights**
+
+- Rebuild the directory architecture to fit with mmdetection.
+- Format some of the paths
+- Change all models/datalists' links into Hikvision One, which adapts for people anywhere. 
+
+
 ### v0.3.0  (22/09/2021)
 
 **Highlights**

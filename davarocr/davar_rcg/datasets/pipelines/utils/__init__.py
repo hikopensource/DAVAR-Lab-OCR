@@ -9,7 +9,7 @@
 ##################################################################################################
 """
 from .loading_utils import wordmap_loader, shake_crop, shake_point,\
-    scale_box, scale_box_hori_vert, get_perspective_img, crop_and_transform, rotate_and_crop
+    scale_box, scale_box_hori_vert, get_perspective_img, crop_and_transform, rotate_and_crop, get_two_point_dis, check_point
 
 __all__ = ["wordmap_loader",
 
@@ -21,4 +21,8 @@ __all__ = ["wordmap_loader",
 
            "get_perspective_img",
            "crop_and_transform",
-           "rotate_and_crop"]
+           "rotate_and_crop",
+           'get_two_point_dis',
+           'check_point'
+
+           ]

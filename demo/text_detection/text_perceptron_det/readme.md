@@ -43,17 +43,15 @@ Results on various datasets and trained models download:
 |   Dataset                          | Backbone                 | Pretrained | Test Scale| Precision | Recall | Hmean | Links               |
 | -----------------------------------|--------------------------| ---------- |  --------- | --------- | ------ | ----- | ------------------- |
 | Total-Text (Reported)              | ResNet-50-3stages-enlarge| SynthText  |  L-1350 | 88.1      | 78.9   | 83.3  | -                   |
-| Total-Text                         | ResNet-50-3stages-enlarge| SynthText  |  L-1350 | 89.0      | 81.1   | 84.8  | [config](config/tp_det_r50_3stages_enlarge_tt.py), [pth](https://pan.baidu.com/s/1lEvCgxc-0nEXIdE9GkKcWw ) (Access Code: 2345)|
-| Total-Text                         | ResNet-50                | SynthText+IC17, [pth](https://pan.baidu.com/s/17lnY0shAtvDlHZXz_E1vSQ) (Access Code: 8dn0) | L-1350 |  84.5 | 80.4 | 82.4| [config](config/tp_det_r50.py), [pth](https://pan.baidu.com/s/1HhjysDTI7gMOqDDGk3sbJQ) (Access Code: p692)|
+| Total-Text                         | ResNet-50-3stages-enlarge| SynthText  |  L-1350 | 89.0      | 81.1   | 84.8  | [config](config/tp_det_r50_3stages_enlarge_tt.py), [pth](https://one.hikvision.com/#/link/YFJeIh3Yk2JzCxFA2xGp) (Access Code: SKrH)|
+| Total-Text                         | ResNet-50                | SynthText+IC17, [pth](https://one.hikvision.com/#/link/oiw6xAkItn2vBwAj20w7) (Access Code: O1H3) | L-1350 |  84.5 | 80.4 | 82.4| [config](config/tp_det_r50.py), [pth](https://one.hikvision.com/#/link/wcP5o3FPZxx96Gx9BsYJ) (Access Code: V2Ke)|
 | SCUT-CTW1500 (Reported)            | ResNet-50-3stages-enlarge| SynthText  |  L-1250 | 88.7      | 78.2   | 83.1  | -                   |
-| SCUT-CTW1500                       | ResNet-50-3stages-enlarge| SynthText  |   L-1250 | 86.2      | 79.9   | 82.9  | [config](config/tp_det_r50_3stages_enlarge_ctw.py), [pth](https://pan.baidu.com/s/1HfYLzuybdqDTChbPYuCgrg ) (Access Code: t2z9)|
-| SCUT-CTW1500  (considers NOT CARE) | ResNet-50-3stages-enlarge| SynthText  |   L-1250 | 85.9      | 83.6   | 84.7  | [config](config/tp_det_r50_3stages_enlarge_ctw.py), [pth](https://pan.baidu.com/s/1HfYLzuybdqDTChbPYuCgrg ) (Access Code: t2z9)|
-| SCUT-CTW1500                       | ResNet-50                | SynthText+IC17, [pth](https://pan.baidu.com/s/17lnY0shAtvDlHZXz_E1vSQ) (Access Code: 8dn0)|  L-1250 |  87.7 | 79.8 | 83.6| [config](config/tp_det_r50.py), [pth](https://pan.baidu.com/s/1dZ2Pa-I0JE3bNPUDGL70wA)(Access Code: duuo)|
-| SCUT-CTW1500  (considers NOT CARE) | ResNet-50                | SynthText+IC17, [pth](https://pan.baidu.com/s/17lnY0shAtvDlHZXz_E1vSQ) (Access Code: 8dn0)|   L-1250 | 87.5 | 84.5 | 85.9| [config](config/tp_det_r50.py), [pth](https://pan.baidu.com/s/1dZ2Pa-I0JE3bNPUDGL70wA)(Access Code: duuo)|
+| SCUT-CTW1500                       | ResNet-50-3stages-enlarge| SynthText  |   L-1250 | 86.2      | 79.9   | 82.9  | [config](config/tp_det_r50_3stages_enlarge_ctw.py), [pth](https://one.hikvision.com/#/link/onfucnmQ0DGEggw72i2m) (Access Code: IY7G)|
+| SCUT-CTW1500  (considers NOT CARE) | ResNet-50-3stages-enlarge| SynthText  |   L-1250 | 85.9      | 83.6   | 84.7  | [config](config/tp_det_r50_3stages_enlarge_ctw.py), [pth](https://one.hikvision.com/#/link/onfucnmQ0DGEggw72i2m) (Access Code: IY7G)|
+| SCUT-CTW1500                       | ResNet-50                | SynthText+IC17, [pth](https://one.hikvision.com/#/link/oiw6xAkItn2vBwAj20w7) (Access Code: O1H3)|  L-1250 |  87.7 | 79.8 | 83.6| [config](config/tp_det_r50.py), [pth](https://one.hikvision.com/#/link/PaU57hPMfkUeE7raXUFC) (Access Code: Mv63)|
+| SCUT-CTW1500  (considers NOT CARE) | ResNet-50                | SynthText+IC17, [pth](https://one.hikvision.com/#/link/oiw6xAkItn2vBwAj20w7) (Access Code: O1H3)|   L-1250 | 87.5 | 84.5 | 85.9| [config](config/tp_det_r50.py), [pth](https://one.hikvision.com/#/link/PaU57hPMfkUeE7raXUFC) (Access Code: Mv63)|
 
 > The original SCUT-CTW1500 was released to only support text detection task, where all text instances are considered. When this dataset was used in text spotting task, some instances (blurred or in other languages) were labeled as not care.   
-
-> **Note**: Above links are from BaiduYunPan. Models can also be downloaded from [Google Drive](https://drive.google.com/drive/folders/1BuIt7fhzCh3kFXEVbtR1MS-kYVXmjsNq?usp=sharing)
 
 ## Citation
 

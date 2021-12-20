@@ -11,11 +11,11 @@ Original images can be downloaded from: [Total-Text](https://github.com/cs-chan/
 The formatted training datalists can be found in [`demo/text_spotting/datalist`](../datalist)
 
 ## Train On Your Own Dataset
-1.Download the pre-trained model (well trained on SynthText and COCO-Text), [[link](https://pan.baidu.com/s/1PdCalgmaIqRw28WuaDxDNg) (Access Code: et32)]
+1.Download the pre-trained model, which was well trained on SynthText and COCO-Text.
 
-2.Modified the paths (`ann_file`, `img_prefix`, `work_dir`, etc..) in the config files [`demo/text_spotting/mask_rcnn_spot/config/mask_rcnn_r50_conv6_e2e_finetune_ic13.py`](./configs/mask_rcnn_r50_conv6_e2e_finetune_ic13.py).
+2.Modify the paths (`ann_file`, `img_prefix`, `work_dir`, etc..) in the config files.
 
-3.Run the following bash command in the command line
+3.Modify the paths in training scripting and run the following bash command in the command line
 ``` shell
 cd $DAVAR_LAB_OCR_ROOT$/demo/text_spotting/mask_rcnn_spot/
 bash dist_train.sh
@@ -67,12 +67,12 @@ Results on various datasets and trained models download:
 	<tr>
 		<td>mask_rcnn_r50_fpn+conv6+bilstm+attention</td>
 		<td>SynthText<br>COCO-Text</td>
-		<td><p><a href="./configs/mask_rcnn_r50_conv6_e2e_pretrain.py">cfg </a>, <a href="https://pan.baidu.com/s/1zu4gQXV18wtYs1hDWC3Igw">pth </a> (Access Code: hayl)</p></td>
+		<td><p><a href="./configs/mask_rcnn_r50_conv6_e2e_pretrain.py">cfg </a>, <a href="https://one.hikvision.com/#/link/asT46Ufzfbf7QTvotanK">pth </a> (Access Code: ngPI)</p></td>
 	</tr>
 	<tr>
 		<td>mask_rcnn_r50_fpn+res32+bilstm+attention</td>
 		<td>SynthText</td>
-		<td><p><a href="./configs/mask_rcnn_r50_r32_e2e_pretrain.py">cfg </a>, <a href="https://pan.baidu.com/s/1HyUQXIoNmmq3tZnQIatEJQ">pth </a> (Access Code: jy0w)</p></td>
+		<td><p><a href="./configs/mask_rcnn_r50_r32_e2e_pretrain.py">cfg </a>, <a href="https://one.hikvision.com/#/link/FePvtahwrmJuehAJUYpF">pth </a> (Access Code: QVYc)</p></td>
 	</tr>
 </table>
 
@@ -107,7 +107,7 @@ Results on various datasets and trained models download:
 		<td>85.6</td>
 		<td>89.9</td>
 		<td>90.5</td>
-		<td><p><a href="./configs/mask_rcnn_r50_conv6_e2e_finetune_ic13.py">cfg </a>, <a href="https://pan.baidu.com/s/1lxHmm5tN5nYoAeLDsa2qVw">pth </a> (Access Code: hu7s)</p></td>
+		<td><p><a href="./configs/mask_rcnn_r50_conv6_e2e_finetune_ic13.py">cfg </a>, <a href="https://one.hikvision.com/#/link/FBfSpSYgj3t6vAH7mcgF">pth </a> (Access Code: Vum3)</p></td>
 	</tr>
 	<tr>
 		<td>ICDAR2013</td>
@@ -121,7 +121,7 @@ Results on various datasets and trained models download:
 		<td>86.1</td>
 		<td>90.4</td>
 		<td>91.1</td>
-		<td><p><a href="./configs/mask_rcnn_r50_r32_e2e_finetune_ic13.py">cfg </a>, <a href="https://pan.baidu.com/s/104Ggdtk1VJfd4Gfc0Y862A">pth </a> (Access Code: eify)</p></td>
+		<td><p><a href="./configs/mask_rcnn_r50_r32_e2e_finetune_ic13.py">cfg </a>, </a>, <a href="https://one.hikvision.com/#/link/8YlcUqr0o0LWAz1mdhCN">pth </a> (Access Code: Y266)</p></td>
 	</tr>
 	<tr>
 		<td>ICDAR2015</td>
@@ -135,7 +135,7 @@ Results on various datasets and trained models download:
 		<td>66.7</td>
 		<td>78.1</td>
 		<td>81.7</td>
-		<td><p><a href="./configs/mask_rcnn_r50_conv6_e2e_finetune_ic15.py">cfg </a>, <a href="https://pan.baidu.com/s/1lxHmm5tN5nYoAeLDsa2qVw">pth </a> (Access Code: hu7s)</p></td>
+		<td><p><a href="./configs/mask_rcnn_r50_conv6_e2e_finetune_ic15.py">cfg </a>, <a href="https://one.hikvision.com/#/link/FBfSpSYgj3t6vAH7mcgF">pth </a> (Access Code: Vum3)</p></td>
 	</tr>
 	<tr>
 		<td>ICDAR2015</td>
@@ -149,7 +149,7 @@ Results on various datasets and trained models download:
 		<td>63.5</td>
 		<td>75.0</td>
 		<td>79.1</td>
-		<td><p><a href="./configs/mask_rcnn_r50_r32_e2e_finetune_ic15.py">cfg </a>, <a href="https://pan.baidu.com/s/1OIWbSi84azMTcu8UQtFWdQ">pth </a> (Access Code: q747)</p></td>
+		<td><p><a href="./configs/mask_rcnn_r50_r32_e2e_finetune_ic15.py">cfg </a>, <a href="https://one.hikvision.com/#/link/I2YBv7KJ7umYJL59Pd8v">pth </a> (Access Code: IdJA)</p></td>
 	</tr>
 </table>
 
@@ -180,7 +180,7 @@ Results on various datasets and trained models download:
 		<td>72.2</td>
 		<td>66.1</td>
 		<td>76.5</td>
-		<td><p><a href="./configs/mask_rcnn_r50_conv6_e2e_finetune_tt.py">cfg </a>, <a href="https://pan.baidu.com/s/1lxHmm5tN5nYoAeLDsa2qVw">pth </a> (Access Code: hu7s)</p></td>
+		<td><p><a href="./configs/mask_rcnn_r50_conv6_e2e_finetune_tt.py">cfg </a>, <a href="https://one.hikvision.com/#/link/FBfSpSYgj3t6vAH7mcgF">pth </a> (Access Code: Vum3)</p></td>
 	</tr>
 	<tr>
 		<td>Total-Text</td>
@@ -192,11 +192,10 @@ Results on various datasets and trained models download:
 		<td>71.5</td>
 		<td>65.2</td>
 		<td>75.8</td>
-		<td><p><a href="./configs/mask_rcnn_r50_r32_e2e_finetune_tt.py">cfg </a>, <a href="https://pan.baidu.com/s/1IP8K2uk033fD9xsT-alTDw">pth </a> (Access Code: o66n)</p></td>
+		<td><p><a href="./configs/mask_rcnn_r50_r32_e2e_finetune_tt.py">cfg </a>, <a href="https://one.hikvision.com/#/link/EDoNVWFwLUkZLBu37SAa">pth </a> (Access Code: CyB3)</p></td>
 	</tr>
 </table>
 
-> **Note**: Above links are from BaiduYunPan. Mdels can also be downloaded from  [Google Drive](https://drive.google.com/drive/folders/1tFtLw1Lm6Lc3ve_wNwrmedJ5dS0HPSh9?usp=sharing)
 
 
 ## Citation:

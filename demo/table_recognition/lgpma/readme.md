@@ -8,7 +8,7 @@ Original images can be downloaded from: [pubtabnet](https://developer.ibm.com/ex
 
 The test datalist and the example of formatted training datalist can be found in `demo/table_recognition/datalist/`
 
-The whole formatted training/validating datalist can be downloaded from: [PubTabNet_train_datalist_all.json](https://pan.baidu.com/s/1ubUre07SybTml9UF6wyZ-A) (Access Code: 7gto].  [PubTabNet_2.0.0_val.jsonl](https://pan.baidu.com/s/1-A4JfK_SR45v649gW5KkYw) (Access Code: mlp2). You may also download from [Google Drive](https://drive.google.com/drive/folders/1Ik3KCiSATgOlCK4P5TXnbIMBZDOxrv4V?usp=sharing).
+The whole formatted training/validating datalist can be downloaded from [Hikvision One](https://one.hikvision.com/#/link/FwYq7B0aXzovYhSwNykT) (Access Code: oX9V).
 
 ## Training
 Modified the paths of "ann_file", "img_prefix", "pretrained_model" and "work_space" in the config files `demo/table_recognition/lgpma/config/lgpma_pub.py`.
@@ -50,9 +50,7 @@ Results on various datasets and trained models download:
 | Dataset                | Test Scale     | TEDS-struc| Links |
 |-----------------------|----------------|-----------|----------------------|
 | PubTabNet(reported)    | L-768| 96.7      |                   |    |
-| PubTabNet             | 1.5x    | 96.7      | [config](configs/lgpma_pub.py), [pth](https://pan.baidu.com/s/1Z-1gMaiJWbpyn09Biq5YXg ) (Access Code: gygm)| 
-
-> **Note**: Above links are from BaiduYunPan. Models can also be downloaded from [Google Drive](https://drive.google.com/drive/folders/1Ik3KCiSATgOlCK4P5TXnbIMBZDOxrv4V?usp=sharing)
+| PubTabNet             | 1.5x    | 96.7      | [config](configs/lgpma_pub.py), [pth](https://one.hikvision.com/#/link/u9YgYyoPW3hLw6iolFoA) (Access Code: zUoX)| 
 
 > The release model only contains structure-level result. You may use the [text recognition module](../../text_recognition) for the complete result.
 

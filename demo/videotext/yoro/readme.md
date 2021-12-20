@@ -20,7 +20,7 @@ The formatted training datalist and test datalist can be found in `demo/videotex
         cd $DAVAR_LAB_OCR_ROOT$/demo/videotext/yoro/det/
         bash base_dist_train.sh
         ```
-        > trained model can be downloaded in [pth](https://pan.baidu.com/s/1sRxH352pUwfDhSc_nIl1_A) (Access code: tk6b)
+        > trained model can be downloaded in [pth](https://one.hikvision.com/#/link/28AXkyPRF3IKR2MKUjoM) (Access code: tBhn)
         
     2. Extract optical flow information, using TVL1 algorithm in opencv2
     
@@ -41,7 +41,7 @@ The formatted training datalist and test datalist can be found in `demo/videotex
         cd $DAVAR_LAB_OCR_ROOT$/demo/videotext/yoro/det/
         bash dist_train.sh
         ```
-        > trained models in IC13-ViT and IC15-ViT can be downloaded in [pth](https://pan.baidu.com/s/1qx0qX70FsmczQaMHG0QHHA) (Access code: 19fc) 
+        > trained models in IC13-ViT and IC15-ViT can be downloaded in [pth](https://one.hikvision.com/#/link/ss9cEvHgePJNhFaHrJQx) (Access code: HvnH) and  [pth](https://one.hikvision.com/#/link/wsDwouirnOA5DRTA0ShQ) (Access code: gj0n) 
                                                                                                                                                                                                                                                                                                                                                                                                                          
 2. Text Recommender Training
     1. We first only train the recognition branch.
@@ -53,7 +53,7 @@ The formatted training datalist and test datalist can be found in `demo/videotex
         cd $DAVAR_LAB_OCR_ROOT$/demo/videotext/yoro/rcg/
         bash train_rcg.sh
         ```
-       > trained model can be downloaded in [pth](https://pan.baidu.com/s/1Fwf6n8wSAtbKiq9uHW20LQ) (Access code: 062k)
+       > trained model can be downloaded in [pth](https://one.hikvision.com/#/link/BEwWRYON3iFa0cwOZ7Rh) (Access code: N5el)
     
     2. Fix the recognition branch and only train the track branch.
 
@@ -64,7 +64,7 @@ The formatted training datalist and test datalist can be found in `demo/videotex
         cd $DAVAR_LAB_OCR_ROOT$/demo/videotext/yoro/rcg/
         bash track_train.sh
         ```
-       > trained model can be downloaded in [pth](https://pan.baidu.com/s/1GUM3UJHfpVZSzJWKIa1MAw) (Access code: pdq7)
+       > trained model can be downloaded in [pth](https://one.hikvision.com/#/link/FaBvjMxt0xp3IAMKE7Vc) (Access code: 6ZOU)
     3. Generate gt quality scores for train data list.
 
         Modify the paths ("out_path/"AnnFile"/ "ModelPath"/, etc.) in the config files `demo/videotext/yoro/rcg/test_scripts/config/config_gt_score.py`.
@@ -84,7 +84,7 @@ The formatted training datalist and test datalist can be found in `demo/videotex
         cd $DAVAR_LAB_OCR_ROOT$/demo/videotext/yoro/rcg/
         bash qscore_train.sh
         ```
-        > trained model can be downloaded in [pth](https://pan.baidu.com/s/1fMYYW2mk6L6E7B28aqxiwA) (Access code: 37r2)
+        > trained model can be downloaded in [pth](https://one.hikvision.com/#/link/va1QhZ1IAcJZeoQIYT5x) (Access code: BfGr)
     
     
 
@@ -141,8 +141,8 @@ due to the simplification, So the results may have a dither compared with result
 |   Dataset      | Mode       | Backbone  | Pre-trained |Test Scale| Precision | Recall | Hmean | Links               |
 | ---------------|--------    |---------- | ---------- | ----     |--------- | ------ | ----- | ------------------- |
 | ICDAR2013 TiV  (Reported)     | RBOX    | ResNet-50 |  ICDAR2015 IST, Coco-Text   | (L-1280, S-720) |  81.45    | 62.23  | 69.25 |    -    |
-| ICDAR2013 TiV  | RBOX    | ResNet-50 |  ICDAR2015 TiV, ICDAR2015IST  | (L-1280, S-720) |  78.96    | 61.78  | 69.32 | [config](config/yoro_east.py), [pth](https://pan.baidu.com/s/1qx0qX70FsmczQaMHG0QHHA) (Access Code: 19fc)        |
-| ICDAR2015 TiV  | RBOX    | ResNet-50 |  ICDAR2015 TiV, ICDAR2015IST    | (L-1280, S-720) |  79.55    | 64.45  | 71.21 | [config](config/yoro_east.py), [pth](https://pan.baidu.com/s/1qx0qX70FsmczQaMHG0QHHA) (Access Code: 19fc)      |
+| ICDAR2013 TiV  | RBOX    | ResNet-50 |  ICDAR2015 TiV, ICDAR2015IST  | (L-1280, S-720) |  78.96    | 61.78  | 69.32 | [config](config/yoro_east.py), [pth](https://one.hikvision.com/#/link/ss9cEvHgePJNhFaHrJQx)  (Access code: HvnH)    |
+| ICDAR2015 TiV  | RBOX    | ResNet-50 |  ICDAR2015 TiV, ICDAR2015IST    | (L-1280, S-720) |  79.55    | 64.45  | 71.21 | [pth](https://one.hikvision.com/#/link/wsDwouirnOA5DRTA0ShQ) (Access code: gj0n)       |
 
 2.Text Recommender Results
 
@@ -150,9 +150,8 @@ due to the simplification, So the results may have a dither compared with result
 |   Dataset      |Test Scale| ATA | MOTA | MOTP | Precision-R | Recall-R | F-score | ATA-R | MOTA-R | MOTP-R |  Links               |
 | ---------------| ----     | ----- | ----- | ----- | --------- | ------ | ----- | ----- | ----- | ----- |  ------------------- |
 | ICDAR2015 TiV (Reported)| (L-100, S-32) |  0.65    | 0.68  | 0.76 |  68.28    | 67.21  | 67.74 | 0.63  | 0.69  | 0.76  |    -    |
-| ICDAR2015 TiV | (L-100, S-32) |  0.65   | 0.71  | 0.74 |  71.13    | 68.88  | 69.50 | 0.63  | 0.68  | 0.74  | [config](demo/videotext/yoro/rcg/config/ic15_qscore_rgb_res32_bilstm_attn.py), [pth](https://pan.baidu.com/s/1fMYYW2mk6L6E7B28aqxiwA) (Access code: 37r2)      |
+| ICDAR2015 TiV | (L-100, S-32) |  0.65   | 0.71  | 0.74 |  71.13    | 68.88  | 69.50 | 0.63  | 0.68  | 0.74  | [config](demo/videotext/yoro/rcg/config/ic15_qscore_rgb_res32_bilstm_attn.py), [pth](https://one.hikvision.com/#/link/va1QhZ1IAcJZeoQIYT5x) (Access code: BfGr)     |
 
-> **Note**: Above links are from BaiduYunPan. Models can also be downloaded from [Google Drive](https://drive.google.com/drive/folders/1Y55wIvGMyeqEpz3wYZ9xJPclIR2tSE9x?usp=sharing).
 
 
 ## Citation

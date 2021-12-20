@@ -5,5 +5,5 @@ export PATH=/usr/local/miniconda3/bin/:$PATH
 
 export CUDA_VISIBLE_DEVICES=0
 
-DAVAROCR_PATH=path_to_opensource2/davarocr/
+DAVAROCR_PATH=/path/to/Davar-Lab-OCR/
 python $DAVAROCR_PATH/tools/test.py  ./configs/wildreceipt_gt_trie.py ./log/wildreceipt_gt_trie/Best_checkpoint.pth --eval macro_f1

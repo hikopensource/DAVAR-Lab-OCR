@@ -17,6 +17,7 @@ import numpy.ctypeslib as ctl
 from davarocr.davar_common.core import POSTPROCESS
 from .post_detector_base import BasePostDetector
 
+
 @POSTPROCESS.register_module()
 class PostEAST(BasePostDetector):
     """ EAST post-processing, using geo map and score map to generate final boxes."""

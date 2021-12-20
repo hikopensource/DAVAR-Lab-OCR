@@ -16,7 +16,7 @@ from torch.utils.data import Sampler
 from davarocr.davar_common.datasets.builder import SAMPLER
 
 
-@SAMPLER.register_module
+@SAMPLER.register_module()
 class MetricSampler(Sampler):
     """ Implementation of metric learning sampler"""
 

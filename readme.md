@@ -93,12 +93,12 @@ For the problems existing in the process of installation and researching, we wil
 
 ## Changelog
 
-DavarOCR v0.3.0 was released in 22/09/2021.
+DavarOCR v0.3.1 was released in 12/20/2021.
 Please refer to [Changelog.md](./docs/Changelog.md) for details and release history.
 
 
 ## License
-This project is released under the [Apache 2.0 license](mmdetection/third_party/LICENSE)
+This project is released under the [Apache 2.0 license](./LICENSE)
 
 ## Copyright
 

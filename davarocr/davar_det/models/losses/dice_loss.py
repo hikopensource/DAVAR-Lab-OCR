@@ -52,18 +52,22 @@ class DiceLoss(nn.Module):
     def __init__(self,
                  smooth=1,
                  p=2,
-                 loss_weight=1.0):
+                 loss_weight=1.0,
+                 use_sigmoid=False,
+                 ):
         """ Initialization.
 
         Args:
             smooth(float): a float number to smooth loss, and avoid NaN error, default:1
             p(int): Denominator value, \sum{x^p}+\sum{y^p}, default:2
             loss_weight(float): loss weight
+            use_sigmoid(bool): whether to conduct sigmoid operation on feature map
         """
         super().__init__()
         self.smooth = smooth
         self.p = p
         self.loss_weight = loss_weight
+        self.use_sigmoid = use_sigmoid
 
     def forward(self,
                 pred,
@@ -103,6 +107,9 @@ class DiceLoss(nn.Module):
             loss tensor
         """
         assert predict.shape == target.shape
+
+        if self.use_sigmoid:
+            predict = predict.sigmoid()
 
         if weight is not None:
             assert predict[0, 0].shape == weight[0].shape

@@ -9,11 +9,11 @@ The formatted training datalist and test datalist can be found in [`demo/text_sp
 
 
 ## Train On Your Own Dataset
-1.Download the pre-trained model (well trained on SynthText and COCO-Text), [[link](https://pan.baidu.com/s/1KDWKlhU3s1WcKBBpKw9leA) (Access Code: hnda)]
+1.Download the pre-trained model, which was well trained on SynthText and COCO-Text.
 
-2.Modified the paths (`ann_file`, `img_prefix`, `work_dir`, etc..) in the config files [`demo/text_spotting/text_perceptron_spot/config/tp_r50_e2e_finetune_ic13.py`](./configs/tp_r50_e2e_finetune_ic13.py).
+2.Modify the paths (`ann_file`, `img_prefix`, `work_dir`, etc..) in the config files.
 
-3.Run the following bash command in the command line
+3.Modify the paths in training script and run the following bash command in the command line
 ``` shell
 cd $DAVAR_LAB_OCR_ROOT$/demo/text_spotting/text_perceptron_spot/
 bash dist_train.sh
@@ -63,7 +63,7 @@ Results on various datasets and trained models download:
 	<tr>
 		<td>tp_r50_fpn+conv6+bilstm+attention</td>
 		<td>SynthText<br>COCO-Text</td>
-		<td><p><a href="./configs/tp_r50_e2e_pretrain.py">cfg </a>, <a href="https://pan.baidu.com/s/1KDWKlhU3s1WcKBBpKw9leA">pth </a> (Access Code: hnda)</p></td>
+		<td><p><a href="./configs/tp_r50_e2e_pretrain.py">cfg </a>, <a href="https://one.hikvision.com/#/link/UlTJ5YdBRk1NXPKwAEO8">pth </a> (Access Code: Zqhp)</p></td>
 	</tr>
 </table>
 
@@ -112,7 +112,7 @@ Results on various datasets and trained models download:
 		<td>90.9</td>
 		<td>93.8</td>
 		<td>94.2</td>
-		<td><p><a href="./configs/tp_r50_e2e_finetune_ic13.py">cfg </a>, <a href="https://pan.baidu.com/s/1U7CDtbTTpZ11zw0Vg7zYYA">pth </a> (Access Code: 20bj)</p></td>
+		<td><p><a href="./configs/tp_r50_e2e_finetune_ic13.py">cfg </a>, <a href="https://one.hikvision.com/#/link/5Ylh6nIRGXxJrAYmm25c">pth </a> (Access Code: WvMu)</p></td>
 	</tr>
 	<tr>
 		<td>ICDAR2015<br>(Reported)</td>
@@ -140,7 +140,7 @@ Results on various datasets and trained models download:
 		<td>70.8</td>
 		<td>79.8</td>
 		<td>83.2</td>
-		<td><p><a href="./configs/tp_r50_e2e_finetune_ic15.py">cfg </a>, <a href="https://pan.baidu.com/s/1U7CDtbTTpZ11zw0Vg7zYYA">pth </a> (Access Code: 20bj)</p></td>
+		<td><p><a href="./configs/tp_r50_e2e_finetune_ic15.py">cfg </a>, <a href="https://one.hikvision.com/#/link/5Ylh6nIRGXxJrAYmm25c">pth </a> (Access Code: WvMu)</p></td>
 	</tr>
 </table>
 
@@ -183,11 +183,9 @@ Results on various datasets and trained models download:
 		<td>77.3</td>
 		<td>73.9</td>
 		<td>81.8</td>
-		<td><p><a href="./configs/tp_r50_e2e_finetune_tt.py">cfg </a>, <a href="https://pan.baidu.com/s/1U7CDtbTTpZ11zw0Vg7zYYA">pth </a> (Access Code: 20bj)</p></td>
+		<td><p><a href="./configs/tp_r50_e2e_finetune_tt.py">cfg </a>, <a href="https://one.hikvision.com/#/link/5Ylh6nIRGXxJrAYmm25c">pth </a> (Access Code: WvMu)</p></td>
 	</tr>
 </table>
-
-> **Note**: Above links are from BaiduYunPan. Models can also be downloaded from [Google Drive](https://drive.google.com/drive/folders/1xQXdHRvBNmm2J7jt5zkDAfQ7Xw54COr9?usp=sharing)
 
 ## Citation:
 
