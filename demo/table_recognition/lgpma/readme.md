@@ -8,7 +8,7 @@ Original images can be downloaded from: [pubtabnet](https://developer.ibm.com/ex
 
 The test datalist and the example of formatted training datalist can be found in `demo/table_recognition/datalist/`
 
-The whole formatted training/validating datalist can be downloaded from [Hikvision One](https://one.hikvision.com/#/link/FwYq7B0aXzovYhSwNykT) (Access Code: oX9V).
+The whole formatted training/validating datalist can be downloaded from [Hikvision One](https://one.hikvision.com/#/link/eqaugdX6YQgFKhUxF8U4) (Access Code: YF3O).
 
 ## Training
 Modified the paths of "ann_file", "img_prefix", "pretrained_model" and "work_space" in the config files `demo/table_recognition/lgpma/config/lgpma_pub.py`.
