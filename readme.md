@@ -56,7 +56,7 @@ To date, davarocr contains the following algorithms:
 
 ***Layout Recognition***
 
-- VSR (to be released) (ICDAR 2021)
+- [x] [VSR](demo/text_layout/VSR) (ICDAR 2021)
 
 
 ## Development Environment

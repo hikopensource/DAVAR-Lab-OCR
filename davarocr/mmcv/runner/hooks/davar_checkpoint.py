@@ -20,7 +20,7 @@ from mmcv.runner import CheckpointHook
 class DavarCheckpointHook(CheckpointHook):
     """ Customized Checkpoint Hook, support to only save nearest and best checkpoints"""
     rule_map = {'greater': lambda x, y: x > y, 'less': lambda x, y: x < y}
-    greater_keys = ['accuracy', 'hmean', 'mAP', 'macro_f1']
+    greater_keys = ['accuracy', 'hmean', 'mAP', 'macro_f1', 'bbox_mAP', 'avg_f1']
     less_keys = ['NED']
 
     def __init__(self,

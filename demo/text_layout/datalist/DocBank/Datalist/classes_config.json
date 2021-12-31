@@ -1,0 +1,17 @@
+{
+    "classes_0":[
+        "abstract",
+        "author",
+        "caption",
+        "date",
+        "equation",
+        "figure",
+        "footer",
+        "list",
+        "paragraph",
+        "reference",
+        "section",
+        "table",
+        "title"
+        ]
+}
