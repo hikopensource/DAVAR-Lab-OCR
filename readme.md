@@ -93,7 +93,7 @@ For the problems existing in the process of installation and researching, we wil
 
 ## Changelog
 
-DavarOCR v0.3.1 was released in 12/20/2021.
+DavarOCR v0.4.0 was released in 12/31/2021.
 Please refer to [Changelog.md](./docs/Changelog.md) for details and release history.
 
 

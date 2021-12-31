@@ -1,5 +1,11 @@
 # Changelog
 
+### v0.4.0  (31/12/2021)
+
+**Highlights**
+
+- Release the implementations of VSR.
+
 ### v0.3.1  (20/12/2021)
 
 **Highlights**
