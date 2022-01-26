@@ -59,6 +59,7 @@ def html_to_davar(html):
                                            ["t-head"]]
                  }
     """
+    assert len(html['cells']) == html['structure']['tokens'].count('</td>')
     bboxes, texts, texts_tokens, cells, labels = [], [], [], [], []
 
     # get cells and labels using span_matrix and number of head
@@ -70,12 +71,15 @@ def html_to_davar(html):
         s_c, e_c = int(where[1].min()), int(where[1].max())
         cells.append([s_r, s_c, e_r, e_c])
         labels.append(["t-head"]) if i <= num_h else labels.append(["t-body"])
+        # labels.append([0]) if i <= num_h else labels.append([1])
 
     # get bboxes, texts and texts_tokens
     charsign = ['<b>', '<i>', '<sup>', '<sub>', '<underline>', '</b>', '</i>', '</sup>', '</sub>', '</underline>']
     for cell in html['cells']:
-        if "bbox" in cell.keys():
-            bboxes.append(cell["bbox"])
+        bbox = cell.get('bbox', [])
+        # filter out the bbox with area 0
+        if bbox and (bbox[2] - bbox[0]) * (bbox[3] - bbox[1]) > 0:
+            bboxes.append(bbox)
             text = ''.join([t for t in cell["tokens"] if t not in charsign])
             texts.append(text)
             texts_tokens.append(cell["tokens"])
@@ -87,6 +91,7 @@ def html_to_davar(html):
     content_ann = {"bboxes": bboxes, "texts": texts, "texts_tokens": texts_tokens, "cells": cells, "labels": labels}
 
     return content_ann
+
 
 def get_matrix(html_str):
     """Convert html to span matrix, a two-dimensional matrix representing table structure
@@ -119,10 +124,11 @@ def get_matrix(html_str):
     # convert html to span matrix, a two-dimensional matrix representing table structure
     span_matrix = np.zeros([num_row, num_col], dtype=int) - 1
     staus = html_to_area(html_str, row_index, span_matrix)
-    if staus: # if html is illegal, return zeros
+    if staus:  # if html is illegal, return zeros
         span_matrix = np.zeros([num_row, num_col], dtype=int)
 
     return span_matrix
+
 
 def get_headbody(html_str):
     """Calculating number of bboxes belonging to "t-head" and "t-body"  respectively
@@ -191,10 +197,10 @@ def html_to_area(html_str, row_index, span_matrix):
                     if html_cur_row[ind + 1][-3:-1].isdigit() else int(html_cur_row[ind + 1][-2])
                 spantogether = 1  # the next span will be skipped
                 if (span_matrix[i:i + row, col_index:col_index + col] != -1).any():
-                    return 3    # Overlay between cells
+                    return 3  # Overlay between cells
                 span_matrix[i:i + row, col_index:col_index + col] = area_index
                 if i + row > span_matrix.shape[0] or col_index + col > span_matrix.shape[1]:
-                    return 2    # Spanning cell exceeds the table boundary
+                    return 2  # Spanning cell exceeds the table boundary
                 col_index += col
             # only "colspan"
             elif "colspan" in tag:

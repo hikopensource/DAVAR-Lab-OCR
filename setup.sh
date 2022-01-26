@@ -44,6 +44,9 @@ if [[ $cuda_version -ge ${11} ]];then
    sed -i 's|set(CUDA_NVCC_FLAGS "${CUDA_NVCC_FLAGS} -gencode arch=compute_35,code=sm_35")|# set(CUDA_NVCC_FLAGS "${CUDA_NVCC_FLAGS} -gencode arch=compute_35,code=sm_35")|' CMakeLists.txt
 
    sed -i 's|set(CUDA_NVCC_FLAGS "${CUDA_NVCC_FLAGS} -gencode arch=compute_50,code=sm_50")|# set(CUDA_NVCC_FLAGS "${CUDA_NVCC_FLAGS} -gencode arch=compute_50,code=sm_50")|' CMakeLists.txt
+   
+   cd $ROOT/davarocr/davar_rcg/models/losses/
+   sed -i 's|        loss_warpctc = self\.loss_weight \* self\.criterion(log_probs,|        loss_warpctc = self\.loss_weight \* self\.criterion(log_probs\.cpu(),|' warpctc_loss.py
 fi
 
 cd $ROOT/davarocr/davar_rcg/third_party/warp-ctc-pytorch_bindings/src

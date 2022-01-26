@@ -238,6 +238,17 @@ class DavarLoadTableAnnotations(DavarLoadAnnotations):
 
         ann = results['ann_info']
         assert len(ann.get('bboxes', [])) and len(ann.get('cells', []))
+
+        # Convert cells with illegal bboxes to empty cells
+        for i, box in enumerate(ann['bboxes']):
+            if not box:
+                continue
+            box_i = np.array(box, dtype=np.double)
+            x_coords = box_i[0::2]
+            y_coords = box_i[1::2]
+            if np.max(x_coords) <= np.min(x_coords) or np.max(y_coords) <= np.min(y_coords):
+                results['ann_info']['bboxes'][i] = []
+
         if self.with_empty_bbox:
             results = self._load_empty_bboxes(results)
 
