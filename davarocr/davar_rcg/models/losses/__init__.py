@@ -10,11 +10,9 @@
 """
 from .ctc_loss import CTCLoss
 from .ace_loss import ACELoss
-from .warpctc_loss import WarpCTCLoss
 
 __all__ = [
 
     'CTCLoss',
     'ACELoss',
-    'WarpCTCLoss',
 ]
