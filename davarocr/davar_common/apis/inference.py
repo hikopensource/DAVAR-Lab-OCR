@@ -93,6 +93,10 @@ def inference_model(model, imgs):
     cfg = model.cfg
     device = next(model.parameters()).device  # model device
 
+    if str(device) == "cpu":
+        gpu_device_num = -1
+    else:
+        gpu_device_num = int(str(device).split(":")[-1])
     # Build the data pipeline
     test_pipeline = Compose(cfg.data.test.pipeline)
 
@@ -100,14 +104,12 @@ def inference_model(model, imgs):
     if isinstance(imgs, dict):
         data = imgs
         data = test_pipeline(data)
-        device = int(str(device).split(":")[-1])
-        data = scatter(collate([data], samples_per_gpu=1), [device])[0]
+        data = scatter(collate([data], samples_per_gpu=1), [gpu_device_num])[0]
     elif isinstance(imgs, (str, np.ndarray)):
         # If the input is single image
         data = dict(img=imgs)
         data = test_pipeline(data)
-        device = int(str(device).split(":")[-1])
-        data = scatter(collate([data], samples_per_gpu=1), [device])[0]
+        data = scatter(collate([data], samples_per_gpu=1), [gpu_device_num])[0]
     else:
         # If the input are batch of images
         batch_data = []
@@ -119,8 +121,14 @@ def inference_model(model, imgs):
             data = test_pipeline(data)
             batch_data.append(data)
         data_collate = collate(batch_data, samples_per_gpu=len(batch_data))
-        device = int(str(device).rsplit(':', maxsplit=1)[-1])
-        data = scatter(data_collate, [device])[0]
+        data = scatter(data_collate, [gpu_device_num])[0]
+
+    if str(device) == "cpu":
+        # then scatter operation above has created batch of size (1, *expected_size)
+        # rather than debug the cause of this we do:
+        single_img = data['img'][0]
+        single_img = single_img.squeeze(0)
+        data['img'] = [single_img]
 
     # Forward inference
     with torch.no_grad():
