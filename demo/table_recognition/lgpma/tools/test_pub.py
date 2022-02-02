@@ -43,8 +43,7 @@ with jsonlines.open(test_dataset, "r") as fp:
 
 # generate prediction of html and save result to savepath
 pred_dict = dict()
-for sample in tqdm(test_file):
-    breakpoint()
+for idx, sample in enumerate(tqdm(test_file)):
     # predict html of table
     img_path = img_prefix + sample["filename"]
     result = inference_model(model, img_path)[0]
