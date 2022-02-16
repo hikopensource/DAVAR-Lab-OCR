@@ -69,12 +69,12 @@ The original annotation of PubTabNet looks like below, where the structure is de
 ```
 
 We provide a script to convert it to Davar format, which can be found in [lgpma/tools/convert_html_ann.py](../lgpma/tools/convert_html_ann.py). 
-The input of this script is a dictionary recorded in "html," and the output is a dictionary recorded in "content_ann". 
-If the original annotation is in other formats, you may follow this script and modify it to prepare your own datalist. 
+The input of this script is a dictionary recorded in "html" and the output is a dictionary recorded in "content_ann". 
+You may follow this script and modify it to prepare your own datalist if the original annotation is in other formats. 
 
 
-Thanks to @tucachmo2202 in issue #37 for providing some examples. We have updated the convert script to filter out all illegal samples, which can be downloaded from [link](https://one.hikvision.com/#/link/oHvkYbH6fwXoKlSecPwj) (Access Code：Ft8N). 
+Thanks to @tucachmo2202 in issue #37 for providing some examples, we have updated the convert script to filter out all illegal samples, which can be downloaded from [link](https://one.hikvision.com/#/link/oHvkYbH6fwXoKlSecPwj) (Access Code：Ft8N). 
 
-It is worth noting that the number of elements in "cells" should be the same as the number of "\</td\>" in "structure":"tokens". If the two are not equal, the annotation must be incorrect, and the script will filter out such a sample.
-Furthermore, the script will convert the illegal boxes (with the size of 0) into empty cells ("[]") to prevent the problem described in #51.
+It is worth noting that the number of element in "cells" should be the same as the number of '</td>' in "structure":"tokens". If the two are not equal, the annotation must be incorrectly and the script will filter out such sample.
+Furthermore, the script will convert the illegal bboxes (with size of 0) into empty cells ("[]") to prevent the problem described in #51.
 

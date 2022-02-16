@@ -28,7 +28,7 @@ class EAST(SegBasedDet):
                  test_cfg=None,
                  pretrained=None):
         """
-      Args:
+        Args:
             backbone(dict): network backbone (e.g. ResNet)
             neck(dict): network neck (e.g., EASTMerge)
             head(dict): head for loss calculation (e.g., EASTHead)

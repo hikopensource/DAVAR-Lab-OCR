@@ -445,7 +445,7 @@ class DavarLoadAnnotations():
             self.label_start_index = self.label_start_index[0]
 
         # If there is no `labels` in annotation, set `label_start_index` as the default value for all bboxes.
-        if tmp_labels is None:
+        if tmp_labels is None or len(tmp_labels)==0:
             tmp_labels = [[self.label_start_index]] * bboxes_length
 
         gt_labels = []
