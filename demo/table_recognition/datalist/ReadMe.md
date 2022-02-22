@@ -27,7 +27,7 @@ Datalists can be downloaded from [link](https://one.hikvision.com/#/link/eqaugdX
                 ...
             ],
             "labels": [
-                [0],    # label of cell. [0] means cell in head and [1] means cell in body
+                [0],    # label of cell. [0] means cell in head and [1] means cell in body.
                 [0],
                 [0],
                 [0],
