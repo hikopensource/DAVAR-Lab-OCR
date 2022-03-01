@@ -21,7 +21,13 @@ from mmdet.models import build_detector
 from mmdet.core import get_classes
 
 
-def init_model(config, checkpoint=None, device="cuda:0", cfg_options=None):
+def init_model(
+    config,
+    checkpoint=None,
+    device="cuda:0",
+    cfg_options=None,
+    never_train: bool = True,
+):
     """Initialize a model from config file.
 
     Model types can be 'DETECTOR'(default), 'RECOGNIZOR', 'SPOTTER', 'INFO_EXTRACTOR'
@@ -33,6 +39,8 @@ def init_model(config, checkpoint=None, device="cuda:0", cfg_options=None):
             will not load any weights.
         cfg_options (dict): Options to override some settings in the used
             config.
+        never_train (bool): If True, then override train config and don't init model
+            with this configuration.
 
     Returns:
         nn.Module: The constructed detector.
@@ -45,8 +53,10 @@ def init_model(config, checkpoint=None, device="cuda:0", cfg_options=None):
         )
     if cfg_options is not None:
         config.merge_from_dict(cfg_options)
-    config.model.pretrained = None
-    config.model.train_cfg = None
+
+    if never_train:
+        config.model.pretrained = None
+        config.model.train_cfg = None
 
     # Can be extended according to the supported model types
     cfg_types = config.get("type", "DETECTOR")
