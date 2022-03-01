@@ -21,7 +21,7 @@ from mmdet.models import build_detector
 from mmdet.core import get_classes
 
 
-def init_model(config, checkpoint=None, device='cuda:0', cfg_options=None):
+def init_model(config, checkpoint=None, device="cuda:0", cfg_options=None):
     """Initialize a model from config file.
 
     Model types can be 'DETECTOR'(default), 'RECOGNIZOR', 'SPOTTER', 'INFO_EXTRACTOR'
@@ -40,8 +40,9 @@ def init_model(config, checkpoint=None, device='cuda:0', cfg_options=None):
     if isinstance(config, str):
         config = mmcv.Config.fromfile(config)
     elif not isinstance(config, mmcv.Config):
-        raise TypeError('config must be a filename or Config object, '
-                        f'but got {type(config)}')
+        raise TypeError(
+            "config must be a filename or Config object, " f"but got {type(config)}"
+        )
     if cfg_options is not None:
         config.merge_from_dict(cfg_options)
     config.model.pretrained = None
@@ -50,26 +51,42 @@ def init_model(config, checkpoint=None, device='cuda:0', cfg_options=None):
     # Can be extended according to the supported model types
     cfg_types = config.get("type", "DETECTOR")
     if cfg_types == "DETECTOR":
-        model = build_detector(config.model, test_cfg=config.get('test_cfg'))
+        model = build_detector(
+            config.model,
+            train_cfg=config.get("train_cfg"),
+            test_cfg=config.get("test_cfg"),
+        )
     elif cfg_types == "RECOGNIZER":
         from davarocr.davar_rcg.models.builder import build_recognizor
-        model = build_recognizor(config.model, test_cfg=config.get('test_cfg'))
+
+        model = build_recognizor(
+            config.model,
+            train_cfg=config.get("train_cfg"),
+            test_cfg=config.get("test_cfg"),
+        )
     elif cfg_types == "SPOTTER":
         from davarocr.davar_spotting.models.builder import build_spotter
-        model = build_spotter(config.model, test_cfg=config.get('test_cfg'))
+
+        model = build_spotter(
+            config.model,
+            train_cfg=config.get("train_cfg"),
+            test_cfg=config.get("test_cfg"),
+        )
     else:
         raise NotImplementedError
 
     if checkpoint is not None:
-        map_loc = 'cpu' if device == 'cpu' else None
+        map_loc = "cpu" if device == "cpu" else None
         checkpoint = load_checkpoint(model, checkpoint, map_location=map_loc)
-        if 'CLASSES' in checkpoint.get('meta', {}):
-            model.CLASSES = checkpoint['meta']['CLASSES']
+        if "CLASSES" in checkpoint.get("meta", {}):
+            model.CLASSES = checkpoint["meta"]["CLASSES"]
         else:
-            warnings.simplefilter('once')
-            warnings.warn('Class names are not saved in the checkpoint\'s '
-                          'meta data, use COCO classes by default.')
-            model.CLASSES = get_classes('coco')
+            warnings.simplefilter("once")
+            warnings.warn(
+                "Class names are not saved in the checkpoint's "
+                "meta data, use COCO classes by default."
+            )
+            model.CLASSES = get_classes("coco")
 
     # Save the config in the model for convenience
     model.cfg = config
@@ -126,9 +143,9 @@ def inference_model(model, imgs):
     if str(device) == "cpu":
         # then scatter operation above has created batch of size (1, *expected_size)
         # rather than debug the cause of this we do:
-        single_img = data['img'][0]
+        single_img = data["img"][0]
         single_img = single_img.squeeze(0)
-        data['img'] = [single_img]
+        data["img"] = [single_img]
 
     # Forward inference
     with torch.no_grad():
