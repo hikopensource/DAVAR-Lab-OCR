@@ -244,4 +244,4 @@ This project is released under the [Apache 2.0 license](../../../davar_ocr/LICEN
 
 ## Copyright
 
-If there is any suggestion and problem, please feel free to contact the author with xuyunlu@hikvision.com or chengzhanzhan@hikvision.com.
+If there is any suggestion and problem, please feel free to contact the author with xuyunlu@hikvision.com, qiaoliang6@hikvision.com or chengzhanzhan@hikvision.com.

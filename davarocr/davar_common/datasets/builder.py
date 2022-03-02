@@ -279,6 +279,9 @@ def parameter_align(cfg):
     if isinstance(cfg["dataset"]["img_prefix"], str):
         cfg["dataset"]["img_prefix"] = cfg["dataset"]["img_prefix"].split("|")
 
+    assert len(batch_ratios) == len(cfg["dataset"]["ann_file"]),\
+        'the numbers of the batch ratios should equal to the numbers of the annotation files'
+
     dataset_num = len(batch_ratios)
 
     for key, item in cfg["dataset"].items():

@@ -713,6 +713,8 @@ class DavarRandomCrop:
         for key in results.get('bbox_fields', []):
             bboxes = []
             for box in results[key]:
+                if len(box) == 0:
+                    continue
                 box = np.array(box)
                 if np.all((np.min(box[0::2]) >= x_min) & (np.min(box[1::2]) >= y_min) & \
                           (np.max(box[0::2]) <= x_max) & (np.max(box[1::2]) <= y_max)):

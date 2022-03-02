@@ -4,8 +4,8 @@
 # Filename       :    convert_html_to_ann.py
 # Abstract       :    Converting html in original PubTabNet to training format(davar format)
 
-# Current Version:    1.0.0
-# Date           :    2021-11-08
+# Current Version:    1.0.1
+# Date           :    2022-01-26
 ##################################################################################################
 """
 
@@ -53,10 +53,10 @@ def html_to_davar(html):
                                           [1,0,1,0],
                                           [1,1,1,1]],
 
-                                "labels": [["t-head"],
-                                           ["t-head"],
-                                           ["t-head"],
-                                           ["t-head"]]
+                                "labels": [[0],    # [0] for thead and [1] for tbody
+                                           [0],
+                                           [1],
+                                           [1]]
                  }
     """
     assert len(html['cells']) == html['structure']['tokens'].count('</td>')
@@ -70,8 +70,8 @@ def html_to_davar(html):
         s_r, e_r = int(where[0].min()), int(where[0].max())
         s_c, e_c = int(where[1].min()), int(where[1].max())
         cells.append([s_r, s_c, e_r, e_c])
-        labels.append(["t-head"]) if i <= num_h else labels.append(["t-body"])
-        # labels.append([0]) if i <= num_h else labels.append([1])
+        #labels.append(["t-head"]) if i <= num_h else labels.append(["t-body"])
+        labels.append([0]) if i <= num_h else labels.append([1])
 
     # get bboxes, texts and texts_tokens
     charsign = ['<b>', '<i>', '<sup>', '<sub>', '<underline>', '</b>', '</i>', '</sup>', '</sub>', '</underline>']

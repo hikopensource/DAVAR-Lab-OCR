@@ -21,9 +21,9 @@ data = dict(
     workers_per_gpu=2,
     train=dict(
         ann_file=[
-            '/path/to/datalist/synthtext_80w.json',
-            '/path/to/datalist/train_syntext_word_eng.json',
-            '/path/to/datalist/train_emcs_imgs.json',
+            '/path/to/datalist/synthtext_80w.json',              # SynthText 80W
+            '/path/to/datalist/train_syntext_word_eng.json',     # SynthText_Curve Part1
+            '/path/to/datalist/train_emcs_imgs.json',            # SynthText_Curve Part2
         ],
         img_prefix=[
             '/path/to/SynthText/',
