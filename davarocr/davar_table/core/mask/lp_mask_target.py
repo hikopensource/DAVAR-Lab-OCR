@@ -52,7 +52,13 @@ def get_lpmask_single(gt_mask, gt_bbox):
     for ind, box_text in zip(range(num), gt_mask.masks):
         left_col, left_row, right_col, right_row = list(map(float, gt_bbox[ind, 0:4]))
         x_min, y_min, x_max, y_max = ceil(left_col), ceil(left_row), ceil(right_col) - 1, ceil(right_row) - 1
-        middle_x, middle_y = round(np.where(box_text == 1)[1].mean()), round(np.where(box_text == 1)[0].mean())
+        mean_x = np.where(box_text == 1)[1].mean()
+        mean_y = np.where(box_text == 1)[0].mean()
+        if np.isnan(mean_x):
+            mean_x = x_min
+        if np.isnan(mean_y):
+            mean_y = y_min
+        middle_x, middle_y = round(mean_x), round(mean_y)
 
         # Calculate the pyramid mask in horizontal direction
         col_np = np.arange(x_min, x_max + 1).reshape(1, -1)
