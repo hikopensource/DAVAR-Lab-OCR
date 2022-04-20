@@ -37,7 +37,7 @@ Trained models can be download as follows:
 |  Dataset  |  Backbone  | Pretrained |  Test Scale  |  AP   |                           Links                             |
 | :-------: | :--------: | :--------: | :---------: | :---: |  :----------------------------------------------------------: |
 | PubLayNet (Reported) | ResNext101 |    COCO    | (1300, 800) | 95.7  |  - |
-| PubLayNet | ResNext101 |    COCO    | (1300, 800) | 95.8     | [config](./PubLayNet/config/publaynet_x101.py), [pth](https://one.hikvision.com/#/link/Y61k2Kq3xyYrXWwo01Oj) (Access Code: 9UYK) |
+| PubLayNet | ResNext101 |    COCO    | (1300, 800) | 95.8     | [config](./PubLayNet/config/publaynet_x101.py), [pth](https://one.hikvision.com/#/link/kOpw0pJr3T4hloB2x6Kq) (Access Code: STsJ) |
 |  DocBank (Reported) | ResNext101 |    COCO    | (600, 800)  |  95.59      |  - |
 |  DocBank  | ResNext101 |    COCO    | (600, 800)  | 95.25  | [config](./DocBank/config/docbank_x101.py), [pth](https://one.hikvision.com/#/link/76YItjTJkFNFMC0VNEK9) (Access Code: lJsy ) |
 

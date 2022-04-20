@@ -4,17 +4,20 @@
 # Filename       :    VSR.py
 # Abstract       :    VSR implementation
 
-# Current Version:    1.0.0
-# Date           :    2021-12-06
+# Current Version:    1.0.1
+# Date           :    2022-04-20
 ######################################################################################################
 """
 
 import torch
+import mmcv
 from torch import nn
+import numpy as np
 
 from mmdet.models.builder import DETECTORS, build_backbone, build_head, build_neck, build_roi_extractor
 from mmdet.models.detectors.base import BaseDetector
 from mmdet.core import bbox2roi
+from mmdet.core.visualization import imshow_det_bboxes
 from davarocr.davar_common.models import build_connect, build_embedding
 
 
@@ -419,7 +422,18 @@ class VSR(BaseDetector):
             line_feats = self.line_roi_extractor(feat[:self.line_roi_extractor.num_inputs], rois)
 
             line_cls_score = self.line_gcn_head(line_feats, rois, img_metas)
-            result.append(torch.nn.functional.softmax(line_cls_score, -1).cpu().numpy())
+
+            # det format
+            bboxes = gt_bboxes[0][0]
+            scale_factors = tuple(meta['scale_factor'] for meta in img_metas)
+            if bboxes.size(0) > 0:
+                scale_factor = bboxes.new_tensor(scale_factors)
+                bboxes = (bboxes.view(bboxes.size(0), -1, 4) / scale_factor).view(
+                    bboxes.size()[0], -1)
+            tmp_result = torch.cat((bboxes, torch.nn.functional.softmax(line_cls_score, -1)), -1)
+            result.append(tmp_result)
+
+            # result.append(torch.nn.functional.softmax(line_cls_score, -1).cpu().numpy())
             return tuple(result)
 
         # cv layout analysis task: detection/ segmentation
@@ -453,3 +467,88 @@ class VSR(BaseDetector):
         """Forward aug_test. Not implemented.
         """
         raise NotImplementedError
+
+    def show_result(self,
+                    img,
+                    result,
+                    score_thr=0.3,
+                    bbox_color=(72, 101, 241),
+                    text_color=(72, 101, 241),
+                    mask_color=None,
+                    thickness=2,
+                    font_size=13,
+                    win_name='',
+                    show=False,
+                    wait_time=0,
+                    out_file=None):
+        """Draw `result` over `img`.
+
+        Args:
+            img (str or Tensor): The image to be displayed.
+            result (Tensor or tuple): The results to draw over `img`
+                bbox_result or (bbox_result, segm_result).
+            score_thr (float, optional): Minimum score of bboxes to be shown.
+                Default: 0.3.
+            bbox_color (str or tuple(int) or :obj:`Color`):Color of bbox lines.
+               The tuple of color should be in BGR order. Default: 'green'
+            text_color (str or tuple(int) or :obj:`Color`):Color of texts.
+               The tuple of color should be in BGR order. Default: 'green'
+            mask_color (None or str or tuple(int) or :obj:`Color`):
+               Color of masks. The tuple of color should be in BGR order.
+               Default: None
+            thickness (int): Thickness of lines. Default: 2
+            font_size (int): Font size of texts. Default: 13
+            win_name (str): The window name. Default: ''
+            wait_time (float): Value of waitKey param.
+                Default: 0.
+            show (bool): Whether to show the image.
+                Default: False.
+            out_file (str or None): The filename to write the image.
+                Default: None.
+
+        Returns:
+            img (Tensor): Only if not `show` or `out_file`
+        """
+        if self.with_roi_head:
+            super().show_result(img,
+                                result,
+                                score_thr=score_thr,
+                                bbox_color=bbox_color,
+                                text_color=text_color,
+                                mask_color=mask_color,
+                                thickness=thickness,
+                                font_size=font_size,
+                                win_name=win_name,
+                                show=show,
+                                wait_time=wait_time,
+                                out_file=out_file)
+        else:
+            img = mmcv.imread(img)
+            img = img.copy()
+
+            bbox_result = result.cpu().numpy()
+            bboxes = np.concatenate([bbox_result[:, :4], np.ones((bbox_result.shape[0], 1))], -1)
+            labels = np.argmax(bbox_result[:, 4:], -1)
+            # if out_file specified, do not show image in window
+            if out_file is not None:
+                show = False
+            # draw bounding boxes
+            img = imshow_det_bboxes(
+                img,
+                bboxes,
+                labels,
+                None,
+                class_names=self.CLASSES,
+                score_thr=score_thr,
+                bbox_color=bbox_color,
+                text_color=text_color,
+                mask_color=mask_color,
+                thickness=thickness,
+                font_size=font_size,
+                win_name=win_name,
+                show=show,
+                wait_time=wait_time,
+                out_file=out_file)
+
+            if not (show or out_file):
+                return img

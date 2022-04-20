@@ -177,6 +177,7 @@ class DocBankDataset(MMLayoutDataset):
                 related information during evaluation. Default: None.
 
         """
+        results = [per_r.cpu().numpy()[:, 4:] for per_r in results]
         if not isinstance(metric, str):
             assert len(metric) == 1
             metric = metric[0]
