@@ -4,6 +4,8 @@
 # Filename       :    lpma_mask_head.py
 # Abstract       :    The main pipeline definition of lpma_mask_head
 
+# Current Version:    1.0.1
+# Date           :    2022-03-09
 # Current Version:    1.0.0
 # Date           :    2021-09-18
 ##################################################################################################
@@ -141,12 +143,13 @@ class LPMAMaskHead(FCNMaskHead):
 
         return loss
 
-    def get_seg_lpmasks(self, mask_pred, det_bboxes, ori_shape, scale_factor, rescale):
+    def get_seg_lpmasks(self, mask_pred, det_bboxes, det_labels, ori_shape, scale_factor, rescale):
         """Get local masks from mask_pred and det_bboxes in testing.
 
         Args:
             mask_pred (Tensor): mask predictions
             det_bboxes (Tensor): bBox predictions in shape (n, 5)
+            det_labels (Tensor): label predictions in shape (n, )
             ori_shape (tuple): original image shape
             scale_factor(float | list(float)): ratio of original feature map to original image
             rescale(boolean): if the image be re-scaled
@@ -158,7 +161,9 @@ class LPMAMaskHead(FCNMaskHead):
 
         device = mask_pred.device
         cls_segms = [[] for _ in range(self.num_classes)]  # BG is not included in num_classes
+        hor_segms, ver_segms = [], []
         bboxes = det_bboxes[:, :4]
+        labels = det_labels
 
         if rescale:
             img_h, img_w = ori_shape[:2]
@@ -216,7 +221,7 @@ class LPMAMaskHead(FCNMaskHead):
             im_mask[(inds,) + spatial_inds] = masks_chunk
 
         for i in range(N):
-            cls_segms[0].append(im_mask[i].detach().cpu().numpy())
+            hor_segms.append(im_mask[i].detach().cpu().numpy())
 
         # gan ver soft masks
         mask_pred_ver = mask_pred[:, 1:, :, :]
@@ -238,6 +243,9 @@ class LPMAMaskHead(FCNMaskHead):
             im_mask[(inds,) + spatial_inds] = masks_chunk
 
         for i in range(N):
-            cls_segms[1].append(im_mask[i].detach().cpu().numpy())
+            ver_segms.append(im_mask[i].detach().cpu().numpy())
+
+        for i in range(N):
+            cls_segms[labels[i]].append([hor_segms[i], ver_segms[i]])
 
         return cls_segms

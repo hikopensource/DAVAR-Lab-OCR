@@ -4,6 +4,8 @@
 # Filename       :    lgpma_roi_head.py
 # Abstract       :    The main pipeline definition of lgpma_roi_head
 
+# Current Version:    1.0.1
+# Date           :    2022-03-09
 # Current Version:    1.0.0
 # Date           :    2021-09-18
 ##################################################################################################
@@ -266,7 +268,8 @@ class LGPMARoIHead(StandardRoIHead):
                         self.test_cfg, ori_shapes[i], scale_factors[i],
                         rescale)
                     segm_result_soft = self.mask_head.get_seg_lpmasks(
-                        mask_pred_softs[i], _bboxes[i], ori_shapes[i], scale_factors[i],
+                        mask_pred_softs[i], _bboxes[i], det_labels[i],
+                        ori_shapes[i], scale_factors[i],
                         rescale)
                     segm_results.append(segm_result)
                     segm_results_soft.append(segm_result_soft)

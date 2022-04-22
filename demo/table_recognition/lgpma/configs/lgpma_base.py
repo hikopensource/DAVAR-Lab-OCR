@@ -140,7 +140,8 @@ model = dict(
             max_per_img=1000,
             mask_thr_binary=0.5),
         postprocess=dict(
-            type="PostLGPMA"
+            type="PostLGPMA",
+            refine_bboxes=False,  # If set to True, bboxes of aligned cells will be refined according to pyramid masks
         )
     ),
 )

@@ -47,10 +47,11 @@ All of the models are re-implemented and well trained in the based on the openso
 
 Results on various datasets and trained models download:
 
-| Dataset                | Test Scale     | TEDS-struc| Links |
-|-----------------------|----------------|-----------|----------------------|
-| PubTabNet(reported)    | L-768| 96.7      |                   |    |
-| PubTabNet             | 1.5x    | 96.7      | [config](configs/lgpma_pub.py), [pth](https://one.hikvision.com/#/link/u9YgYyoPW3hLw6iolFoA) (Access Code: zUoX)| 
+| Dataset             | Test Scale | Bboxes refine  | TEDS-struc | Links |
+|---------------------|------------|----------------|------------|-------|
+| PubTabNet(reported) | L-768      | w              | 96.7       |       |
+| PubTabNet           | 1.5x       | wo             | 96.7       | [config](configs/lgpma_pub.py), [pth](https://one.hikvision.com/#/link/u9YgYyoPW3hLw6iolFoA) (Access Code: zUoX)| |
+| PubTabNet           | 1.5x       | w              | 96.9       | Same as the links |
 
 > The release model only contains structure-level result. You may use the [text recognition module](../../text_recognition) for the complete result.
 
