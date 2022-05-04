@@ -4,8 +4,8 @@
 # Filename       :    davar_loading_lmdb.py
 # Abstract       :    Implementations of davar lmdb-type pipelines
 
-# Current Version:    1.0.0
-# Date           :    2021-05-01
+# Current Version:    1.0.1
+# Date           :    2022-04-27
 ##################################################################################################
 """
 import re
@@ -150,23 +150,24 @@ def rcg_lmdb_dataload(load_type,
         if not sensitive:
             label = label.lower()
 
-        if load_type == "LMDB_Standard":
-            if fil_ops:
-                # only filter unsupported character
-                out_of_char = '[^' + str(character) + ']'
-                label = re.sub(out_of_char, '', label)
-        else:
-            if fil_ops:
-                # Discard samples that contain unsupported characters
-                # (transfer full-width characters to half-width character)
-                if abandon_unsupport:
-                    for char in label:
-                        if char not in support_chars:
-                            return None
-                else:
-                    # Discard samples that contain unsupported characters
-                    out_of_char = '[^' + character + ']'
+        if phase == "Train":
+            if load_type == "LMDB_Standard":
+                if fil_ops:
+                    # only filter unsupported character
+                    out_of_char = '[^' + str(character) + ']'
                     label = re.sub(out_of_char, '', label)
+            else:
+                if fil_ops:
+                    # Discard samples that contain unsupported characters
+                    # (transfer full-width characters to half-width character)
+                    if abandon_unsupport:
+                        for char in label:
+                            if char not in support_chars:
+                                return None
+                    else:
+                        # Discard samples that contain unsupported characters
+                        out_of_char = '[^' + character + ']'
+                        label = re.sub(out_of_char, '', label)
 
             if label == '':
                 # print('LMDB_Davar Empty Label:',key)

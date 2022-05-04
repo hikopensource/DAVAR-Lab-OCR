@@ -9,5 +9,6 @@
 ##################################################################################################
 """
 from .ner_head import NERHead
+from .chargrid_reg import ChargridRegHead
 
-__all__ = ['NERHead']
+__all__ = ['NERHead', 'ChargridRegHead']

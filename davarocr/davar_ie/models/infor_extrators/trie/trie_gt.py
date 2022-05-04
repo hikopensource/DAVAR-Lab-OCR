@@ -58,10 +58,10 @@ class TRIEGT(TRIE):
             infor_node_cls_head(dict): node cls head for IE (e.g. ClsHead)
             infor_sequence_module(dict): config of infor_sequence_module (e.g. LSTM)
             infor_ner_head(dict): ner head for IE
-            neck(dict): neck of the detection model (e.g., FPN)
+            neck(dict): necks of the detection model (e.g., FPN)
             rpn_head(dict): rpn head
             roi_head(dict): roi head
-            rcg_neck(dict): neck of rcg model (default None)
+            rcg_neck(dict): necks of rcg model (default None)
             rcg_transformation(dict): transformation of rcg model
             rcg_sequence_module(dict): sequence module of rcg model (e.g. CascadeRNN)
             raw_text_embedding (dict): original text_embedding config (e.g. Embedding)

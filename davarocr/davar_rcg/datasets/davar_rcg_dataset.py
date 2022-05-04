@@ -4,8 +4,8 @@
 # Filename       :    davar_rcg_dataset.py
 # Abstract       :    Implementations of davar dataset loading
 
-# Current Version:    1.0.0
-# Date           :    2021-05-01
+# Current Version:    1.0.1
+# Date           :    2022-04-28
 ##################################################################################################
 """
 import os.path as osp
@@ -146,11 +146,10 @@ class DavarRCGDataset(Dataset):
                             "ann": {'text': label}
                         }
 
-                        self.img_infos.append(this_ann)
-
                         if len(label) > self.batch_max_length:
                             continue
 
+                        self.img_infos.append(this_ann)
                         self.filtered_index_list.append(index)
                         if len(self.filtered_index_list) == int(self.num_samples * self.used_ratio):
                             break
@@ -178,11 +177,11 @@ class DavarRCGDataset(Dataset):
                                 'label': value["content_ann"]['labels'][0]
                                 if 'labels' in value["content_ann"] else -1, }
                             }
-                        self.img_infos.append(this_ann)
 
                         if len(label) > self.batch_max_length:
                             continue
 
+                        self.img_infos.append(this_ann)
                         self.filtered_index_list.append(index)
                         if len(self.filtered_index_list) == int(self.num_samples * self.used_ratio):
                             break
@@ -290,9 +289,13 @@ class DavarRCGDataset(Dataset):
         while True:
             data = self.prepare_train_img(idx)
             if data is None:
+                ori_idx = idx
                 idx = random.randint(0, len(self)-1)
                 idx = self.filtered_index_list[idx]
-                continue
+                if self.phase == "Train":
+                    continue
+                else:
+                    self.img_infos[ori_idx] = self.img_infos[idx]
             return data
 
     def _load_annotations(self, root):
