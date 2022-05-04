@@ -41,7 +41,10 @@ To date, davarocr contains the following algorithms:
 
 ***Information Extraction***
 
+- [x] [Chargrid](demo/text_ie/chargrid) (EMNLP 2018)
+
 - [x] [TRIE](demo/text_ie/trie) (ACM MM 2020)
+
 
 ***Video Text Spotting***
 
@@ -93,7 +96,7 @@ For the problems existing in the process of installation and researching, we wil
 
 ## Changelog
 
-DavarOCR v0.4.0 was released in 12/31/2021.
+DavarOCR v0.4.1 was released in 04/05/2022.
 Please refer to [Changelog.md](./docs/Changelog.md) for details and release history.
 
 

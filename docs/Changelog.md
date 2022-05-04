@@ -1,5 +1,12 @@
 # Changelog
 
+### v0.4.1  (04/05/2022)
+
+**Highlights**
+
+- Release the implementations of Chargrid.
+- Some bug fixed.
+
 ### v0.4.0  (31/12/2021)
 
 **Highlights**
