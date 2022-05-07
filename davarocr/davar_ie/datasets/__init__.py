@@ -10,8 +10,5 @@
 """
 from .pipelines import *
 from .wildreceipt_dataset import WildReceiptDataset
-from .wildreceipt_chargrid_coco import WildReceiptChargridCoco
-from .wildreceipt_chargrid_davar import WildReceiptChargridDavar
-from .publaynet_dataset_randpick import PublaynetDatasetRandPick
 
-__all__ = ['WildReceiptDataset', 'WildReceiptChargridCoco', 'WildReceiptChargridDavar', 'PublaynetDatasetRandPick']
+__all__ = ['WildReceiptDataset']
