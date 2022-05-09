@@ -18,11 +18,11 @@ import numpy as np
 
 from mmcv.utils import print_log
 
-from .builder import CONVERTER
+from davarocr.davar_common.core.builder import CONVERTERS
 from .utils.beams import Beams
 
 
-@CONVERTER.register_module()
+@CONVERTERS.register_module()
 class CTCLabelConverter:
     """Convert between text-label and text-index """
     def __init__(self, character,

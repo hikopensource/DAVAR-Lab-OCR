@@ -11,6 +11,8 @@ We also provide some of the ablation experiment comparasions for better reproduc
 ## Implementations
 To date, davarocr contains the following algorithms:
 
+*Basic OCR Tasks*
+
 ***Text Detection***
 
 - [x] [EAST](demo/text_detection/east) (CVPR 2017)
@@ -39,19 +41,19 @@ To date, davarocr contains the following algorithms:
 
 - [x] [MANGO](demo/text_spotting/mango) (AAAI 2021)
 
-***Information Extraction***
-
-- [x] [Chargrid](demo/text_ie/chargrid) (EMNLP 2018)
-
-- [x] [TRIE](demo/text_ie/trie) (ACM MM 2020)
-
-
 ***Video Text Spotting***
 
 - [x] [YORO](demo/videotext/yoro) (ACM MM 2019)
 
 - FREE (to be released) (TIP 2021)
 
+*Document Understanding Tasks*
+
+***Information Extraction***
+
+- [x] [Chargrid](demo/text_ie/chargrid) (EMNLP 2018)
+
+- [x] [TRIE](demo/text_ie/trie) (ACM MM 2020)
 
 ***Table Recognition***
 
@@ -61,6 +63,11 @@ To date, davarocr contains the following algorithms:
 
 - [x] [VSR](demo/text_layout/VSR) (ICDAR 2021)
 
+***Named Entity Reocognition***
+
+- [x] [Bert-based NER](demo/ner/BERT), including BERT+CRF/Span/Softmax 
+
+- [x] [BiLSTM+CRF NER](demo/ner/bilstm_crf) (Arxiv 2016)
 
 ## Development Environment
 The recommended environment requirements can be found in [mmdetection](https://github.com/open-mmlab/mmdetection/). Follows are the lowest compatible environment.
@@ -96,7 +103,7 @@ For the problems existing in the process of installation and researching, we wil
 
 ## Changelog
 
-DavarOCR v0.4.1 was released in 04/05/2022.
+DavarOCR v0.5.0 was released in 09/05/2022.
 Please refer to [Changelog.md](./docs/Changelog.md) for details and release history.
 
 

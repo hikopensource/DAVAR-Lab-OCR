@@ -14,7 +14,7 @@ import torch.nn as nn
 from mmdet.models.builder import HEADS
 from mmdet.models.builder import build_loss
 
-from ...core.converter import build_converter
+from davarocr.davar_common.core.builder import build_converter
 
 
 @HEADS.register_module()

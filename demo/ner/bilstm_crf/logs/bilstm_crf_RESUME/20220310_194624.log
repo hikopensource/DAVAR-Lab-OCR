@@ -1,0 +1,813 @@
+2022-03-10 19:46:24,691 - davarocr - INFO - Environment info:
+------------------------------------------------------------
+sys.platform: linux
+Python: 3.8.5 (default, Sep  4 2020, 07:30:14) [GCC 7.3.0]
+CUDA available: True
+GPU 0: NVIDIA Tesla V100-SXM2-32GB
+CUDA_HOME: /usr/local/cuda
+NVCC: Build cuda_11.3.r11.3/compiler.29745058_0
+GCC: gcc (Ubuntu 9.3.0-17ubuntu1~20.04) 9.3.0
+PyTorch: 1.10.0+cu113
+PyTorch compiling details: PyTorch built with:
+  - GCC 7.3
+  - C++ Version: 201402
+  - Intel(R) Math Kernel Library Version 2020.0.0 Product Build 20191122 for Intel(R) 64 architecture applications
+  - Intel(R) MKL-DNN v2.2.3 (Git Hash 7336ca9f055cf1bfa13efb658fe15dc9b41f0740)
+  - OpenMP 201511 (a.k.a. OpenMP 4.5)
+  - LAPACK is enabled (usually provided by MKL)
+  - NNPACK is enabled
+  - CPU capability usage: AVX512
+  - CUDA Runtime 11.3
+  - NVCC architecture flags: -gencode;arch=compute_37,code=sm_37;-gencode;arch=compute_50,code=sm_50;-gencode;arch=compute_60,code=sm_60;-gencode;arch=compute_70,code=sm_70;-gencode;arch=compute_75,code=sm_75;-gencode;arch=compute_80,code=sm_80;-gencode;arch=compute_86,code=sm_86
+  - CuDNN 8.2
+  - Magma 2.5.2
+  - Build settings: BLAS_INFO=mkl, BUILD_TYPE=Release, CUDA_VERSION=11.3, CUDNN_VERSION=8.2.0, CXX_COMPILER=/opt/rh/devtoolset-7/root/usr/bin/c++, CXX_FLAGS= -Wno-deprecated -fvisibility-inlines-hidden -DUSE_PTHREADPOOL -fopenmp -DNDEBUG -DUSE_KINETO -DUSE_FBGEMM -DUSE_QNNPACK -DUSE_PYTORCH_QNNPACK -DUSE_XNNPACK -DSYMBOLICATE_MOBILE_DEBUG_HANDLE -DEDGE_PROFILER_USE_KINETO -O2 -fPIC -Wno-narrowing -Wall -Wextra -Werror=return-type -Wno-missing-field-initializers -Wno-type-limits -Wno-array-bounds -Wno-unknown-pragmas -Wno-sign-compare -Wno-unused-parameter -Wno-unused-variable -Wno-unused-function -Wno-unused-result -Wno-unused-local-typedefs -Wno-strict-overflow -Wno-strict-aliasing -Wno-error=deprecated-declarations -Wno-stringop-overflow -Wno-psabi -Wno-error=pedantic -Wno-error=redundant-decls -Wno-error=old-style-cast -fdiagnostics-color=always -faligned-new -Wno-unused-but-set-variable -Wno-maybe-uninitialized -fno-math-errno -fno-trapping-math -Werror=format -Wno-stringop-overflow, LAPACK_INFO=mkl, PERF_WITH_AVX=1, PERF_WITH_AVX2=1, PERF_WITH_AVX512=1, TORCH_VERSION=1.10.0, USE_CUDA=ON, USE_CUDNN=ON, USE_EXCEPTION_PTR=1, USE_GFLAGS=OFF, USE_GLOG=OFF, USE_MKL=ON, USE_MKLDNN=ON, USE_MPI=OFF, USE_NCCL=ON, USE_NNPACK=ON, USE_OPENMP=ON, 
+
+TorchVision: 0.11.1+cu113
+OpenCV: 4.5.5
+MMCV: 1.3.4
+MMCV Compiler: GCC 9.3
+MMCV CUDA Compiler: 11.3
+DAVAROCR: 0.4.0+unknown
+------------------------------------------------------------
+
+2022-03-10 19:46:25,686 - davarocr - INFO - Distributed training: False
+2022-03-10 19:46:26,516 - davarocr - INFO - Config:
+checkpoint_config = dict(
+    interval=1,
+    type='DavarCheckpointHook',
+    save_mode='lightweight',
+    metric='hmean',
+    filename_tmpl='bert_e{}.pth',
+    save_last=False)
+log_config = dict(interval=5, hooks=[dict(type='TextLoggerHook')])
+dist_params = dict(backend='nccl')
+log_level = 'INFO'
+load_from = None
+resume_from = None
+workflow = [('train', 1)]
+dataset_name = 'RESUME'
+train_ann_file = '/data1/data/Chinese/Flat/RESUME/Datalist/train.json'
+val_ann_file = '/data1/data/Chinese/Flat/RESUME/Datalist/test.json'
+test_ann_file = '/data1/data/Chinese/Flat/RESUME/Datalist/test.json'
+label_list = ['NAME', 'CONT', 'RACE', 'TITLE', 'EDU', 'ORG', 'PRO', 'LOC']
+model_name_or_path = '/data1/resume/models/huggingface/bert-base-chinese'
+do_lower_case = True
+work_dir = './work_dirs/bilstm_crf_RESUME'
+max_len = 256
+loader = dict(type='NerLoader', truncation=False, stride=254, max_len=254)
+ner_convertor = dict(
+    type='TransformersConvertor',
+    model_name_or_path='/data1/resume/models/huggingface/bert-base-chinese',
+    label_list=['NAME', 'CONT', 'RACE', 'TITLE', 'EDU', 'ORG', 'PRO', 'LOC'],
+    max_len=512,
+    do_lower_case=True)
+test_pipeline = [
+    dict(
+        type='NerTransform',
+        label_convertor=dict(
+            type='TransformersConvertor',
+            model_name_or_path=
+            '/data1/resume/models/huggingface/bert-base-chinese',
+            label_list=[
+                'NAME', 'CONT', 'RACE', 'TITLE', 'EDU', 'ORG', 'PRO', 'LOC'
+            ],
+            max_len=512,
+            do_lower_case=True)),
+    dict(
+        type='ToTensor',
+        keys=[
+            'input_ids', 'attention_masks', 'token_type_ids', 'labels',
+            'input_len'
+        ])
+]
+train_pipeline = [
+    dict(
+        type='NerTransform',
+        label_convertor=dict(
+            type='TransformersConvertor',
+            model_name_or_path=
+            '/data1/resume/models/huggingface/bert-base-chinese',
+            label_list=[
+                'NAME', 'CONT', 'RACE', 'TITLE', 'EDU', 'ORG', 'PRO', 'LOC'
+            ],
+            max_len=512,
+            do_lower_case=True)),
+    dict(
+        type='ToTensor',
+        keys=[
+            'input_ids', 'attention_masks', 'token_type_ids', 'labels',
+            'input_len'
+        ])
+]
+dataset_type = 'NerDataset'
+train = dict(
+    type='NerDataset',
+    ann_file='/data1/data/Chinese/Flat/RESUME/Datalist/train.json',
+    loader=dict(type='NerLoader', truncation=False, stride=254, max_len=254),
+    pipeline=[
+        dict(
+            type='NerTransform',
+            label_convertor=dict(
+                type='TransformersConvertor',
+                model_name_or_path=
+                '/data1/resume/models/huggingface/bert-base-chinese',
+                label_list=[
+                    'NAME', 'CONT', 'RACE', 'TITLE', 'EDU', 'ORG', 'PRO', 'LOC'
+                ],
+                max_len=512,
+                do_lower_case=True)),
+        dict(
+            type='ToTensor',
+            keys=[
+                'input_ids', 'attention_masks', 'token_type_ids', 'labels',
+                'input_len'
+            ])
+    ],
+    test_mode=False)
+val = dict(
+    type='NerDataset',
+    ann_file='/data1/data/Chinese/Flat/RESUME/Datalist/test.json',
+    loader=dict(type='NerLoader', truncation=False, stride=254, max_len=254),
+    pipeline=[
+        dict(
+            type='NerTransform',
+            label_convertor=dict(
+                type='TransformersConvertor',
+                model_name_or_path=
+                '/data1/resume/models/huggingface/bert-base-chinese',
+                label_list=[
+                    'NAME', 'CONT', 'RACE', 'TITLE', 'EDU', 'ORG', 'PRO', 'LOC'
+                ],
+                max_len=512,
+                do_lower_case=True)),
+        dict(
+            type='ToTensor',
+            keys=[
+                'input_ids', 'attention_masks', 'token_type_ids', 'labels',
+                'input_len'
+            ])
+    ],
+    test_mode=True)
+test = dict(
+    type='NerDataset',
+    ann_file='/data1/data/Chinese/Flat/RESUME/Datalist/test.json',
+    loader=dict(type='NerLoader', truncation=False, stride=254, max_len=254),
+    pipeline=[
+        dict(
+            type='NerTransform',
+            label_convertor=dict(
+                type='TransformersConvertor',
+                model_name_or_path=
+                '/data1/resume/models/huggingface/bert-base-chinese',
+                label_list=[
+                    'NAME', 'CONT', 'RACE', 'TITLE', 'EDU', 'ORG', 'PRO', 'LOC'
+                ],
+                max_len=512,
+                do_lower_case=True)),
+        dict(
+            type='ToTensor',
+            keys=[
+                'input_ids', 'attention_masks', 'token_type_ids', 'labels',
+                'input_len'
+            ])
+    ],
+    test_mode=True)
+data = dict(
+    samples_per_gpu=128,
+    workers_per_gpu=2,
+    train=dict(
+        type='NerDataset',
+        ann_file='/data1/data/Chinese/Flat/RESUME/Datalist/train.json',
+        loader=dict(
+            type='NerLoader', truncation=False, stride=254, max_len=254),
+        pipeline=[
+            dict(
+                type='NerTransform',
+                label_convertor=dict(
+                    type='TransformersConvertor',
+                    model_name_or_path=
+                    '/data1/resume/models/huggingface/bert-base-chinese',
+                    label_list=[
+                        'NAME', 'CONT', 'RACE', 'TITLE', 'EDU', 'ORG', 'PRO',
+                        'LOC'
+                    ],
+                    max_len=512,
+                    do_lower_case=True)),
+            dict(
+                type='ToTensor',
+                keys=[
+                    'input_ids', 'attention_masks', 'token_type_ids', 'labels',
+                    'input_len'
+                ])
+        ],
+        test_mode=False),
+    val=dict(
+        type='NerDataset',
+        ann_file='/data1/data/Chinese/Flat/RESUME/Datalist/test.json',
+        loader=dict(
+            type='NerLoader', truncation=False, stride=254, max_len=254),
+        pipeline=[
+            dict(
+                type='NerTransform',
+                label_convertor=dict(
+                    type='TransformersConvertor',
+                    model_name_or_path=
+                    '/data1/resume/models/huggingface/bert-base-chinese',
+                    label_list=[
+                        'NAME', 'CONT', 'RACE', 'TITLE', 'EDU', 'ORG', 'PRO',
+                        'LOC'
+                    ],
+                    max_len=512,
+                    do_lower_case=True)),
+            dict(
+                type='ToTensor',
+                keys=[
+                    'input_ids', 'attention_masks', 'token_type_ids', 'labels',
+                    'input_len'
+                ])
+        ],
+        test_mode=True),
+    test=dict(
+        type='NerDataset',
+        ann_file='/data1/data/Chinese/Flat/RESUME/Datalist/test.json',
+        loader=dict(
+            type='NerLoader', truncation=False, stride=254, max_len=254),
+        pipeline=[
+            dict(
+                type='NerTransform',
+                label_convertor=dict(
+                    type='TransformersConvertor',
+                    model_name_or_path=
+                    '/data1/resume/models/huggingface/bert-base-chinese',
+                    label_list=[
+                        'NAME', 'CONT', 'RACE', 'TITLE', 'EDU', 'ORG', 'PRO',
+                        'LOC'
+                    ],
+                    max_len=512,
+                    do_lower_case=True)),
+            dict(
+                type='ToTensor',
+                keys=[
+                    'input_ids', 'attention_masks', 'token_type_ids', 'labels',
+                    'input_len'
+                ])
+        ],
+        test_mode=True))
+type = 'NER'
+model = dict(
+    type='BaseNer',
+    encoder=dict(
+        type='BiLSTMEncoder',
+        model_name_or_path='/data1/resume/models/huggingface/bert-base-chinese',
+        num_lstm=3,
+        hidden_size=768),
+    decoder=dict(
+        type='CRFDecoder',
+        label_convertor=dict(
+            type='TransformersConvertor',
+            model_name_or_path=
+            '/data1/resume/models/huggingface/bert-base-chinese',
+            label_list=[
+                'NAME', 'CONT', 'RACE', 'TITLE', 'EDU', 'ORG', 'PRO', 'LOC'
+            ],
+            max_len=512,
+            do_lower_case=True),
+        hidden_size=768))
+test_cfg = None
+optimizer = dict(type='AdamW', lr=0.001)
+optimizer_config = dict(grad_clip=dict(max_norm=5))
+lr_config = dict(
+    policy='inv',
+    warmup='linear',
+    warmup_iters=10,
+    warmup_ratio=1e-05,
+    warmup_by_epoch=True,
+    gamma=0.05)
+total_epochs = 50
+evaluation = dict(interval=1, metric='f1-score', save_best='hmean')
+gpu_ids = range(0, 1)
+
+2022-03-10 19:46:30,741 - davarocr - INFO - Start running, host: root@train-layout-4-0, work_dir: /data1/davar-nlp1/demo/text_ner/work_dirs/bilstm_crf_RESUME
+2022-03-10 19:46:30,741 - davarocr - INFO - workflow: [('train', 1)], max: 50 epochs
+2022-03-10 19:46:37,482 - davarocr - INFO - Epoch [1][5/30]	lr: 1.334e-05, eta: 0:33:34, time: 1.347, data_time: 0.530, memory: 5234, loss_crf: 127.8963, loss: 127.8963, grad_norm: 25.6684
+2022-03-10 19:46:41,520 - davarocr - INFO - Epoch [1][10/30]	lr: 3.001e-05, eta: 0:26:45, time: 0.808, data_time: 0.008, memory: 5234, loss_crf: 120.7632, loss: 120.7632, grad_norm: 24.4531
+2022-03-10 19:46:45,522 - davarocr - INFO - Epoch [1][15/30]	lr: 4.668e-05, eta: 0:24:22, time: 0.800, data_time: 0.008, memory: 5234, loss_crf: 122.1034, loss: 122.1034, grad_norm: 25.5175
+2022-03-10 19:46:49,527 - davarocr - INFO - Epoch [1][20/30]	lr: 6.334e-05, eta: 0:23:09, time: 0.801, data_time: 0.007, memory: 5234, loss_crf: 119.9370, loss: 119.9370, grad_norm: 25.4784
+2022-03-10 19:46:53,710 - davarocr - INFO - Epoch [1][25/30]	lr: 8.001e-05, eta: 0:22:34, time: 0.836, data_time: 0.007, memory: 5234, loss_crf: 122.3322, loss: 122.3322, grad_norm: 27.7312
+2022-03-10 19:46:57,724 - davarocr - INFO - Exp name: bilstm_crf.py
+2022-03-10 19:46:57,725 - davarocr - INFO - Epoch [1][30/30]	lr: 9.668e-05, eta: 0:22:02, time: 0.803, data_time: 0.007, memory: 5234, loss_crf: 113.6244, loss: 113.6244, grad_norm: 34.4043
+2022-03-10 19:47:58,546 - davarocr - INFO - Now best checkpoint is epoch_1.pth. Best hmean is 0.0
+2022-03-10 19:47:58,547 - davarocr - INFO - Exp name: bilstm_crf.py
+2022-03-10 19:47:58,547 - davarocr - INFO - Epoch(val) [1][30]	NAME: {'precision': 0, 'recall': 0.0, 'f1-score': 0.0}, PRO: {'precision': 0, 'recall': 0.0, 'f1-score': 0.0}, EDU: {'precision': 0, 'recall': 0.0, 'f1-score': 0.0}, TITLE: {'precision': 0, 'recall': 0.0, 'f1-score': 0.0}, ORG: {'precision': 0, 'recall': 0.0, 'f1-score': 0.0}, CONT: {'precision': 0, 'recall': 0.0, 'f1-score': 0.0}, RACE: {'precision': 0, 'recall': 0.0, 'f1-score': 0.0}, LOC: {'precision': 0, 'recall': 0.0, 'f1-score': 0.0}, all: {'precision': 0, 'recall': 0.0, 'f1-score': 0.0}, hmean: 0.0000
+2022-03-10 19:48:08,630 - davarocr - INFO - Epoch [2][5/30]	lr: 1.079e-04, eta: 0:25:51, time: 2.016, data_time: 0.535, memory: 5234, loss_crf: 100.1814, loss: 100.1814, grad_norm: 52.3101
+2022-03-10 19:48:16,093 - davarocr - INFO - Epoch [2][10/30]	lr: 1.238e-04, eta: 0:27:05, time: 1.493, data_time: 0.008, memory: 5234, loss_crf: 85.7070, loss: 85.7070, grad_norm: 108.1503
+2022-03-10 19:48:23,558 - davarocr - INFO - Epoch [2][15/30]	lr: 1.397e-04, eta: 0:28:00, time: 1.493, data_time: 0.008, memory: 5234, loss_crf: 66.9957, loss: 66.9957, grad_norm: 121.8928
+2022-03-10 19:48:31,136 - davarocr - INFO - Epoch [2][20/30]	lr: 1.556e-04, eta: 0:28:47, time: 1.515, data_time: 0.008, memory: 5234, loss_crf: 61.3130, loss: 61.3130, grad_norm: 83.9617
+2022-03-10 19:48:38,726 - davarocr - INFO - Epoch [2][25/30]	lr: 1.714e-04, eta: 0:29:24, time: 1.518, data_time: 0.008, memory: 5234, loss_crf: 56.2226, loss: 56.2226, grad_norm: 45.5878
+2022-03-10 19:48:46,329 - davarocr - INFO - Exp name: bilstm_crf.py
+2022-03-10 19:48:46,329 - davarocr - INFO - Epoch [2][30/30]	lr: 1.873e-04, eta: 0:29:54, time: 1.521, data_time: 0.008, memory: 5234, loss_crf: 53.1825, loss: 53.1825, grad_norm: 29.8119
+2022-03-10 19:49:50,280 - davarocr - INFO - Now best checkpoint is epoch_1.pth. Best hmean is 0.0
+2022-03-10 19:49:50,281 - davarocr - INFO - Exp name: bilstm_crf.py
+2022-03-10 19:49:50,281 - davarocr - INFO - Epoch(val) [2][30]	NAME: {'precision': 0, 'recall': 0.0, 'f1-score': 0.0}, PRO: {'precision': 0, 'recall': 0.0, 'f1-score': 0.0}, EDU: {'precision': 0, 'recall': 0.0, 'f1-score': 0.0}, TITLE: {'precision': 0, 'recall': 0.0, 'f1-score': 0.0}, ORG: {'precision': 0, 'recall': 0.0, 'f1-score': 0.0}, CONT: {'precision': 0, 'recall': 0.0, 'f1-score': 0.0}, RACE: {'precision': 0, 'recall': 0.0, 'f1-score': 0.0}, LOC: {'precision': 0, 'recall': 0.0, 'f1-score': 0.0}, all: {'precision': 0, 'recall': 0.0, 'f1-score': 0.0}, hmean: 0.0000
+2022-03-10 19:50:00,228 - davarocr - INFO - Epoch [3][5/30]	lr: 1.939e-04, eta: 0:31:09, time: 1.988, data_time: 0.522, memory: 5234, loss_crf: 49.3004, loss: 49.3004, grad_norm: 22.8774
+2022-03-10 19:50:07,837 - davarocr - INFO - Epoch [3][10/30]	lr: 2.091e-04, eta: 0:31:25, time: 1.522, data_time: 0.008, memory: 5234, loss_crf: 44.7129, loss: 44.7129, grad_norm: 20.4468
+2022-03-10 19:50:15,461 - davarocr - INFO - Epoch [3][15/30]	lr: 2.242e-04, eta: 0:31:38, time: 1.524, data_time: 0.008, memory: 5234, loss_crf: 40.6082, loss: 40.6082, grad_norm: 24.8630
+2022-03-10 19:50:23,044 - davarocr - INFO - Epoch [3][20/30]	lr: 2.394e-04, eta: 0:31:48, time: 1.517, data_time: 0.007, memory: 5234, loss_crf: 36.5414, loss: 36.5414, grad_norm: 19.4891
+2022-03-10 19:50:29,689 - davarocr - INFO - Epoch [3][25/30]	lr: 2.546e-04, eta: 0:31:40, time: 1.329, data_time: 0.006, memory: 5234, loss_crf: 37.1730, loss: 37.1730, grad_norm: 26.5122
+2022-03-10 19:50:35,887 - davarocr - INFO - Exp name: bilstm_crf.py
+2022-03-10 19:50:35,888 - davarocr - INFO - Epoch [3][30/30]	lr: 2.697e-04, eta: 0:31:25, time: 1.240, data_time: 0.007, memory: 5234, loss_crf: 31.3381, loss: 31.3381, grad_norm: 22.7304
+2022-03-10 19:51:36,426 - davarocr - INFO - Now best checkpoint is epoch_3.pth. Best hmean is 0.1209889531825355
+2022-03-10 19:51:36,427 - davarocr - INFO - current_metric 0.1209889531825355 is much better than previous best_metric 0, saving best model !
+2022-03-10 19:51:36,427 - davarocr - INFO - Saving checkpoint at epoch_3.pth
+2022-03-10 19:51:36,617 - davarocr - INFO - Exp name: bilstm_crf.py
+2022-03-10 19:51:36,617 - davarocr - INFO - Epoch(val) [3][30]	NAME: {'precision': 0, 'recall': 0.0, 'f1-score': 0.0}, PRO: {'precision': 0, 'recall': 0.0, 'f1-score': 0.0}, EDU: {'precision': 0, 'recall': 0.0, 'f1-score': 0.0}, TITLE: {'precision': 0.5416666666666666, 'recall': 0.01683937823834197, 'f1-score': 0.032663316582914576}, ORG: {'precision': 0.41295546558704455, 'recall': 0.1844484629294756, 'f1-score': 0.255}, CONT: {'precision': 0, 'recall': 0.0, 'f1-score': 0.0}, RACE: {'precision': 0, 'recall': 0.0, 'f1-score': 0.0}, LOC: {'precision': 0, 'recall': 0.0, 'f1-score': 0.0}, all: {'precision': 0.42435424354243545, 'recall': 0.0705521472392638, 'f1-score': 0.1209889531825355}, hmean: 0.1210
+2022-03-10 19:51:46,112 - davarocr - INFO - Epoch [4][5/30]	lr: 2.725e-04, eta: 0:32:00, time: 1.897, data_time: 0.514, memory: 5234, loss_crf: 27.3920, loss: 27.3920, grad_norm: 18.4124
+2022-03-10 19:51:52,975 - davarocr - INFO - Epoch [4][10/30]	lr: 2.870e-04, eta: 0:31:53, time: 1.373, data_time: 0.008, memory: 5234, loss_crf: 25.4682, loss: 25.4682, grad_norm: 17.6920
+2022-03-10 19:51:59,930 - davarocr - INFO - Epoch [4][15/30]	lr: 3.015e-04, eta: 0:31:48, time: 1.391, data_time: 0.006, memory: 5234, loss_crf: 22.6457, loss: 22.6457, grad_norm: 25.6926
+2022-03-10 19:52:06,805 - davarocr - INFO - Epoch [4][20/30]	lr: 3.159e-04, eta: 0:31:42, time: 1.375, data_time: 0.007, memory: 5234, loss_crf: 19.7899, loss: 19.7899, grad_norm: 23.4458
+2022-03-10 19:52:13,586 - davarocr - INFO - Epoch [4][25/30]	lr: 3.304e-04, eta: 0:31:34, time: 1.356, data_time: 0.006, memory: 5234, loss_crf: 18.3289, loss: 18.3289, grad_norm: 27.3293
+2022-03-10 19:52:20,068 - davarocr - INFO - Exp name: bilstm_crf.py
+2022-03-10 19:52:20,068 - davarocr - INFO - Epoch [4][30/30]	lr: 3.449e-04, eta: 0:31:23, time: 1.296, data_time: 0.006, memory: 5234, loss_crf: 16.7370, loss: 16.7370, grad_norm: 25.0271
+2022-03-10 19:53:19,731 - davarocr - INFO - Now best checkpoint is epoch_4.pth. Best hmean is 0.6595978062157221
+2022-03-10 19:53:19,731 - davarocr - INFO - current_metric 0.6595978062157221 is much better than previous best_metric 0.1209889531825355, saving best model !
+2022-03-10 19:53:19,731 - davarocr - INFO - Saving checkpoint at epoch_4.pth
+2022-03-10 19:53:19,945 - davarocr - INFO - Exp name: bilstm_crf.py
+2022-03-10 19:53:19,945 - davarocr - INFO - Epoch(val) [4][30]	NAME: {'precision': 0.2, 'recall': 0.11607142857142858, 'f1-score': 0.14689265536723164}, PRO: {'precision': 0, 'recall': 0.0, 'f1-score': 0.0}, EDU: {'precision': 0.717948717948718, 'recall': 0.25, 'f1-score': 0.3708609271523179}, TITLE: {'precision': 0.8710217755443886, 'recall': 0.6735751295336787, 'f1-score': 0.7596785975164353}, ORG: {'precision': 0.844059405940594, 'recall': 0.6166365280289331, 'f1-score': 0.7126436781609194}, CONT: {'precision': 0, 'recall': 0.0, 'f1-score': 0.0}, RACE: {'precision': 0, 'recall': 0.0, 'f1-score': 0.0}, LOC: {'precision': 0, 'recall': 0.0, 'f1-score': 0.0}, all: {'precision': 0.816289592760181, 'recall': 0.5533742331288344, 'f1-score': 0.6595978062157221}, hmean: 0.6596
+2022-03-10 19:53:29,406 - davarocr - INFO - Epoch [5][5/30]	lr: 3.444e-04, eta: 0:31:45, time: 1.891, data_time: 0.534, memory: 5234, loss_crf: 14.4954, loss: 14.4954, grad_norm: 20.0422
+2022-03-10 19:53:36,145 - davarocr - INFO - Epoch [5][10/30]	lr: 3.583e-04, eta: 0:31:36, time: 1.347, data_time: 0.008, memory: 5234, loss_crf: 13.2128, loss: 13.2128, grad_norm: 25.0025
+2022-03-10 19:53:42,792 - davarocr - INFO - Epoch [5][15/30]	lr: 3.722e-04, eta: 0:31:27, time: 1.330, data_time: 0.009, memory: 5234, loss_crf: 11.8949, loss: 11.8949, grad_norm: 22.0488
+2022-03-10 19:53:49,496 - davarocr - INFO - Epoch [5][20/30]	lr: 3.861e-04, eta: 0:31:18, time: 1.341, data_time: 0.007, memory: 5234, loss_crf: 11.2644, loss: 11.2644, grad_norm: 26.4015
+2022-03-10 19:53:56,344 - davarocr - INFO - Epoch [5][25/30]	lr: 4.000e-04, eta: 0:31:10, time: 1.369, data_time: 0.008, memory: 5234, loss_crf: 11.7746, loss: 11.7746, grad_norm: 36.4038
+2022-03-10 19:54:03,088 - davarocr - INFO - Exp name: bilstm_crf.py
+2022-03-10 19:54:03,088 - davarocr - INFO - Epoch [5][30/30]	lr: 4.139e-04, eta: 0:31:02, time: 1.349, data_time: 0.008, memory: 5234, loss_crf: 9.7818, loss: 9.7818, grad_norm: 21.2921
+2022-03-10 19:55:02,788 - davarocr - INFO - Now best checkpoint is epoch_5.pth. Best hmean is 0.8011928429423459
+2022-03-10 19:55:02,788 - davarocr - INFO - current_metric 0.8011928429423459 is much better than previous best_metric 0.6595978062157221, saving best model !
+2022-03-10 19:55:02,788 - davarocr - INFO - Saving checkpoint at epoch_5.pth
+2022-03-10 19:55:02,988 - davarocr - INFO - Exp name: bilstm_crf.py
+2022-03-10 19:55:02,988 - davarocr - INFO - Epoch(val) [5][30]	NAME: {'precision': 0.7894736842105263, 'recall': 0.6696428571428571, 'f1-score': 0.7246376811594203}, PRO: {'precision': 0, 'recall': 0.0, 'f1-score': 0.0}, EDU: {'precision': 0.7052631578947368, 'recall': 0.5982142857142857, 'f1-score': 0.6473429951690822}, TITLE: {'precision': 0.9015691868758916, 'recall': 0.8186528497409327, 'f1-score': 0.8581126951799048}, ORG: {'precision': 0.8686440677966102, 'recall': 0.7414104882459313, 'f1-score': 0.7999999999999999}, CONT: {'precision': 1.0, 'recall': 0.8928571428571429, 'f1-score': 0.9433962264150945}, RACE: {'precision': 0, 'recall': 0.0, 'f1-score': 0.0}, LOC: {'precision': 0, 'recall': 0.0, 'f1-score': 0.0}, all: {'precision': 0.8710374639769453, 'recall': 0.741717791411043, 'f1-score': 0.8011928429423459}, hmean: 0.8012
+2022-03-10 19:55:12,466 - davarocr - INFO - Epoch [6][5/30]	lr: 4.107e-04, eta: 0:31:17, time: 1.894, data_time: 0.543, memory: 5234, loss_crf: 9.9876, loss: 9.9876, grad_norm: 23.4762
+2022-03-10 19:55:19,267 - davarocr - INFO - Epoch [6][10/30]	lr: 4.240e-04, eta: 0:31:09, time: 1.361, data_time: 0.009, memory: 5234, loss_crf: 8.4020, loss: 8.4020, grad_norm: 18.2821
+2022-03-10 19:55:26,016 - davarocr - INFO - Epoch [6][15/30]	lr: 4.373e-04, eta: 0:31:00, time: 1.350, data_time: 0.008, memory: 5234, loss_crf: 7.7142, loss: 7.7142, grad_norm: 18.2178
+2022-03-10 19:55:32,858 - davarocr - INFO - Epoch [6][20/30]	lr: 4.507e-04, eta: 0:30:52, time: 1.368, data_time: 0.008, memory: 5234, loss_crf: 8.2328, loss: 8.2328, grad_norm: 34.0497
+2022-03-10 19:55:39,706 - davarocr - INFO - Epoch [6][25/30]	lr: 4.640e-04, eta: 0:30:44, time: 1.370, data_time: 0.008, memory: 5234, loss_crf: 7.8692, loss: 7.8692, grad_norm: 30.6852
+2022-03-10 19:55:46,654 - davarocr - INFO - Exp name: bilstm_crf.py
+2022-03-10 19:55:46,654 - davarocr - INFO - Epoch [6][30/30]	lr: 4.773e-04, eta: 0:30:37, time: 1.389, data_time: 0.007, memory: 5234, loss_crf: 7.2803, loss: 7.2803, grad_norm: 25.0738
+2022-03-10 19:56:46,997 - davarocr - INFO - Now best checkpoint is epoch_6.pth. Best hmean is 0.8454217262881524
+2022-03-10 19:56:46,997 - davarocr - INFO - current_metric 0.8454217262881524 is much better than previous best_metric 0.8011928429423459, saving best model !
+2022-03-10 19:56:46,997 - davarocr - INFO - Saving checkpoint at epoch_6.pth
+2022-03-10 19:56:47,195 - davarocr - INFO - Exp name: bilstm_crf.py
+2022-03-10 19:56:47,195 - davarocr - INFO - Epoch(val) [6][30]	NAME: {'precision': 0.9196428571428571, 'recall': 0.9196428571428571, 'f1-score': 0.9196428571428571}, PRO: {'precision': 1.0, 'recall': 0.06060606060606061, 'f1-score': 0.1142857142857143}, EDU: {'precision': 0.7840909090909091, 'recall': 0.6160714285714286, 'f1-score': 0.6900000000000001}, TITLE: {'precision': 0.9274537695590327, 'recall': 0.844559585492228, 'f1-score': 0.8840677966101694}, ORG: {'precision': 0.8947368421052632, 'recall': 0.7685352622061483, 'f1-score': 0.8268482490272373}, CONT: {'precision': 1.0, 'recall': 0.9285714285714286, 'f1-score': 0.962962962962963}, RACE: {'precision': 1.0, 'recall': 0.7857142857142857, 'f1-score': 0.88}, LOC: {'precision': 0, 'recall': 0.0, 'f1-score': 0.0}, all: {'precision': 0.9089625970359916, 'recall': 0.7901840490797546, 'f1-score': 0.8454217262881524}, hmean: 0.8454
+2022-03-10 19:56:56,795 - davarocr - INFO - Epoch [7][5/30]	lr: 4.718e-04, eta: 0:30:49, time: 1.919, data_time: 0.523, memory: 5234, loss_crf: 6.7228, loss: 6.7228, grad_norm: 15.8257
+2022-03-10 19:57:03,611 - davarocr - INFO - Epoch [7][10/30]	lr: 4.846e-04, eta: 0:30:40, time: 1.363, data_time: 0.008, memory: 5234, loss_crf: 5.4533, loss: 5.4533, grad_norm: 14.1293
+2022-03-10 19:57:10,131 - davarocr - INFO - Epoch [7][15/30]	lr: 4.974e-04, eta: 0:30:30, time: 1.304, data_time: 0.008, memory: 5234, loss_crf: 6.0627, loss: 6.0627, grad_norm: 20.1395
+2022-03-10 19:57:17,103 - davarocr - INFO - Epoch [7][20/30]	lr: 5.103e-04, eta: 0:30:23, time: 1.395, data_time: 0.008, memory: 5234, loss_crf: 6.0303, loss: 6.0303, grad_norm: 22.4141
+2022-03-10 19:57:24,080 - davarocr - INFO - Epoch [7][25/30]	lr: 5.231e-04, eta: 0:30:16, time: 1.395, data_time: 0.008, memory: 5234, loss_crf: 5.8791, loss: 5.8791, grad_norm: 13.1854
+2022-03-10 19:57:30,974 - davarocr - INFO - Exp name: bilstm_crf.py
+2022-03-10 19:57:30,975 - davarocr - INFO - Epoch [7][30/30]	lr: 5.359e-04, eta: 0:30:08, time: 1.379, data_time: 0.008, memory: 5234, loss_crf: 5.6117, loss: 5.6117, grad_norm: 15.1938
+2022-03-10 19:58:34,164 - davarocr - INFO - Now best checkpoint is epoch_7.pth. Best hmean is 0.8820078226857888
+2022-03-10 19:58:34,165 - davarocr - INFO - current_metric 0.8820078226857888 is much better than previous best_metric 0.8454217262881524, saving best model !
+2022-03-10 19:58:34,165 - davarocr - INFO - Saving checkpoint at epoch_7.pth
+2022-03-10 19:58:34,363 - davarocr - INFO - Exp name: bilstm_crf.py
+2022-03-10 19:58:34,363 - davarocr - INFO - Epoch(val) [7][30]	NAME: {'precision': 0.9805825242718447, 'recall': 0.9017857142857143, 'f1-score': 0.9395348837209301}, PRO: {'precision': 0.6153846153846154, 'recall': 0.24242424242424243, 'f1-score': 0.34782608695652173}, EDU: {'precision': 0.8367346938775511, 'recall': 0.7321428571428571, 'f1-score': 0.7809523809523811}, TITLE: {'precision': 0.946927374301676, 'recall': 0.8782383419689119, 'f1-score': 0.9112903225806451}, ORG: {'precision': 0.9505376344086022, 'recall': 0.7992766726943942, 'f1-score': 0.8683693516699411}, CONT: {'precision': 1.0, 'recall': 1.0, 'f1-score': 1.0}, RACE: {'precision': 0.9333333333333333, 'recall': 1.0, 'f1-score': 0.9655172413793104}, LOC: {'precision': 0, 'recall': 0.0, 'f1-score': 0.0}, all: {'precision': 0.9408901251738526, 'recall': 0.8300613496932515, 'f1-score': 0.8820078226857888}, hmean: 0.8820
+2022-03-10 19:58:44,379 - davarocr - INFO - Epoch [8][5/30]	lr: 5.284e-04, eta: 0:30:19, time: 2.002, data_time: 0.546, memory: 5234, loss_crf: 5.1093, loss: 5.1093, grad_norm: 22.2011
+2022-03-10 19:58:51,723 - davarocr - INFO - Epoch [8][10/30]	lr: 5.407e-04, eta: 0:30:13, time: 1.469, data_time: 0.008, memory: 5234, loss_crf: 4.7402, loss: 4.7402, grad_norm: 15.4573
+2022-03-10 19:58:59,064 - davarocr - INFO - Epoch [8][15/30]	lr: 5.531e-04, eta: 0:30:08, time: 1.468, data_time: 0.008, memory: 5234, loss_crf: 4.1666, loss: 4.1666, grad_norm: 16.1659
+2022-03-10 19:59:06,460 - davarocr - INFO - Epoch [8][20/30]	lr: 5.654e-04, eta: 0:30:02, time: 1.479, data_time: 0.008, memory: 5234, loss_crf: 4.2635, loss: 4.2635, grad_norm: 16.2148
+2022-03-10 19:59:13,797 - davarocr - INFO - Epoch [8][25/30]	lr: 5.778e-04, eta: 0:29:56, time: 1.467, data_time: 0.007, memory: 5234, loss_crf: 3.9135, loss: 3.9135, grad_norm: 12.4526
+2022-03-10 19:59:21,100 - davarocr - INFO - Exp name: bilstm_crf.py
+2022-03-10 19:59:21,101 - davarocr - INFO - Epoch [8][30/30]	lr: 5.901e-04, eta: 0:29:50, time: 1.461, data_time: 0.008, memory: 5234, loss_crf: 4.3906, loss: 4.3906, grad_norm: 16.6725
+2022-03-10 20:00:25,724 - davarocr - INFO - Now best checkpoint is epoch_8.pth. Best hmean is 0.8999052731291443
+2022-03-10 20:00:25,725 - davarocr - INFO - current_metric 0.8999052731291443 is much better than previous best_metric 0.8820078226857888, saving best model !
+2022-03-10 20:00:25,725 - davarocr - INFO - Saving checkpoint at epoch_8.pth
+2022-03-10 20:00:25,933 - davarocr - INFO - Exp name: bilstm_crf.py
+2022-03-10 20:00:25,933 - davarocr - INFO - Epoch(val) [8][30]	NAME: {'precision': 1.0, 'recall': 0.9196428571428571, 'f1-score': 0.9581395348837208}, PRO: {'precision': 0.631578947368421, 'recall': 0.36363636363636365, 'f1-score': 0.46153846153846156}, EDU: {'precision': 0.9019607843137255, 'recall': 0.8214285714285714, 'f1-score': 0.8598130841121495}, TITLE: {'precision': 0.929144385026738, 'recall': 0.9002590673575129, 'f1-score': 0.9144736842105263}, ORG: {'precision': 0.9198473282442748, 'recall': 0.8716094032549728, 'f1-score': 0.8950789229340762}, CONT: {'precision': 1.0, 'recall': 0.9642857142857143, 'f1-score': 0.9818181818181818}, RACE: {'precision': 1.0, 'recall': 1.0, 'f1-score': 1.0}, LOC: {'precision': 0, 'recall': 0.0, 'f1-score': 0.0}, all: {'precision': 0.9271307742355237, 'recall': 0.8742331288343558, 'f1-score': 0.8999052731291443}, hmean: 0.8999
+2022-03-10 20:00:36,261 - davarocr - INFO - Epoch [9][5/30]	lr: 5.810e-04, eta: 0:30:00, time: 2.065, data_time: 0.536, memory: 5234, loss_crf: 2.8843, loss: 2.8843, grad_norm: 10.7597
+2022-03-10 20:00:44,047 - davarocr - INFO - Epoch [9][10/30]	lr: 5.929e-04, eta: 0:29:56, time: 1.557, data_time: 0.007, memory: 5234, loss_crf: 3.7407, loss: 3.7407, grad_norm: 14.5838
+2022-03-10 20:00:50,806 - davarocr - INFO - Epoch [9][15/30]	lr: 6.048e-04, eta: 0:29:46, time: 1.352, data_time: 0.007, memory: 5234, loss_crf: 3.9430, loss: 3.9430, grad_norm: 17.4452
+2022-03-10 20:00:57,739 - davarocr - INFO - Epoch [9][20/30]	lr: 6.167e-04, eta: 0:29:38, time: 1.386, data_time: 0.007, memory: 5234, loss_crf: 3.7463, loss: 3.7463, grad_norm: 20.4275
+2022-03-10 20:01:04,582 - davarocr - INFO - Epoch [9][25/30]	lr: 6.286e-04, eta: 0:29:29, time: 1.369, data_time: 0.008, memory: 5234, loss_crf: 3.0671, loss: 3.0671, grad_norm: 13.0664
+2022-03-10 20:01:11,420 - davarocr - INFO - Exp name: bilstm_crf.py
+2022-03-10 20:01:11,420 - davarocr - INFO - Epoch [9][30/30]	lr: 6.405e-04, eta: 0:29:21, time: 1.368, data_time: 0.007, memory: 5234, loss_crf: 2.8608, loss: 2.8608, grad_norm: 9.6531
+2022-03-10 20:02:10,868 - davarocr - INFO - Now best checkpoint is epoch_9.pth. Best hmean is 0.9206852791878173
+2022-03-10 20:02:10,868 - davarocr - INFO - current_metric 0.9206852791878173 is much better than previous best_metric 0.8999052731291443, saving best model !
+2022-03-10 20:02:10,868 - davarocr - INFO - Saving checkpoint at epoch_9.pth
+2022-03-10 20:02:11,082 - davarocr - INFO - Exp name: bilstm_crf.py
+2022-03-10 20:02:11,082 - davarocr - INFO - Epoch(val) [9][30]	NAME: {'precision': 1.0, 'recall': 0.9553571428571429, 'f1-score': 0.9771689497716896}, PRO: {'precision': 0.8333333333333334, 'recall': 0.6060606060606061, 'f1-score': 0.7017543859649124}, EDU: {'precision': 0.9807692307692307, 'recall': 0.9107142857142857, 'f1-score': 0.9444444444444444}, TITLE: {'precision': 0.9637377963737797, 'recall': 0.8950777202072538, 'f1-score': 0.9281396910678308}, ORG: {'precision': 0.9257142857142857, 'recall': 0.8788426763110307, 'f1-score': 0.9016697588126159}, CONT: {'precision': 1.0, 'recall': 1.0, 'f1-score': 1.0}, RACE: {'precision': 1.0, 'recall': 1.0, 'f1-score': 1.0}, LOC: {'precision': 1.0, 'recall': 0.5, 'f1-score': 0.6666666666666666}, all: {'precision': 0.9533508541392904, 'recall': 0.8901840490797546, 'f1-score': 0.9206852791878173}, hmean: 0.9207
+2022-03-10 20:02:20,339 - davarocr - INFO - Epoch [10][5/30]	lr: 6.299e-04, eta: 0:29:23, time: 1.851, data_time: 0.544, memory: 5234, loss_crf: 2.5844, loss: 2.5844, grad_norm: 11.5583
+2022-03-10 20:02:26,992 - davarocr - INFO - Epoch [10][10/30]	lr: 6.414e-04, eta: 0:29:13, time: 1.330, data_time: 0.006, memory: 5234, loss_crf: 2.9972, loss: 2.9972, grad_norm: 15.6441
+2022-03-10 20:02:33,750 - davarocr - INFO - Epoch [10][15/30]	lr: 6.529e-04, eta: 0:29:04, time: 1.352, data_time: 0.006, memory: 5234, loss_crf: 2.9761, loss: 2.9761, grad_norm: 14.3940
+2022-03-10 20:02:40,486 - davarocr - INFO - Epoch [10][20/30]	lr: 6.644e-04, eta: 0:28:55, time: 1.347, data_time: 0.006, memory: 5234, loss_crf: 2.1867, loss: 2.1867, grad_norm: 8.6983
+2022-03-10 20:02:47,161 - davarocr - INFO - Epoch [10][25/30]	lr: 6.759e-04, eta: 0:28:46, time: 1.335, data_time: 0.006, memory: 5234, loss_crf: 2.3972, loss: 2.3972, grad_norm: 8.8089
+2022-03-10 20:02:53,806 - davarocr - INFO - Exp name: bilstm_crf.py
+2022-03-10 20:02:53,806 - davarocr - INFO - Epoch [10][30/30]	lr: 6.874e-04, eta: 0:28:37, time: 1.329, data_time: 0.007, memory: 5234, loss_crf: 2.7445, loss: 2.7445, grad_norm: 10.3912
+2022-03-10 20:03:53,691 - davarocr - INFO - Now best checkpoint is epoch_10.pth. Best hmean is 0.923611111111111
+2022-03-10 20:03:53,692 - davarocr - INFO - current_metric 0.923611111111111 is much better than previous best_metric 0.9206852791878173, saving best model !
+2022-03-10 20:03:53,692 - davarocr - INFO - Saving checkpoint at epoch_10.pth
+2022-03-10 20:03:53,912 - davarocr - INFO - Exp name: bilstm_crf.py
+2022-03-10 20:03:53,912 - davarocr - INFO - Epoch(val) [10][30]	NAME: {'precision': 1.0, 'recall': 0.9196428571428571, 'f1-score': 0.9581395348837208}, PRO: {'precision': 0.8571428571428571, 'recall': 0.7272727272727273, 'f1-score': 0.7868852459016394}, EDU: {'precision': 0.9805825242718447, 'recall': 0.9017857142857143, 'f1-score': 0.9395348837209301}, TITLE: {'precision': 0.9463806970509383, 'recall': 0.9145077720207254, 'f1-score': 0.9301712779973649}, ORG: {'precision': 0.9434697855750487, 'recall': 0.8752260397830018, 'f1-score': 0.9080675422138836}, CONT: {'precision': 1.0, 'recall': 1.0, 'f1-score': 1.0}, RACE: {'precision': 1.0, 'recall': 1.0, 'f1-score': 1.0}, LOC: {'precision': 1.0, 'recall': 0.5, 'f1-score': 0.6666666666666666}, all: {'precision': 0.9512353706111834, 'recall': 0.8975460122699387, 'f1-score': 0.923611111111111}, hmean: 0.9236
+2022-03-10 20:04:03,015 - davarocr - INFO - Epoch [11][5/30]	lr: 6.667e-04, eta: 0:28:37, time: 1.819, data_time: 0.518, memory: 5234, loss_crf: 2.1237, loss: 2.1237, grad_norm: 8.3554
+2022-03-10 20:04:09,842 - davarocr - INFO - Epoch [11][10/30]	lr: 6.667e-04, eta: 0:28:29, time: 1.365, data_time: 0.008, memory: 5234, loss_crf: 1.9900, loss: 1.9900, grad_norm: 8.9720
+2022-03-10 20:04:16,718 - davarocr - INFO - Epoch [11][15/30]	lr: 6.667e-04, eta: 0:28:20, time: 1.375, data_time: 0.007, memory: 5234, loss_crf: 2.1082, loss: 2.1082, grad_norm: 10.3964
+2022-03-10 20:04:23,411 - davarocr - INFO - Epoch [11][20/30]	lr: 6.667e-04, eta: 0:28:11, time: 1.338, data_time: 0.007, memory: 5234, loss_crf: 1.7736, loss: 1.7736, grad_norm: 9.4431
+2022-03-10 20:04:30,021 - davarocr - INFO - Epoch [11][25/30]	lr: 6.667e-04, eta: 0:28:02, time: 1.322, data_time: 0.007, memory: 5234, loss_crf: 2.1132, loss: 2.1132, grad_norm: 8.1302
+2022-03-10 20:04:36,828 - davarocr - INFO - Exp name: bilstm_crf.py
+2022-03-10 20:04:36,829 - davarocr - INFO - Epoch [11][30/30]	lr: 6.667e-04, eta: 0:27:54, time: 1.361, data_time: 0.007, memory: 5234, loss_crf: 2.1787, loss: 2.1787, grad_norm: 9.9979
+2022-03-10 20:05:36,241 - davarocr - INFO - Now best checkpoint is epoch_10.pth. Best hmean is 0.923611111111111
+2022-03-10 20:05:36,242 - davarocr - INFO - Exp name: bilstm_crf.py
+2022-03-10 20:05:36,242 - davarocr - INFO - Epoch(val) [11][30]	NAME: {'precision': 0.9905660377358491, 'recall': 0.9375, 'f1-score': 0.963302752293578}, PRO: {'precision': 0.8928571428571429, 'recall': 0.7575757575757576, 'f1-score': 0.819672131147541}, EDU: {'precision': 0.9722222222222222, 'recall': 0.9375, 'f1-score': 0.9545454545454546}, TITLE: {'precision': 0.9465753424657535, 'recall': 0.8950777202072538, 'f1-score': 0.9201065246338216}, ORG: {'precision': 0.8933823529411765, 'recall': 0.8788426763110307, 'f1-score': 0.886052871467639}, CONT: {'precision': 1.0, 'recall': 0.9642857142857143, 'f1-score': 0.9818181818181818}, RACE: {'precision': 1.0, 'recall': 1.0, 'f1-score': 1.0}, LOC: {'precision': 1.0, 'recall': 0.5, 'f1-score': 0.6666666666666666}, all: {'precision': 0.9333333333333333, 'recall': 0.8932515337423312, 'f1-score': 0.9128526645768025}, hmean: 0.9129
+2022-03-10 20:05:45,129 - davarocr - INFO - Epoch [12][5/30]	lr: 6.452e-04, eta: 0:27:53, time: 1.777, data_time: 0.529, memory: 5234, loss_crf: 1.5286, loss: 1.5286, grad_norm: 6.8653
+2022-03-10 20:05:51,958 - davarocr - INFO - Epoch [12][10/30]	lr: 6.452e-04, eta: 0:27:44, time: 1.366, data_time: 0.007, memory: 5234, loss_crf: 1.3969, loss: 1.3969, grad_norm: 6.5300
+2022-03-10 20:05:58,966 - davarocr - INFO - Epoch [12][15/30]	lr: 6.452e-04, eta: 0:27:36, time: 1.402, data_time: 0.008, memory: 5234, loss_crf: 1.3119, loss: 1.3119, grad_norm: 8.1941
+2022-03-10 20:06:05,940 - davarocr - INFO - Epoch [12][20/30]	lr: 6.452e-04, eta: 0:27:29, time: 1.395, data_time: 0.007, memory: 5234, loss_crf: 1.5538, loss: 1.5538, grad_norm: 9.1910
+2022-03-10 20:06:12,850 - davarocr - INFO - Epoch [12][25/30]	lr: 6.452e-04, eta: 0:27:21, time: 1.382, data_time: 0.008, memory: 5234, loss_crf: 1.4327, loss: 1.4327, grad_norm: 8.4929
+2022-03-10 20:06:19,638 - davarocr - INFO - Exp name: bilstm_crf.py
+2022-03-10 20:06:19,638 - davarocr - INFO - Epoch [12][30/30]	lr: 6.452e-04, eta: 0:27:12, time: 1.358, data_time: 0.007, memory: 5234, loss_crf: 1.1979, loss: 1.1979, grad_norm: 7.2760
+2022-03-10 20:07:20,453 - davarocr - INFO - Now best checkpoint is epoch_10.pth. Best hmean is 0.923611111111111
+2022-03-10 20:07:20,453 - davarocr - INFO - Exp name: bilstm_crf.py
+2022-03-10 20:07:20,453 - davarocr - INFO - Epoch(val) [12][30]	NAME: {'precision': 1.0, 'recall': 0.9732142857142857, 'f1-score': 0.9864253393665159}, PRO: {'precision': 0.8888888888888888, 'recall': 0.7272727272727273, 'f1-score': 0.7999999999999999}, EDU: {'precision': 0.9813084112149533, 'recall': 0.9375, 'f1-score': 0.958904109589041}, TITLE: {'precision': 0.9277266754270697, 'recall': 0.9145077720207254, 'f1-score': 0.9210697977821265}, ORG: {'precision': 0.912962962962963, 'recall': 0.891500904159132, 'f1-score': 0.9021043000914912}, CONT: {'precision': 1.0, 'recall': 1.0, 'f1-score': 1.0}, RACE: {'precision': 1.0, 'recall': 1.0, 'f1-score': 1.0}, LOC: {'precision': 1.0, 'recall': 0.5, 'f1-score': 0.6666666666666666}, all: {'precision': 0.9326620516047829, 'recall': 0.90920245398773, 'f1-score': 0.9207828518173345}, hmean: 0.9208
+2022-03-10 20:07:29,910 - davarocr - INFO - Epoch [13][5/30]	lr: 6.250e-04, eta: 0:27:12, time: 1.890, data_time: 0.552, memory: 5234, loss_crf: 0.8447, loss: 0.8447, grad_norm: 5.8969
+2022-03-10 20:07:36,918 - davarocr - INFO - Epoch [13][10/30]	lr: 6.250e-04, eta: 0:27:04, time: 1.402, data_time: 0.008, memory: 5234, loss_crf: 0.9548, loss: 0.9548, grad_norm: 6.6769
+2022-03-10 20:07:43,888 - davarocr - INFO - Epoch [13][15/30]	lr: 6.250e-04, eta: 0:26:57, time: 1.394, data_time: 0.008, memory: 5234, loss_crf: 1.1496, loss: 1.1496, grad_norm: 8.0634
+2022-03-10 20:07:51,050 - davarocr - INFO - Epoch [13][20/30]	lr: 6.250e-04, eta: 0:26:49, time: 1.432, data_time: 0.007, memory: 5234, loss_crf: 1.2200, loss: 1.2200, grad_norm: 8.9802
+2022-03-10 20:07:57,872 - davarocr - INFO - Epoch [13][25/30]	lr: 6.250e-04, eta: 0:26:41, time: 1.365, data_time: 0.007, memory: 5234, loss_crf: 1.3578, loss: 1.3578, grad_norm: 9.8859
+2022-03-10 20:08:03,608 - davarocr - INFO - Exp name: bilstm_crf.py
+2022-03-10 20:08:03,609 - davarocr - INFO - Epoch [13][30/30]	lr: 6.250e-04, eta: 0:26:30, time: 1.147, data_time: 0.007, memory: 5234, loss_crf: 1.0069, loss: 1.0069, grad_norm: 5.7785
+2022-03-10 20:09:07,573 - davarocr - INFO - Now best checkpoint is epoch_10.pth. Best hmean is 0.923611111111111
+2022-03-10 20:09:07,573 - davarocr - INFO - Exp name: bilstm_crf.py
+2022-03-10 20:09:07,573 - davarocr - INFO - Epoch(val) [13][30]	NAME: {'precision': 0.9813084112149533, 'recall': 0.9375, 'f1-score': 0.958904109589041}, PRO: {'precision': 0.8709677419354839, 'recall': 0.8181818181818182, 'f1-score': 0.84375}, EDU: {'precision': 0.9727272727272728, 'recall': 0.9553571428571429, 'f1-score': 0.963963963963964}, TITLE: {'precision': 0.9401595744680851, 'recall': 0.9158031088082902, 'f1-score': 0.9278215223097113}, ORG: {'precision': 0.9166666666666666, 'recall': 0.8752260397830018, 'f1-score': 0.8954671600370028}, CONT: {'precision': 0.9655172413793104, 'recall': 1.0, 'f1-score': 0.9824561403508771}, RACE: {'precision': 1.0, 'recall': 1.0, 'f1-score': 1.0}, LOC: {'precision': 0, 'recall': 0.0, 'f1-score': 0.0}, all: {'precision': 0.9369828134945895, 'recall': 0.9030674846625767, 'f1-score': 0.9197125898156826}, hmean: 0.9197
+2022-03-10 20:09:17,540 - davarocr - INFO - Epoch [14][5/30]	lr: 6.061e-04, eta: 0:26:31, time: 1.993, data_time: 0.530, memory: 5234, loss_crf: 0.6264, loss: 0.6264, grad_norm: 5.3052
+2022-03-10 20:09:24,895 - davarocr - INFO - Epoch [14][10/30]	lr: 6.061e-04, eta: 0:26:24, time: 1.471, data_time: 0.008, memory: 5234, loss_crf: 0.9268, loss: 0.9268, grad_norm: 5.8681
+2022-03-10 20:09:32,213 - davarocr - INFO - Epoch [14][15/30]	lr: 6.061e-04, eta: 0:26:17, time: 1.464, data_time: 0.006, memory: 5234, loss_crf: 0.7822, loss: 0.7822, grad_norm: 5.9996
+2022-03-10 20:09:39,546 - davarocr - INFO - Epoch [14][20/30]	lr: 6.061e-04, eta: 0:26:10, time: 1.467, data_time: 0.006, memory: 5234, loss_crf: 1.0657, loss: 1.0657, grad_norm: 8.1027
+2022-03-10 20:09:46,932 - davarocr - INFO - Epoch [14][25/30]	lr: 6.061e-04, eta: 0:26:03, time: 1.477, data_time: 0.006, memory: 5234, loss_crf: 0.8299, loss: 0.8299, grad_norm: 7.5911
+2022-03-10 20:09:54,706 - davarocr - INFO - Exp name: bilstm_crf.py
+2022-03-10 20:09:54,707 - davarocr - INFO - Epoch [14][30/30]	lr: 6.061e-04, eta: 0:25:58, time: 1.555, data_time: 0.008, memory: 5234, loss_crf: 0.6438, loss: 0.6438, grad_norm: 6.0964
+2022-03-10 20:10:58,426 - davarocr - INFO - Now best checkpoint is epoch_14.pth. Best hmean is 0.9336228287841191
+2022-03-10 20:10:58,427 - davarocr - INFO - current_metric 0.9336228287841191 is much better than previous best_metric 0.923611111111111, saving best model !
+2022-03-10 20:10:58,427 - davarocr - INFO - Saving checkpoint at epoch_14.pth
+2022-03-10 20:10:58,723 - davarocr - INFO - Exp name: bilstm_crf.py
+2022-03-10 20:10:58,723 - davarocr - INFO - Epoch(val) [14][30]	NAME: {'precision': 0.9908256880733946, 'recall': 0.9642857142857143, 'f1-score': 0.9773755656108598}, PRO: {'precision': 0.9032258064516129, 'recall': 0.8484848484848485, 'f1-score': 0.875}, EDU: {'precision': 0.990909090909091, 'recall': 0.9732142857142857, 'f1-score': 0.9819819819819819}, TITLE: {'precision': 0.9456953642384106, 'recall': 0.9248704663212435, 'f1-score': 0.9351669941060904}, ORG: {'precision': 0.9242144177449169, 'recall': 0.9041591320072333, 'f1-score': 0.9140767824497259}, CONT: {'precision': 1.0, 'recall': 1.0, 'f1-score': 1.0}, RACE: {'precision': 1.0, 'recall': 1.0, 'f1-score': 1.0}, LOC: {'precision': 0.6666666666666666, 'recall': 0.6666666666666666, 'f1-score': 0.6666666666666666}, all: {'precision': 0.9441656210790464, 'recall': 0.9233128834355828, 'f1-score': 0.9336228287841191}, hmean: 0.9336
+2022-03-10 20:11:08,801 - davarocr - INFO - Epoch [15][5/30]	lr: 5.882e-04, eta: 0:25:58, time: 2.015, data_time: 0.516, memory: 5234, loss_crf: 0.5380, loss: 0.5380, grad_norm: 8.3471
+2022-03-10 20:11:15,450 - davarocr - INFO - Epoch [15][10/30]	lr: 5.882e-04, eta: 0:25:49, time: 1.330, data_time: 0.008, memory: 5234, loss_crf: 0.6387, loss: 0.6387, grad_norm: 7.0657
+2022-03-10 20:11:22,446 - davarocr - INFO - Epoch [15][15/30]	lr: 5.882e-04, eta: 0:25:41, time: 1.399, data_time: 0.008, memory: 5234, loss_crf: 0.6061, loss: 0.6061, grad_norm: 5.4439
+2022-03-10 20:11:29,384 - davarocr - INFO - Epoch [15][20/30]	lr: 5.882e-04, eta: 0:25:33, time: 1.387, data_time: 0.008, memory: 5234, loss_crf: 0.7136, loss: 0.7136, grad_norm: 6.4936
+2022-03-10 20:11:36,166 - davarocr - INFO - Epoch [15][25/30]	lr: 5.882e-04, eta: 0:25:25, time: 1.356, data_time: 0.008, memory: 5234, loss_crf: 0.6317, loss: 0.6317, grad_norm: 5.1637
+2022-03-10 20:11:42,996 - davarocr - INFO - Exp name: bilstm_crf.py
+2022-03-10 20:11:42,996 - davarocr - INFO - Epoch [15][30/30]	lr: 5.882e-04, eta: 0:25:17, time: 1.366, data_time: 0.008, memory: 5234, loss_crf: 0.5979, loss: 0.5979, grad_norm: 5.7557
+2022-03-10 20:12:43,887 - davarocr - INFO - Now best checkpoint is epoch_14.pth. Best hmean is 0.9336228287841191
+2022-03-10 20:12:43,888 - davarocr - INFO - Exp name: bilstm_crf.py
+2022-03-10 20:12:43,888 - davarocr - INFO - Epoch(val) [15][30]	NAME: {'precision': 0.9719626168224299, 'recall': 0.9285714285714286, 'f1-score': 0.949771689497717}, PRO: {'precision': 0.9032258064516129, 'recall': 0.8484848484848485, 'f1-score': 0.875}, EDU: {'precision': 0.9908256880733946, 'recall': 0.9642857142857143, 'f1-score': 0.9773755656108598}, TITLE: {'precision': 0.9365918097754293, 'recall': 0.9183937823834197, 'f1-score': 0.9274035317200785}, ORG: {'precision': 0.9155963302752294, 'recall': 0.9023508137432188, 'f1-score': 0.9089253187613844}, CONT: {'precision': 1.0, 'recall': 1.0, 'f1-score': 1.0}, RACE: {'precision': 1.0, 'recall': 1.0, 'f1-score': 1.0}, LOC: {'precision': 1.0, 'recall': 0.6666666666666666, 'f1-score': 0.8}, all: {'precision': 0.9366771159874608, 'recall': 0.9165644171779141, 'f1-score': 0.9265116279069767}, hmean: 0.9265
+2022-03-10 20:12:53,295 - davarocr - INFO - Epoch [16][5/30]	lr: 5.714e-04, eta: 0:25:14, time: 1.881, data_time: 0.543, memory: 5234, loss_crf: 0.3981, loss: 0.3981, grad_norm: 3.4000
+2022-03-10 20:13:00,048 - davarocr - INFO - Epoch [16][10/30]	lr: 5.714e-04, eta: 0:25:06, time: 1.351, data_time: 0.008, memory: 5234, loss_crf: 0.4864, loss: 0.4864, grad_norm: 5.4948
+2022-03-10 20:13:06,591 - davarocr - INFO - Epoch [16][15/30]	lr: 5.714e-04, eta: 0:24:57, time: 1.309, data_time: 0.008, memory: 5234, loss_crf: 0.5447, loss: 0.5447, grad_norm: 7.1103
+2022-03-10 20:13:13,080 - davarocr - INFO - Epoch [16][20/30]	lr: 5.714e-04, eta: 0:24:48, time: 1.298, data_time: 0.008, memory: 5234, loss_crf: 0.4737, loss: 0.4737, grad_norm: 4.4285
+2022-03-10 20:13:19,927 - davarocr - INFO - Epoch [16][25/30]	lr: 5.714e-04, eta: 0:24:40, time: 1.369, data_time: 0.007, memory: 5234, loss_crf: 0.6582, loss: 0.6582, grad_norm: 5.1897
+2022-03-10 20:13:26,688 - davarocr - INFO - Exp name: bilstm_crf.py
+2022-03-10 20:13:26,688 - davarocr - INFO - Epoch [16][30/30]	lr: 5.714e-04, eta: 0:24:32, time: 1.352, data_time: 0.007, memory: 5234, loss_crf: 0.4636, loss: 0.4636, grad_norm: 5.4649
+2022-03-10 20:14:26,322 - davarocr - INFO - Now best checkpoint is epoch_14.pth. Best hmean is 0.9336228287841191
+2022-03-10 20:14:26,323 - davarocr - INFO - Exp name: bilstm_crf.py
+2022-03-10 20:14:26,323 - davarocr - INFO - Epoch(val) [16][30]	NAME: {'precision': 1.0, 'recall': 0.9553571428571429, 'f1-score': 0.9771689497716896}, PRO: {'precision': 0.9310344827586207, 'recall': 0.8181818181818182, 'f1-score': 0.8709677419354839}, EDU: {'precision': 0.9642857142857143, 'recall': 0.9642857142857143, 'f1-score': 0.9642857142857143}, TITLE: {'precision': 0.9380764163372859, 'recall': 0.9222797927461139, 'f1-score': 0.930111038536904}, ORG: {'precision': 0.9230769230769231, 'recall': 0.9113924050632911, 'f1-score': 0.9171974522292994}, CONT: {'precision': 1.0, 'recall': 1.0, 'f1-score': 1.0}, RACE: {'precision': 1.0, 'recall': 1.0, 'f1-score': 1.0}, LOC: {'precision': 1.0, 'recall': 0.8333333333333334, 'f1-score': 0.9090909090909091}, all: {'precision': 0.940625, 'recall': 0.9233128834355828, 'f1-score': 0.931888544891641}, hmean: 0.9319
+2022-03-10 20:14:35,849 - davarocr - INFO - Epoch [17][5/30]	lr: 5.556e-04, eta: 0:24:30, time: 1.904, data_time: 0.534, memory: 5234, loss_crf: 0.4655, loss: 0.4655, grad_norm: 5.3989
+2022-03-10 20:14:42,636 - davarocr - INFO - Epoch [17][10/30]	lr: 5.556e-04, eta: 0:24:21, time: 1.358, data_time: 0.007, memory: 5234, loss_crf: 0.3308, loss: 0.3308, grad_norm: 3.6402
+2022-03-10 20:14:49,348 - davarocr - INFO - Epoch [17][15/30]	lr: 5.556e-04, eta: 0:24:13, time: 1.343, data_time: 0.007, memory: 5234, loss_crf: 0.2309, loss: 0.2309, grad_norm: 1.9629
+2022-03-10 20:14:56,181 - davarocr - INFO - Epoch [17][20/30]	lr: 5.556e-04, eta: 0:24:05, time: 1.366, data_time: 0.007, memory: 5234, loss_crf: 0.4954, loss: 0.4954, grad_norm: 4.9027
+2022-03-10 20:15:02,962 - davarocr - INFO - Epoch [17][25/30]	lr: 5.556e-04, eta: 0:23:57, time: 1.356, data_time: 0.007, memory: 5234, loss_crf: 0.4664, loss: 0.4664, grad_norm: 4.8715
+2022-03-10 20:15:09,698 - davarocr - INFO - Exp name: bilstm_crf.py
+2022-03-10 20:15:09,698 - davarocr - INFO - Epoch [17][30/30]	lr: 5.556e-04, eta: 0:23:49, time: 1.347, data_time: 0.007, memory: 5234, loss_crf: 0.3107, loss: 0.3107, grad_norm: 4.0205
+2022-03-10 20:16:09,056 - davarocr - INFO - Now best checkpoint is epoch_14.pth. Best hmean is 0.9336228287841191
+2022-03-10 20:16:09,057 - davarocr - INFO - Exp name: bilstm_crf.py
+2022-03-10 20:16:09,057 - davarocr - INFO - Epoch(val) [17][30]	NAME: {'precision': 0.9907407407407407, 'recall': 0.9553571428571429, 'f1-score': 0.9727272727272727}, PRO: {'precision': 0.9090909090909091, 'recall': 0.9090909090909091, 'f1-score': 0.9090909090909091}, EDU: {'precision': 0.9814814814814815, 'recall': 0.9464285714285714, 'f1-score': 0.9636363636363636}, TITLE: {'precision': 0.9314888010540184, 'recall': 0.9158031088082902, 'f1-score': 0.9235793598954931}, ORG: {'precision': 0.928030303030303, 'recall': 0.8860759493670886, 'f1-score': 0.9065679925994448}, CONT: {'precision': 1.0, 'recall': 1.0, 'f1-score': 1.0}, RACE: {'precision': 1.0, 'recall': 1.0, 'f1-score': 1.0}, LOC: {'precision': 0.8, 'recall': 0.6666666666666666, 'f1-score': 0.7272727272727272}, all: {'precision': 0.9387239418825016, 'recall': 0.9116564417177914, 'f1-score': 0.9249922191098662}, hmean: 0.9250
+2022-03-10 20:16:18,454 - davarocr - INFO - Epoch [18][5/30]	lr: 5.405e-04, eta: 0:23:46, time: 1.879, data_time: 0.527, memory: 5234, loss_crf: 0.1961, loss: 0.1961, grad_norm: 3.3128
+2022-03-10 20:16:25,408 - davarocr - INFO - Epoch [18][10/30]	lr: 5.405e-04, eta: 0:23:38, time: 1.391, data_time: 0.008, memory: 5234, loss_crf: 0.3453, loss: 0.3453, grad_norm: 3.4086
+2022-03-10 20:16:32,109 - davarocr - INFO - Epoch [18][15/30]	lr: 5.405e-04, eta: 0:23:30, time: 1.340, data_time: 0.008, memory: 5234, loss_crf: 0.5286, loss: 0.5286, grad_norm: 6.4567
+2022-03-10 20:16:38,360 - davarocr - INFO - Epoch [18][20/30]	lr: 5.405e-04, eta: 0:23:21, time: 1.250, data_time: 0.007, memory: 5234, loss_crf: 0.4061, loss: 0.4061, grad_norm: 5.8200
+2022-03-10 20:16:44,676 - davarocr - INFO - Epoch [18][25/30]	lr: 5.405e-04, eta: 0:23:12, time: 1.264, data_time: 0.008, memory: 5234, loss_crf: 0.3064, loss: 0.3064, grad_norm: 4.2647
+2022-03-10 20:16:51,211 - davarocr - INFO - Exp name: bilstm_crf.py
+2022-03-10 20:16:51,211 - davarocr - INFO - Epoch [18][30/30]	lr: 5.405e-04, eta: 0:23:03, time: 1.307, data_time: 0.007, memory: 5234, loss_crf: 0.2523, loss: 0.2523, grad_norm: 3.7369
+2022-03-10 20:17:51,819 - davarocr - INFO - Now best checkpoint is epoch_14.pth. Best hmean is 0.9336228287841191
+2022-03-10 20:17:51,820 - davarocr - INFO - Exp name: bilstm_crf.py
+2022-03-10 20:17:51,820 - davarocr - INFO - Epoch(val) [18][30]	NAME: {'precision': 0.9727272727272728, 'recall': 0.9553571428571429, 'f1-score': 0.963963963963964}, PRO: {'precision': 0.8823529411764706, 'recall': 0.9090909090909091, 'f1-score': 0.8955223880597014}, EDU: {'precision': 0.9734513274336283, 'recall': 0.9821428571428571, 'f1-score': 0.9777777777777777}, TITLE: {'precision': 0.9294117647058824, 'recall': 0.9209844559585493, 'f1-score': 0.9251789199739754}, ORG: {'precision': 0.9118705035971223, 'recall': 0.9168173598553345, 'f1-score': 0.9143372407574392}, CONT: {'precision': 1.0, 'recall': 1.0, 'f1-score': 1.0}, RACE: {'precision': 1.0, 'recall': 1.0, 'f1-score': 1.0}, LOC: {'precision': 0.6666666666666666, 'recall': 0.6666666666666666, 'f1-score': 0.6666666666666666}, all: {'precision': 0.9292742927429274, 'recall': 0.9269938650306748, 'f1-score': 0.9281326781326781}, hmean: 0.9281
+2022-03-10 20:18:01,313 - davarocr - INFO - Epoch [19][5/30]	lr: 5.263e-04, eta: 0:23:00, time: 1.898, data_time: 0.535, memory: 5234, loss_crf: 0.2353, loss: 0.2353, grad_norm: 2.8623
+2022-03-10 20:18:08,255 - davarocr - INFO - Epoch [19][10/30]	lr: 5.263e-04, eta: 0:22:53, time: 1.389, data_time: 0.008, memory: 5234, loss_crf: 0.2071, loss: 0.2071, grad_norm: 2.4714
+2022-03-10 20:18:15,204 - davarocr - INFO - Epoch [19][15/30]	lr: 5.263e-04, eta: 0:22:45, time: 1.390, data_time: 0.007, memory: 5234, loss_crf: 0.1903, loss: 0.1903, grad_norm: 2.4980
+2022-03-10 20:18:21,916 - davarocr - INFO - Epoch [19][20/30]	lr: 5.263e-04, eta: 0:22:37, time: 1.342, data_time: 0.008, memory: 5234, loss_crf: 0.2339, loss: 0.2339, grad_norm: 3.4112
+2022-03-10 20:18:27,121 - davarocr - INFO - Epoch [19][25/30]	lr: 5.263e-04, eta: 0:22:26, time: 1.041, data_time: 0.007, memory: 5234, loss_crf: 0.1834, loss: 0.1834, grad_norm: 2.1103
+2022-03-10 20:18:33,989 - davarocr - INFO - Exp name: bilstm_crf.py
+2022-03-10 20:18:33,990 - davarocr - INFO - Epoch [19][30/30]	lr: 5.263e-04, eta: 0:22:18, time: 1.373, data_time: 0.006, memory: 5234, loss_crf: 0.1172, loss: 0.1172, grad_norm: 1.5880
+2022-03-10 20:19:38,120 - davarocr - INFO - Now best checkpoint is epoch_14.pth. Best hmean is 0.9336228287841191
+2022-03-10 20:19:38,121 - davarocr - INFO - Exp name: bilstm_crf.py
+2022-03-10 20:19:38,121 - davarocr - INFO - Epoch(val) [19][30]	NAME: {'precision': 1.0, 'recall': 0.9642857142857143, 'f1-score': 0.9818181818181818}, PRO: {'precision': 0.875, 'recall': 0.8484848484848485, 'f1-score': 0.8615384615384615}, EDU: {'precision': 0.9908256880733946, 'recall': 0.9642857142857143, 'f1-score': 0.9773755656108598}, TITLE: {'precision': 0.9304461942257218, 'recall': 0.9183937823834197, 'f1-score': 0.9243807040417211}, ORG: {'precision': 0.9105839416058394, 'recall': 0.9023508137432188, 'f1-score': 0.9064486830154405}, CONT: {'precision': 1.0, 'recall': 1.0, 'f1-score': 1.0}, RACE: {'precision': 1.0, 'recall': 1.0, 'f1-score': 1.0}, LOC: {'precision': 0.8, 'recall': 0.6666666666666666, 'f1-score': 0.7272727272727272}, all: {'precision': 0.9327521793275217, 'recall': 0.9190184049079755, 'f1-score': 0.9258343634116193}, hmean: 0.9258
+2022-03-10 20:19:48,493 - davarocr - INFO - Epoch [20][5/30]	lr: 5.128e-04, eta: 0:22:16, time: 2.073, data_time: 0.560, memory: 5234, loss_crf: 0.1165, loss: 0.1165, grad_norm: 1.5554
+2022-03-10 20:19:56,061 - davarocr - INFO - Epoch [20][10/30]	lr: 5.128e-04, eta: 0:22:10, time: 1.514, data_time: 0.008, memory: 5234, loss_crf: 0.2503, loss: 0.2503, grad_norm: 2.9125
+2022-03-10 20:20:03,667 - davarocr - INFO - Epoch [20][15/30]	lr: 5.128e-04, eta: 0:22:03, time: 1.521, data_time: 0.008, memory: 5234, loss_crf: 0.1517, loss: 0.1517, grad_norm: 2.0260
+2022-03-10 20:20:11,260 - davarocr - INFO - Epoch [20][20/30]	lr: 5.128e-04, eta: 0:21:56, time: 1.519, data_time: 0.008, memory: 5234, loss_crf: 0.1305, loss: 0.1305, grad_norm: 1.5827
+2022-03-10 20:20:18,343 - davarocr - INFO - Epoch [20][25/30]	lr: 5.128e-04, eta: 0:21:49, time: 1.417, data_time: 0.008, memory: 5234, loss_crf: 0.0754, loss: 0.0754, grad_norm: 1.5272
+2022-03-10 20:20:25,679 - davarocr - INFO - Exp name: bilstm_crf.py
+2022-03-10 20:20:25,680 - davarocr - INFO - Epoch [20][30/30]	lr: 5.128e-04, eta: 0:21:42, time: 1.467, data_time: 0.007, memory: 5234, loss_crf: 0.1308, loss: 0.1308, grad_norm: 3.1691
+2022-03-10 20:21:30,096 - davarocr - INFO - Now best checkpoint is epoch_20.pth. Best hmean is 0.9365128522762466
+2022-03-10 20:21:30,097 - davarocr - INFO - current_metric 0.9365128522762466 is much better than previous best_metric 0.9336228287841191, saving best model !
+2022-03-10 20:21:30,097 - davarocr - INFO - Saving checkpoint at epoch_20.pth
+2022-03-10 20:21:30,307 - davarocr - INFO - Exp name: bilstm_crf.py
+2022-03-10 20:21:30,307 - davarocr - INFO - Epoch(val) [20][30]	NAME: {'precision': 0.990909090909091, 'recall': 0.9732142857142857, 'f1-score': 0.9819819819819819}, PRO: {'precision': 0.967741935483871, 'recall': 0.9090909090909091, 'f1-score': 0.9374999999999999}, EDU: {'precision': 0.9818181818181818, 'recall': 0.9642857142857143, 'f1-score': 0.972972972972973}, TITLE: {'precision': 0.9418758256274768, 'recall': 0.9235751295336787, 'f1-score': 0.9326357096141268}, ORG: {'precision': 0.9283088235294118, 'recall': 0.9132007233273056, 'f1-score': 0.9206927985414768}, CONT: {'precision': 1.0, 'recall': 1.0, 'f1-score': 1.0}, RACE: {'precision': 1.0, 'recall': 1.0, 'f1-score': 1.0}, LOC: {'precision': 1.0, 'recall': 0.8333333333333334, 'f1-score': 0.9090909090909091}, all: {'precision': 0.9455909943714822, 'recall': 0.9276073619631902, 'f1-score': 0.9365128522762466}, hmean: 0.9365
+2022-03-10 20:21:39,380 - davarocr - INFO - Epoch [21][5/30]	lr: 5.000e-04, eta: 0:21:37, time: 1.813, data_time: 0.523, memory: 5234, loss_crf: 0.0820, loss: 0.0820, grad_norm: 1.0513
+2022-03-10 20:21:46,290 - davarocr - INFO - Epoch [21][10/30]	lr: 5.000e-04, eta: 0:21:30, time: 1.383, data_time: 0.008, memory: 5234, loss_crf: 0.0917, loss: 0.0917, grad_norm: 1.1578
+2022-03-10 20:21:52,939 - davarocr - INFO - Epoch [21][15/30]	lr: 5.000e-04, eta: 0:21:21, time: 1.330, data_time: 0.013, memory: 5234, loss_crf: 0.0685, loss: 0.0685, grad_norm: 1.1933
+2022-03-10 20:21:59,157 - davarocr - INFO - Epoch [21][20/30]	lr: 5.000e-04, eta: 0:21:13, time: 1.244, data_time: 0.008, memory: 5234, loss_crf: 0.1516, loss: 0.1516, grad_norm: 1.2783
+2022-03-10 20:22:05,872 - davarocr - INFO - Epoch [21][25/30]	lr: 5.000e-04, eta: 0:21:05, time: 1.343, data_time: 0.008, memory: 5234, loss_crf: 0.0968, loss: 0.0968, grad_norm: 1.2942
+2022-03-10 20:22:12,672 - davarocr - INFO - Exp name: bilstm_crf.py
+2022-03-10 20:22:12,672 - davarocr - INFO - Epoch [21][30/30]	lr: 5.000e-04, eta: 0:20:57, time: 1.360, data_time: 0.008, memory: 5234, loss_crf: 0.0856, loss: 0.0856, grad_norm: 1.4820
+2022-03-10 20:23:13,109 - davarocr - INFO - Now best checkpoint is epoch_20.pth. Best hmean is 0.9365128522762466
+2022-03-10 20:23:13,110 - davarocr - INFO - Exp name: bilstm_crf.py
+2022-03-10 20:23:13,110 - davarocr - INFO - Epoch(val) [21][30]	NAME: {'precision': 0.981651376146789, 'recall': 0.9553571428571429, 'f1-score': 0.9683257918552036}, PRO: {'precision': 0.90625, 'recall': 0.8787878787878788, 'f1-score': 0.8923076923076922}, EDU: {'precision': 0.9818181818181818, 'recall': 0.9642857142857143, 'f1-score': 0.972972972972973}, TITLE: {'precision': 0.9258777633289987, 'recall': 0.9222797927461139, 'f1-score': 0.9240752757949383}, ORG: {'precision': 0.9180327868852459, 'recall': 0.9113924050632911, 'f1-score': 0.9147005444646097}, CONT: {'precision': 1.0, 'recall': 1.0, 'f1-score': 1.0}, RACE: {'precision': 1.0, 'recall': 1.0, 'f1-score': 1.0}, LOC: {'precision': 0.8, 'recall': 0.6666666666666666, 'f1-score': 0.7272727272727272}, all: {'precision': 0.931930693069307, 'recall': 0.9239263803680982, 'f1-score': 0.9279112754158966}, hmean: 0.9279
+2022-03-10 20:23:22,492 - davarocr - INFO - Epoch [22][5/30]	lr: 4.878e-04, eta: 0:20:53, time: 1.876, data_time: 0.548, memory: 5234, loss_crf: 0.0366, loss: 0.0366, grad_norm: 0.3067
+2022-03-10 20:23:29,223 - davarocr - INFO - Epoch [22][10/30]	lr: 4.878e-04, eta: 0:20:45, time: 1.347, data_time: 0.008, memory: 5234, loss_crf: 0.0468, loss: 0.0468, grad_norm: 0.6573
+2022-03-10 20:23:35,930 - davarocr - INFO - Epoch [22][15/30]	lr: 4.878e-04, eta: 0:20:37, time: 1.341, data_time: 0.008, memory: 5234, loss_crf: 0.0503, loss: 0.0503, grad_norm: 0.4506
+2022-03-10 20:23:42,599 - davarocr - INFO - Epoch [22][20/30]	lr: 4.878e-04, eta: 0:20:29, time: 1.333, data_time: 0.007, memory: 5234, loss_crf: 0.0255, loss: 0.0255, grad_norm: 0.2890
+2022-03-10 20:23:49,261 - davarocr - INFO - Epoch [22][25/30]	lr: 4.878e-04, eta: 0:20:21, time: 1.333, data_time: 0.008, memory: 5234, loss_crf: 0.0641, loss: 0.0641, grad_norm: 0.5457
+2022-03-10 20:23:56,094 - davarocr - INFO - Exp name: bilstm_crf.py
+2022-03-10 20:23:56,094 - davarocr - INFO - Epoch [22][30/30]	lr: 4.878e-04, eta: 0:20:13, time: 1.367, data_time: 0.008, memory: 5234, loss_crf: 0.0419, loss: 0.0419, grad_norm: 0.4762
+2022-03-10 20:24:55,759 - davarocr - INFO - Now best checkpoint is epoch_20.pth. Best hmean is 0.9365128522762466
+2022-03-10 20:24:55,760 - davarocr - INFO - Exp name: bilstm_crf.py
+2022-03-10 20:24:55,760 - davarocr - INFO - Epoch(val) [22][30]	NAME: {'precision': 0.9908256880733946, 'recall': 0.9642857142857143, 'f1-score': 0.9773755656108598}, PRO: {'precision': 0.9375, 'recall': 0.9090909090909091, 'f1-score': 0.923076923076923}, EDU: {'precision': 0.9732142857142857, 'recall': 0.9732142857142857, 'f1-score': 0.9732142857142857}, TITLE: {'precision': 0.9283854166666666, 'recall': 0.9235751295336787, 'f1-score': 0.9259740259740259}, ORG: {'precision': 0.9128856624319419, 'recall': 0.9095840867992767, 'f1-score': 0.9112318840579711}, CONT: {'precision': 1.0, 'recall': 1.0, 'f1-score': 1.0}, RACE: {'precision': 1.0, 'recall': 1.0, 'f1-score': 1.0}, LOC: {'precision': 0.8, 'recall': 0.6666666666666666, 'f1-score': 0.7272727272727272}, all: {'precision': 0.9320568252007412, 'recall': 0.9257668711656442, 'f1-score': 0.9289012003693445}, hmean: 0.9289
+2022-03-10 20:25:05,279 - davarocr - INFO - Epoch [23][5/30]	lr: 4.762e-04, eta: 0:20:09, time: 1.903, data_time: 0.529, memory: 5234, loss_crf: 0.0180, loss: 0.0180, grad_norm: 0.1351
+2022-03-10 20:25:12,081 - davarocr - INFO - Epoch [23][10/30]	lr: 4.762e-04, eta: 0:20:01, time: 1.360, data_time: 0.008, memory: 5234, loss_crf: 0.0582, loss: 0.0582, grad_norm: 0.4808
+2022-03-10 20:25:18,432 - davarocr - INFO - Epoch [23][15/30]	lr: 4.762e-04, eta: 0:19:53, time: 1.270, data_time: 0.008, memory: 5234, loss_crf: 0.0291, loss: 0.0291, grad_norm: 0.2339
+2022-03-10 20:25:24,753 - davarocr - INFO - Epoch [23][20/30]	lr: 4.762e-04, eta: 0:19:44, time: 1.264, data_time: 0.008, memory: 5234, loss_crf: 0.0253, loss: 0.0253, grad_norm: 0.2093
+2022-03-10 20:25:31,136 - davarocr - INFO - Epoch [23][25/30]	lr: 4.762e-04, eta: 0:19:36, time: 1.277, data_time: 0.007, memory: 5234, loss_crf: 0.0220, loss: 0.0220, grad_norm: 0.2161
+2022-03-10 20:25:37,760 - davarocr - INFO - Exp name: bilstm_crf.py
+2022-03-10 20:25:37,760 - davarocr - INFO - Epoch [23][30/30]	lr: 4.762e-04, eta: 0:19:28, time: 1.324, data_time: 0.007, memory: 5234, loss_crf: 0.0167, loss: 0.0167, grad_norm: 0.1490
+2022-03-10 20:26:37,633 - davarocr - INFO - Now best checkpoint is epoch_20.pth. Best hmean is 0.9365128522762466
+2022-03-10 20:26:37,634 - davarocr - INFO - Exp name: bilstm_crf.py
+2022-03-10 20:26:37,634 - davarocr - INFO - Epoch(val) [23][30]	NAME: {'precision': 0.981651376146789, 'recall': 0.9553571428571429, 'f1-score': 0.9683257918552036}, PRO: {'precision': 0.9375, 'recall': 0.9090909090909091, 'f1-score': 0.923076923076923}, EDU: {'precision': 0.9732142857142857, 'recall': 0.9732142857142857, 'f1-score': 0.9732142857142857}, TITLE: {'precision': 0.9296875, 'recall': 0.9248704663212435, 'f1-score': 0.9272727272727271}, ORG: {'precision': 0.9147005444646098, 'recall': 0.9113924050632911, 'f1-score': 0.9130434782608696}, CONT: {'precision': 1.0, 'recall': 1.0, 'f1-score': 1.0}, RACE: {'precision': 1.0, 'recall': 1.0, 'f1-score': 1.0}, LOC: {'precision': 0.8, 'recall': 0.6666666666666666, 'f1-score': 0.7272727272727272}, all: {'precision': 0.932674490426189, 'recall': 0.9263803680981595, 'f1-score': 0.9295167743921207}, hmean: 0.9295
+2022-03-10 20:26:47,124 - davarocr - INFO - Epoch [24][5/30]	lr: 4.651e-04, eta: 0:19:24, time: 1.897, data_time: 0.540, memory: 5234, loss_crf: 0.0188, loss: 0.0188, grad_norm: 0.1355
+2022-03-10 20:26:54,019 - davarocr - INFO - Epoch [24][10/30]	lr: 4.651e-04, eta: 0:19:16, time: 1.379, data_time: 0.007, memory: 5234, loss_crf: 0.0136, loss: 0.0136, grad_norm: 0.0847
+2022-03-10 20:27:00,957 - davarocr - INFO - Epoch [24][15/30]	lr: 4.651e-04, eta: 0:19:08, time: 1.388, data_time: 0.006, memory: 5234, loss_crf: 0.0205, loss: 0.0205, grad_norm: 0.1417
+2022-03-10 20:27:07,748 - davarocr - INFO - Epoch [24][20/30]	lr: 4.651e-04, eta: 0:19:01, time: 1.358, data_time: 0.007, memory: 5234, loss_crf: 0.0401, loss: 0.0401, grad_norm: 0.2324
+2022-03-10 20:27:14,541 - davarocr - INFO - Epoch [24][25/30]	lr: 4.651e-04, eta: 0:18:53, time: 1.359, data_time: 0.007, memory: 5234, loss_crf: 0.0257, loss: 0.0257, grad_norm: 0.2249
+2022-03-10 20:27:21,247 - davarocr - INFO - Exp name: bilstm_crf.py
+2022-03-10 20:27:21,248 - davarocr - INFO - Epoch [24][30/30]	lr: 4.651e-04, eta: 0:18:45, time: 1.341, data_time: 0.007, memory: 5234, loss_crf: 0.0122, loss: 0.0122, grad_norm: 0.0928
+2022-03-10 20:28:21,676 - davarocr - INFO - Now best checkpoint is epoch_20.pth. Best hmean is 0.9365128522762466
+2022-03-10 20:28:21,677 - davarocr - INFO - Exp name: bilstm_crf.py
+2022-03-10 20:28:21,677 - davarocr - INFO - Epoch(val) [24][30]	NAME: {'precision': 0.981651376146789, 'recall': 0.9553571428571429, 'f1-score': 0.9683257918552036}, PRO: {'precision': 0.9375, 'recall': 0.9090909090909091, 'f1-score': 0.923076923076923}, EDU: {'precision': 0.9732142857142857, 'recall': 0.9732142857142857, 'f1-score': 0.9732142857142857}, TITLE: {'precision': 0.9295039164490861, 'recall': 0.9222797927461139, 'f1-score': 0.9258777633289987}, ORG: {'precision': 0.9162112932604736, 'recall': 0.9095840867992767, 'f1-score': 0.912885662431942}, CONT: {'precision': 1.0, 'recall': 1.0, 'f1-score': 1.0}, RACE: {'precision': 1.0, 'recall': 1.0, 'f1-score': 1.0}, LOC: {'precision': 0.8, 'recall': 0.6666666666666666, 'f1-score': 0.7272727272727272}, all: {'precision': 0.9331269349845202, 'recall': 0.9245398773006135, 'f1-score': 0.9288135593220339}, hmean: 0.9288
+2022-03-10 20:28:31,176 - davarocr - INFO - Epoch [25][5/30]	lr: 4.545e-04, eta: 0:18:40, time: 1.899, data_time: 0.529, memory: 5234, loss_crf: 0.0153, loss: 0.0153, grad_norm: 0.1181
+2022-03-10 20:28:38,093 - davarocr - INFO - Epoch [25][10/30]	lr: 4.545e-04, eta: 0:18:33, time: 1.383, data_time: 0.008, memory: 5234, loss_crf: 0.0150, loss: 0.0150, grad_norm: 0.1052
+2022-03-10 20:28:45,043 - davarocr - INFO - Epoch [25][15/30]	lr: 4.545e-04, eta: 0:18:25, time: 1.390, data_time: 0.007, memory: 5234, loss_crf: 0.0151, loss: 0.0151, grad_norm: 0.0976
+2022-03-10 20:28:51,901 - davarocr - INFO - Epoch [25][20/30]	lr: 4.545e-04, eta: 0:18:18, time: 1.371, data_time: 0.008, memory: 5234, loss_crf: 0.0338, loss: 0.0338, grad_norm: 0.2384
+2022-03-10 20:28:58,377 - davarocr - INFO - Epoch [25][25/30]	lr: 4.545e-04, eta: 0:18:10, time: 1.295, data_time: 0.008, memory: 5234, loss_crf: 0.0162, loss: 0.0162, grad_norm: 0.1298
+2022-03-10 20:29:04,221 - davarocr - INFO - Exp name: bilstm_crf.py
+2022-03-10 20:29:04,221 - davarocr - INFO - Epoch [25][30/30]	lr: 4.545e-04, eta: 0:18:01, time: 1.169, data_time: 0.007, memory: 5234, loss_crf: 0.0153, loss: 0.0153, grad_norm: 0.1101
+2022-03-10 20:30:08,198 - davarocr - INFO - Now best checkpoint is epoch_20.pth. Best hmean is 0.9365128522762466
+2022-03-10 20:30:08,199 - davarocr - INFO - Exp name: bilstm_crf.py
+2022-03-10 20:30:08,199 - davarocr - INFO - Epoch(val) [25][30]	NAME: {'precision': 0.9818181818181818, 'recall': 0.9642857142857143, 'f1-score': 0.972972972972973}, PRO: {'precision': 0.9375, 'recall': 0.9090909090909091, 'f1-score': 0.923076923076923}, EDU: {'precision': 0.9732142857142857, 'recall': 0.9732142857142857, 'f1-score': 0.9732142857142857}, TITLE: {'precision': 0.925974025974026, 'recall': 0.9235751295336787, 'f1-score': 0.9247730220492867}, ORG: {'precision': 0.9128856624319419, 'recall': 0.9095840867992767, 'f1-score': 0.9112318840579711}, CONT: {'precision': 1.0, 'recall': 1.0, 'f1-score': 1.0}, RACE: {'precision': 1.0, 'recall': 1.0, 'f1-score': 1.0}, LOC: {'precision': 0.8, 'recall': 0.6666666666666666, 'f1-score': 0.7272727272727272}, all: {'precision': 0.9303329223181258, 'recall': 0.9257668711656442, 'f1-score': 0.9280442804428045}, hmean: 0.9280
+2022-03-10 20:30:18,241 - davarocr - INFO - Epoch [26][5/30]	lr: 4.444e-04, eta: 0:17:57, time: 2.008, data_time: 0.549, memory: 5234, loss_crf: 0.0124, loss: 0.0124, grad_norm: 0.0888
+2022-03-10 20:30:25,582 - davarocr - INFO - Epoch [26][10/30]	lr: 4.444e-04, eta: 0:17:50, time: 1.468, data_time: 0.008, memory: 5234, loss_crf: 0.0140, loss: 0.0140, grad_norm: 0.0735
+2022-03-10 20:30:32,918 - davarocr - INFO - Epoch [26][15/30]	lr: 4.444e-04, eta: 0:17:43, time: 1.467, data_time: 0.007, memory: 5234, loss_crf: 0.0352, loss: 0.0352, grad_norm: 0.2080
+2022-03-10 20:30:40,247 - davarocr - INFO - Epoch [26][20/30]	lr: 4.444e-04, eta: 0:17:35, time: 1.466, data_time: 0.009, memory: 5234, loss_crf: 0.0156, loss: 0.0156, grad_norm: 0.1016
+2022-03-10 20:30:47,584 - davarocr - INFO - Epoch [26][25/30]	lr: 4.444e-04, eta: 0:17:28, time: 1.467, data_time: 0.007, memory: 5234, loss_crf: 0.0131, loss: 0.0131, grad_norm: 0.0934
+2022-03-10 20:30:54,916 - davarocr - INFO - Exp name: bilstm_crf.py
+2022-03-10 20:30:54,916 - davarocr - INFO - Epoch [26][30/30]	lr: 4.444e-04, eta: 0:17:21, time: 1.466, data_time: 0.007, memory: 5234, loss_crf: 0.0135, loss: 0.0135, grad_norm: 0.1049
+2022-03-10 20:31:58,954 - davarocr - INFO - Now best checkpoint is epoch_20.pth. Best hmean is 0.9365128522762466
+2022-03-10 20:31:58,955 - davarocr - INFO - Exp name: bilstm_crf.py
+2022-03-10 20:31:58,955 - davarocr - INFO - Epoch(val) [26][30]	NAME: {'precision': 0.981651376146789, 'recall': 0.9553571428571429, 'f1-score': 0.9683257918552036}, PRO: {'precision': 0.9090909090909091, 'recall': 0.9090909090909091, 'f1-score': 0.9090909090909091}, EDU: {'precision': 0.9732142857142857, 'recall': 0.9732142857142857, 'f1-score': 0.9732142857142857}, TITLE: {'precision': 0.930718954248366, 'recall': 0.9222797927461139, 'f1-score': 0.9264801561483409}, ORG: {'precision': 0.9195612431444241, 'recall': 0.9095840867992767, 'f1-score': 0.9145454545454546}, CONT: {'precision': 1.0, 'recall': 1.0, 'f1-score': 1.0}, RACE: {'precision': 1.0, 'recall': 1.0, 'f1-score': 1.0}, LOC: {'precision': 0.8, 'recall': 0.6666666666666666, 'f1-score': 0.7272727272727272}, all: {'precision': 0.9342839429634222, 'recall': 0.9245398773006135, 'f1-score': 0.929386370644465}, hmean: 0.9294
+2022-03-10 20:32:08,514 - davarocr - INFO - Epoch [27][5/30]	lr: 4.348e-04, eta: 0:17:16, time: 1.911, data_time: 0.601, memory: 5234, loss_crf: 0.0136, loss: 0.0136, grad_norm: 0.0971
+2022-03-10 20:32:15,467 - davarocr - INFO - Epoch [27][10/30]	lr: 4.348e-04, eta: 0:17:08, time: 1.391, data_time: 0.007, memory: 5234, loss_crf: 0.0129, loss: 0.0129, grad_norm: 0.0848
+2022-03-10 20:32:21,913 - davarocr - INFO - Epoch [27][15/30]	lr: 4.348e-04, eta: 0:17:01, time: 1.289, data_time: 0.006, memory: 5234, loss_crf: 0.0104, loss: 0.0104, grad_norm: 0.0660
+2022-03-10 20:32:28,209 - davarocr - INFO - Epoch [27][20/30]	lr: 4.348e-04, eta: 0:16:52, time: 1.259, data_time: 0.006, memory: 5234, loss_crf: 0.0126, loss: 0.0126, grad_norm: 0.0712
+2022-03-10 20:32:34,642 - davarocr - INFO - Epoch [27][25/30]	lr: 4.348e-04, eta: 0:16:45, time: 1.287, data_time: 0.006, memory: 5234, loss_crf: 0.0268, loss: 0.0268, grad_norm: 0.1722
+2022-03-10 20:32:41,489 - davarocr - INFO - Exp name: bilstm_crf.py
+2022-03-10 20:32:41,489 - davarocr - INFO - Epoch [27][30/30]	lr: 4.348e-04, eta: 0:16:37, time: 1.369, data_time: 0.006, memory: 5234, loss_crf: 0.0115, loss: 0.0115, grad_norm: 0.0814
+2022-03-10 20:33:41,593 - davarocr - INFO - Now best checkpoint is epoch_20.pth. Best hmean is 0.9365128522762466
+2022-03-10 20:33:41,593 - davarocr - INFO - Exp name: bilstm_crf.py
+2022-03-10 20:33:41,593 - davarocr - INFO - Epoch(val) [27][30]	NAME: {'precision': 0.981651376146789, 'recall': 0.9553571428571429, 'f1-score': 0.9683257918552036}, PRO: {'precision': 0.9090909090909091, 'recall': 0.9090909090909091, 'f1-score': 0.9090909090909091}, EDU: {'precision': 0.9732142857142857, 'recall': 0.9732142857142857, 'f1-score': 0.9732142857142857}, TITLE: {'precision': 0.9283854166666666, 'recall': 0.9235751295336787, 'f1-score': 0.9259740259740259}, ORG: {'precision': 0.9163636363636364, 'recall': 0.9113924050632911, 'f1-score': 0.913871260199456}, CONT: {'precision': 1.0, 'recall': 1.0, 'f1-score': 1.0}, RACE: {'precision': 1.0, 'recall': 1.0, 'f1-score': 1.0}, LOC: {'precision': 0.8, 'recall': 0.6666666666666666, 'f1-score': 0.7272727272727272}, all: {'precision': 0.9320568252007412, 'recall': 0.9257668711656442, 'f1-score': 0.9289012003693445}, hmean: 0.9289
+2022-03-10 20:33:50,945 - davarocr - INFO - Epoch [28][5/30]	lr: 4.255e-04, eta: 0:16:32, time: 1.869, data_time: 0.521, memory: 5234, loss_crf: 0.0098, loss: 0.0098, grad_norm: 0.0535
+2022-03-10 20:33:57,706 - davarocr - INFO - Epoch [28][10/30]	lr: 4.255e-04, eta: 0:16:24, time: 1.352, data_time: 0.007, memory: 5234, loss_crf: 0.0138, loss: 0.0138, grad_norm: 0.0888
+2022-03-10 20:34:04,385 - davarocr - INFO - Epoch [28][15/30]	lr: 4.255e-04, eta: 0:16:16, time: 1.336, data_time: 0.007, memory: 5234, loss_crf: 0.0118, loss: 0.0118, grad_norm: 0.0811
+2022-03-10 20:34:10,916 - davarocr - INFO - Epoch [28][20/30]	lr: 4.255e-04, eta: 0:16:08, time: 1.306, data_time: 0.007, memory: 5234, loss_crf: 0.0111, loss: 0.0111, grad_norm: 0.0733
+2022-03-10 20:34:17,586 - davarocr - INFO - Epoch [28][25/30]	lr: 4.255e-04, eta: 0:16:01, time: 1.334, data_time: 0.007, memory: 5234, loss_crf: 0.0236, loss: 0.0236, grad_norm: 0.2831
+2022-03-10 20:34:24,124 - davarocr - INFO - Exp name: bilstm_crf.py
+2022-03-10 20:34:24,125 - davarocr - INFO - Epoch [28][30/30]	lr: 4.255e-04, eta: 0:15:53, time: 1.308, data_time: 0.007, memory: 5234, loss_crf: 0.0096, loss: 0.0096, grad_norm: 0.0575
+2022-03-10 20:35:23,894 - davarocr - INFO - Now best checkpoint is epoch_20.pth. Best hmean is 0.9365128522762466
+2022-03-10 20:35:23,894 - davarocr - INFO - Exp name: bilstm_crf.py
+2022-03-10 20:35:23,895 - davarocr - INFO - Epoch(val) [28][30]	NAME: {'precision': 0.9818181818181818, 'recall': 0.9642857142857143, 'f1-score': 0.972972972972973}, PRO: {'precision': 0.8823529411764706, 'recall': 0.9090909090909091, 'f1-score': 0.8955223880597014}, EDU: {'precision': 0.9732142857142857, 'recall': 0.9732142857142857, 'f1-score': 0.9732142857142857}, TITLE: {'precision': 0.925974025974026, 'recall': 0.9235751295336787, 'f1-score': 0.9247730220492867}, ORG: {'precision': 0.9128856624319419, 'recall': 0.9095840867992767, 'f1-score': 0.9112318840579711}, CONT: {'precision': 1.0, 'recall': 1.0, 'f1-score': 1.0}, RACE: {'precision': 1.0, 'recall': 1.0, 'f1-score': 1.0}, LOC: {'precision': 0.8, 'recall': 0.6666666666666666, 'f1-score': 0.7272727272727272}, all: {'precision': 0.9291871921182266, 'recall': 0.9257668711656442, 'f1-score': 0.9274738783036263}, hmean: 0.9275
+2022-03-10 20:35:33,476 - davarocr - INFO - Epoch [29][5/30]	lr: 4.167e-04, eta: 0:15:48, time: 1.915, data_time: 0.543, memory: 5234, loss_crf: 0.0092, loss: 0.0092, grad_norm: 0.0648
+2022-03-10 20:35:39,796 - davarocr - INFO - Epoch [29][10/30]	lr: 4.167e-04, eta: 0:15:40, time: 1.264, data_time: 0.007, memory: 5234, loss_crf: 0.0100, loss: 0.0100, grad_norm: 0.0758
+2022-03-10 20:35:46,187 - davarocr - INFO - Epoch [29][15/30]	lr: 4.167e-04, eta: 0:15:32, time: 1.278, data_time: 0.006, memory: 5234, loss_crf: 0.0126, loss: 0.0126, grad_norm: 0.1146
+2022-03-10 20:35:52,979 - davarocr - INFO - Epoch [29][20/30]	lr: 4.167e-04, eta: 0:15:24, time: 1.358, data_time: 0.006, memory: 5234, loss_crf: 0.0351, loss: 0.0351, grad_norm: 0.2325
+2022-03-10 20:35:59,699 - davarocr - INFO - Epoch [29][25/30]	lr: 4.167e-04, eta: 0:15:17, time: 1.344, data_time: 0.006, memory: 5234, loss_crf: 0.0101, loss: 0.0101, grad_norm: 0.0728
+2022-03-10 20:36:06,385 - davarocr - INFO - Exp name: bilstm_crf.py
+2022-03-10 20:36:06,385 - davarocr - INFO - Epoch [29][30/30]	lr: 4.167e-04, eta: 0:15:09, time: 1.337, data_time: 0.006, memory: 5234, loss_crf: 0.0090, loss: 0.0090, grad_norm: 0.0519
+2022-03-10 20:37:06,088 - davarocr - INFO - Now best checkpoint is epoch_20.pth. Best hmean is 0.9365128522762466
+2022-03-10 20:37:06,088 - davarocr - INFO - Exp name: bilstm_crf.py
+2022-03-10 20:37:06,089 - davarocr - INFO - Epoch(val) [29][30]	NAME: {'precision': 0.981651376146789, 'recall': 0.9553571428571429, 'f1-score': 0.9683257918552036}, PRO: {'precision': 0.9090909090909091, 'recall': 0.9090909090909091, 'f1-score': 0.9090909090909091}, EDU: {'precision': 0.9732142857142857, 'recall': 0.9732142857142857, 'f1-score': 0.9732142857142857}, TITLE: {'precision': 0.9308996088657105, 'recall': 0.9248704663212435, 'f1-score': 0.9278752436647172}, ORG: {'precision': 0.9143897996357013, 'recall': 0.9077757685352622, 'f1-score': 0.911070780399274}, CONT: {'precision': 1.0, 'recall': 1.0, 'f1-score': 1.0}, RACE: {'precision': 1.0, 'recall': 1.0, 'f1-score': 1.0}, LOC: {'precision': 0.8, 'recall': 0.6666666666666666, 'f1-score': 0.7272727272727272}, all: {'precision': 0.9325912183055041, 'recall': 0.9251533742331288, 'f1-score': 0.9288574068370804}, hmean: 0.9289
+2022-03-10 20:37:15,621 - davarocr - INFO - Epoch [30][5/30]	lr: 4.082e-04, eta: 0:15:03, time: 1.906, data_time: 0.552, memory: 5234, loss_crf: 0.0100, loss: 0.0100, grad_norm: 0.0745
+2022-03-10 20:37:22,588 - davarocr - INFO - Epoch [30][10/30]	lr: 4.082e-04, eta: 0:14:56, time: 1.393, data_time: 0.008, memory: 5234, loss_crf: 0.0096, loss: 0.0096, grad_norm: 0.0601
+2022-03-10 20:37:29,502 - davarocr - INFO - Epoch [30][15/30]	lr: 4.082e-04, eta: 0:14:49, time: 1.383, data_time: 0.008, memory: 5234, loss_crf: 0.0091, loss: 0.0091, grad_norm: 0.0559
+2022-03-10 20:37:36,258 - davarocr - INFO - Epoch [30][20/30]	lr: 4.082e-04, eta: 0:14:41, time: 1.351, data_time: 0.008, memory: 5234, loss_crf: 0.0173, loss: 0.0173, grad_norm: 0.1498
+2022-03-10 20:37:43,127 - davarocr - INFO - Epoch [30][25/30]	lr: 4.082e-04, eta: 0:14:34, time: 1.374, data_time: 0.007, memory: 5234, loss_crf: 0.0117, loss: 0.0117, grad_norm: 0.0770
+2022-03-10 20:37:50,024 - davarocr - INFO - Exp name: bilstm_crf.py
+2022-03-10 20:37:50,024 - davarocr - INFO - Epoch [30][30/30]	lr: 4.082e-04, eta: 0:14:26, time: 1.379, data_time: 0.007, memory: 5234, loss_crf: 0.0094, loss: 0.0094, grad_norm: 0.0742
+2022-03-10 20:38:51,200 - davarocr - INFO - Now best checkpoint is epoch_20.pth. Best hmean is 0.9365128522762466
+2022-03-10 20:38:51,201 - davarocr - INFO - Exp name: bilstm_crf.py
+2022-03-10 20:38:51,201 - davarocr - INFO - Epoch(val) [30][30]	NAME: {'precision': 0.9818181818181818, 'recall': 0.9642857142857143, 'f1-score': 0.972972972972973}, PRO: {'precision': 0.9090909090909091, 'recall': 0.9090909090909091, 'f1-score': 0.9090909090909091}, EDU: {'precision': 0.9732142857142857, 'recall': 0.9732142857142857, 'f1-score': 0.9732142857142857}, TITLE: {'precision': 0.9272727272727272, 'recall': 0.9248704663212435, 'f1-score': 0.9260700389105058}, ORG: {'precision': 0.9162112932604736, 'recall': 0.9095840867992767, 'f1-score': 0.912885662431942}, CONT: {'precision': 1.0, 'recall': 1.0, 'f1-score': 1.0}, RACE: {'precision': 1.0, 'recall': 1.0, 'f1-score': 1.0}, LOC: {'precision': 0.8, 'recall': 0.6666666666666666, 'f1-score': 0.7272727272727272}, all: {'precision': 0.9315237507711289, 'recall': 0.9263803680981595, 'f1-score': 0.9289449400184558}, hmean: 0.9289
+2022-03-10 20:39:00,698 - davarocr - INFO - Epoch [31][5/30]	lr: 4.000e-04, eta: 0:14:20, time: 1.898, data_time: 0.536, memory: 5234, loss_crf: 0.0093, loss: 0.0093, grad_norm: 0.0520
+2022-03-10 20:39:07,609 - davarocr - INFO - Epoch [31][10/30]	lr: 4.000e-04, eta: 0:14:13, time: 1.383, data_time: 0.008, memory: 5234, loss_crf: 0.0082, loss: 0.0082, grad_norm: 0.0459
+2022-03-10 20:39:14,355 - davarocr - INFO - Epoch [31][15/30]	lr: 4.000e-04, eta: 0:14:05, time: 1.349, data_time: 0.008, memory: 5234, loss_crf: 0.0102, loss: 0.0102, grad_norm: 0.0649
+2022-03-10 20:39:19,973 - davarocr - INFO - Epoch [31][20/30]	lr: 4.000e-04, eta: 0:13:57, time: 1.123, data_time: 0.008, memory: 5234, loss_crf: 0.0103, loss: 0.0103, grad_norm: 0.0690
+2022-03-10 20:39:25,921 - davarocr - INFO - Epoch [31][25/30]	lr: 4.000e-04, eta: 0:13:49, time: 1.190, data_time: 0.008, memory: 5234, loss_crf: 0.0132, loss: 0.0132, grad_norm: 0.1036
+2022-03-10 20:39:33,582 - davarocr - INFO - Exp name: bilstm_crf.py
+2022-03-10 20:39:33,583 - davarocr - INFO - Epoch [31][30/30]	lr: 4.000e-04, eta: 0:13:42, time: 1.532, data_time: 0.008, memory: 5234, loss_crf: 0.0089, loss: 0.0089, grad_norm: 0.0620
+2022-03-10 20:40:37,900 - davarocr - INFO - Now best checkpoint is epoch_20.pth. Best hmean is 0.9365128522762466
+2022-03-10 20:40:37,901 - davarocr - INFO - Exp name: bilstm_crf.py
+2022-03-10 20:40:37,901 - davarocr - INFO - Epoch(val) [31][30]	NAME: {'precision': 0.9818181818181818, 'recall': 0.9642857142857143, 'f1-score': 0.972972972972973}, PRO: {'precision': 0.8823529411764706, 'recall': 0.9090909090909091, 'f1-score': 0.8955223880597014}, EDU: {'precision': 0.9732142857142857, 'recall': 0.9732142857142857, 'f1-score': 0.9732142857142857}, TITLE: {'precision': 0.9284785435630689, 'recall': 0.9248704663212435, 'f1-score': 0.926670992861778}, ORG: {'precision': 0.9113924050632911, 'recall': 0.9113924050632911, 'f1-score': 0.9113924050632911}, CONT: {'precision': 1.0, 'recall': 1.0, 'f1-score': 1.0}, RACE: {'precision': 1.0, 'recall': 1.0, 'f1-score': 1.0}, LOC: {'precision': 0.8, 'recall': 0.6666666666666666, 'f1-score': 0.7272727272727272}, all: {'precision': 0.9298461538461539, 'recall': 0.9269938650306748, 'f1-score': 0.9284178187403994}, hmean: 0.9284
+2022-03-10 20:40:47,860 - davarocr - INFO - Epoch [32][5/30]	lr: 3.922e-04, eta: 0:13:37, time: 1.991, data_time: 0.534, memory: 5234, loss_crf: 0.0079, loss: 0.0079, grad_norm: 0.0491
+2022-03-10 20:40:55,203 - davarocr - INFO - Epoch [32][10/30]	lr: 3.922e-04, eta: 0:13:29, time: 1.469, data_time: 0.009, memory: 5234, loss_crf: 0.0077, loss: 0.0077, grad_norm: 0.0434
+2022-03-10 20:41:02,547 - davarocr - INFO - Epoch [32][15/30]	lr: 3.922e-04, eta: 0:13:22, time: 1.469, data_time: 0.009, memory: 5234, loss_crf: 0.0081, loss: 0.0081, grad_norm: 0.0515
+2022-03-10 20:41:09,889 - davarocr - INFO - Epoch [32][20/30]	lr: 3.922e-04, eta: 0:13:15, time: 1.468, data_time: 0.008, memory: 5234, loss_crf: 0.0155, loss: 0.0155, grad_norm: 0.1542
+2022-03-10 20:41:17,105 - davarocr - INFO - Epoch [32][25/30]	lr: 3.922e-04, eta: 0:13:08, time: 1.443, data_time: 0.008, memory: 5234, loss_crf: 0.0087, loss: 0.0087, grad_norm: 0.0559
+2022-03-10 20:41:24,639 - davarocr - INFO - Exp name: bilstm_crf.py
+2022-03-10 20:41:24,639 - davarocr - INFO - Epoch [32][30/30]	lr: 3.922e-04, eta: 0:13:01, time: 1.507, data_time: 0.008, memory: 5234, loss_crf: 0.0089, loss: 0.0089, grad_norm: 0.0538
+2022-03-10 20:42:28,925 - davarocr - INFO - Now best checkpoint is epoch_20.pth. Best hmean is 0.9365128522762466
+2022-03-10 20:42:28,925 - davarocr - INFO - Exp name: bilstm_crf.py
+2022-03-10 20:42:28,925 - davarocr - INFO - Epoch(val) [32][30]	NAME: {'precision': 0.9818181818181818, 'recall': 0.9642857142857143, 'f1-score': 0.972972972972973}, PRO: {'precision': 0.8823529411764706, 'recall': 0.9090909090909091, 'f1-score': 0.8955223880597014}, EDU: {'precision': 0.9732142857142857, 'recall': 0.9732142857142857, 'f1-score': 0.9732142857142857}, TITLE: {'precision': 0.9284785435630689, 'recall': 0.9248704663212435, 'f1-score': 0.926670992861778}, ORG: {'precision': 0.9147005444646098, 'recall': 0.9113924050632911, 'f1-score': 0.9130434782608696}, CONT: {'precision': 1.0, 'recall': 1.0, 'f1-score': 1.0}, RACE: {'precision': 1.0, 'recall': 1.0, 'f1-score': 1.0}, LOC: {'precision': 0.8, 'recall': 0.6666666666666666, 'f1-score': 0.7272727272727272}, all: {'precision': 0.9309919901417129, 'recall': 0.9269938650306748, 'f1-score': 0.9289886258837995}, hmean: 0.9290
+2022-03-10 20:42:38,240 - davarocr - INFO - Epoch [33][5/30]	lr: 3.846e-04, eta: 0:12:55, time: 1.862, data_time: 0.553, memory: 5234, loss_crf: 0.0074, loss: 0.0074, grad_norm: 0.0411
+2022-03-10 20:42:45,177 - davarocr - INFO - Epoch [33][10/30]	lr: 3.846e-04, eta: 0:12:47, time: 1.387, data_time: 0.008, memory: 5234, loss_crf: 0.0073, loss: 0.0073, grad_norm: 0.0402
+2022-03-10 20:42:51,958 - davarocr - INFO - Epoch [33][15/30]	lr: 3.846e-04, eta: 0:12:40, time: 1.356, data_time: 0.008, memory: 5234, loss_crf: 0.0090, loss: 0.0090, grad_norm: 0.0498
+2022-03-10 20:42:58,666 - davarocr - INFO - Epoch [33][20/30]	lr: 3.846e-04, eta: 0:12:32, time: 1.342, data_time: 0.008, memory: 5234, loss_crf: 0.0071, loss: 0.0071, grad_norm: 0.0443
+2022-03-10 20:43:05,498 - davarocr - INFO - Epoch [33][25/30]	lr: 3.846e-04, eta: 0:12:25, time: 1.366, data_time: 0.008, memory: 5234, loss_crf: 0.0119, loss: 0.0119, grad_norm: 0.1222
+2022-03-10 20:43:12,246 - davarocr - INFO - Exp name: bilstm_crf.py
+2022-03-10 20:43:12,246 - davarocr - INFO - Epoch [33][30/30]	lr: 3.846e-04, eta: 0:12:17, time: 1.350, data_time: 0.008, memory: 5234, loss_crf: 0.0088, loss: 0.0088, grad_norm: 0.0545
+2022-03-10 20:44:13,402 - davarocr - INFO - Now best checkpoint is epoch_20.pth. Best hmean is 0.9365128522762466
+2022-03-10 20:44:13,403 - davarocr - INFO - Exp name: bilstm_crf.py
+2022-03-10 20:44:13,403 - davarocr - INFO - Epoch(val) [33][30]	NAME: {'precision': 0.9818181818181818, 'recall': 0.9642857142857143, 'f1-score': 0.972972972972973}, PRO: {'precision': 0.8823529411764706, 'recall': 0.9090909090909091, 'f1-score': 0.8955223880597014}, EDU: {'precision': 0.9732142857142857, 'recall': 0.9732142857142857, 'f1-score': 0.9732142857142857}, TITLE: {'precision': 0.9296875, 'recall': 0.9248704663212435, 'f1-score': 0.9272727272727271}, ORG: {'precision': 0.9115523465703971, 'recall': 0.9132007233273056, 'f1-score': 0.912375790424571}, CONT: {'precision': 1.0, 'recall': 1.0, 'f1-score': 1.0}, RACE: {'precision': 1.0, 'recall': 1.0, 'f1-score': 1.0}, LOC: {'precision': 0.8, 'recall': 0.6666666666666666, 'f1-score': 0.7272727272727272}, all: {'precision': 0.9304615384615385, 'recall': 0.9276073619631902, 'f1-score': 0.9290322580645162}, hmean: 0.9290
+2022-03-10 20:44:22,883 - davarocr - INFO - Epoch [34][5/30]	lr: 3.774e-04, eta: 0:12:11, time: 1.895, data_time: 0.560, memory: 5234, loss_crf: 0.0093, loss: 0.0093, grad_norm: 0.0556
+2022-03-10 20:44:29,475 - davarocr - INFO - Exp name: bilstm_crf.py
+2022-03-10 20:44:29,476 - davarocr - INFO - Epoch [34][10/30]	lr: 3.774e-04, eta: 0:12:04, time: 1.318, data_time: 0.008, memory: 5234, loss_crf: 0.0072, loss: 0.0072, grad_norm: 0.0389
+2022-03-10 20:44:36,231 - davarocr - INFO - Epoch [34][15/30]	lr: 3.774e-04, eta: 0:11:56, time: 1.351, data_time: 0.008, memory: 5234, loss_crf: 0.0080, loss: 0.0080, grad_norm: 0.0441
+2022-03-10 20:44:42,743 - davarocr - INFO - Epoch [34][20/30]	lr: 3.774e-04, eta: 0:11:49, time: 1.303, data_time: 0.008, memory: 5234, loss_crf: 0.0070, loss: 0.0070, grad_norm: 0.0424
+2022-03-10 20:44:49,654 - davarocr - INFO - Epoch [34][25/30]	lr: 3.774e-04, eta: 0:11:41, time: 1.382, data_time: 0.007, memory: 5234, loss_crf: 0.0105, loss: 0.0105, grad_norm: 0.1404
+2022-03-10 20:44:56,495 - davarocr - INFO - Exp name: bilstm_crf.py
+2022-03-10 20:44:56,495 - davarocr - INFO - Epoch [34][30/30]	lr: 3.774e-04, eta: 0:11:34, time: 1.368, data_time: 0.008, memory: 5234, loss_crf: 0.0081, loss: 0.0081, grad_norm: 0.0482
+2022-03-10 20:45:57,676 - davarocr - INFO - Now best checkpoint is epoch_20.pth. Best hmean is 0.9365128522762466
+2022-03-10 20:45:57,677 - davarocr - INFO - Exp name: bilstm_crf.py
+2022-03-10 20:45:57,677 - davarocr - INFO - Epoch(val) [34][30]	NAME: {'precision': 0.9818181818181818, 'recall': 0.9642857142857143, 'f1-score': 0.972972972972973}, PRO: {'precision': 0.8823529411764706, 'recall': 0.9090909090909091, 'f1-score': 0.8955223880597014}, EDU: {'precision': 0.9732142857142857, 'recall': 0.9732142857142857, 'f1-score': 0.9732142857142857}, TITLE: {'precision': 0.9296875, 'recall': 0.9248704663212435, 'f1-score': 0.9272727272727271}, ORG: {'precision': 0.9112318840579711, 'recall': 0.9095840867992767, 'f1-score': 0.9104072398190045}, CONT: {'precision': 1.0, 'recall': 1.0, 'f1-score': 1.0}, RACE: {'precision': 1.0, 'recall': 1.0, 'f1-score': 1.0}, LOC: {'precision': 0.8, 'recall': 0.6666666666666666, 'f1-score': 0.7272727272727272}, all: {'precision': 0.9303758471965496, 'recall': 0.9263803680981595, 'f1-score': 0.9283738087918845}, hmean: 0.9284
+2022-03-10 20:46:07,351 - davarocr - INFO - Epoch [35][5/30]	lr: 3.704e-04, eta: 0:11:28, time: 1.934, data_time: 0.593, memory: 5234, loss_crf: 0.0085, loss: 0.0085, grad_norm: 0.0534
+2022-03-10 20:46:14,235 - davarocr - INFO - Epoch [35][10/30]	lr: 3.704e-04, eta: 0:11:20, time: 1.377, data_time: 0.008, memory: 5234, loss_crf: 0.0088, loss: 0.0088, grad_norm: 0.0796
+2022-03-10 20:46:20,879 - davarocr - INFO - Epoch [35][15/30]	lr: 3.704e-04, eta: 0:11:13, time: 1.329, data_time: 0.007, memory: 5234, loss_crf: 0.0081, loss: 0.0081, grad_norm: 0.0533
+2022-03-10 20:46:27,754 - davarocr - INFO - Epoch [35][20/30]	lr: 3.704e-04, eta: 0:11:05, time: 1.375, data_time: 0.007, memory: 5234, loss_crf: 0.0064, loss: 0.0064, grad_norm: 0.0350
+2022-03-10 20:46:34,249 - davarocr - INFO - Epoch [35][25/30]	lr: 3.704e-04, eta: 0:10:58, time: 1.299, data_time: 0.008, memory: 5234, loss_crf: 0.0063, loss: 0.0063, grad_norm: 0.0369
+2022-03-10 20:46:40,886 - davarocr - INFO - Exp name: bilstm_crf.py
+2022-03-10 20:46:40,887 - davarocr - INFO - Epoch [35][30/30]	lr: 3.704e-04, eta: 0:10:50, time: 1.327, data_time: 0.008, memory: 5234, loss_crf: 0.0074, loss: 0.0074, grad_norm: 0.0368
+2022-03-10 20:47:41,334 - davarocr - INFO - Now best checkpoint is epoch_20.pth. Best hmean is 0.9365128522762466
+2022-03-10 20:47:41,335 - davarocr - INFO - Exp name: bilstm_crf.py
+2022-03-10 20:47:41,335 - davarocr - INFO - Epoch(val) [35][30]	NAME: {'precision': 0.9818181818181818, 'recall': 0.9642857142857143, 'f1-score': 0.972972972972973}, PRO: {'precision': 0.8823529411764706, 'recall': 0.9090909090909091, 'f1-score': 0.8955223880597014}, EDU: {'precision': 0.9732142857142857, 'recall': 0.9732142857142857, 'f1-score': 0.9732142857142857}, TITLE: {'precision': 0.9296875, 'recall': 0.9248704663212435, 'f1-score': 0.9272727272727271}, ORG: {'precision': 0.9097472924187726, 'recall': 0.9113924050632911, 'f1-score': 0.9105691056910569}, CONT: {'precision': 1.0, 'recall': 1.0, 'f1-score': 1.0}, RACE: {'precision': 1.0, 'recall': 1.0, 'f1-score': 1.0}, LOC: {'precision': 0.8, 'recall': 0.6666666666666666, 'f1-score': 0.7272727272727272}, all: {'precision': 0.9298461538461539, 'recall': 0.9269938650306748, 'f1-score': 0.9284178187403994}, hmean: 0.9284
+2022-03-10 20:47:50,803 - davarocr - INFO - Epoch [36][5/30]	lr: 3.636e-04, eta: 0:10:44, time: 1.893, data_time: 0.556, memory: 5234, loss_crf: 0.0074, loss: 0.0074, grad_norm: 0.0485
+2022-03-10 20:47:57,367 - davarocr - INFO - Epoch [36][10/30]	lr: 3.636e-04, eta: 0:10:37, time: 1.313, data_time: 0.008, memory: 5234, loss_crf: 0.0061, loss: 0.0061, grad_norm: 0.0324
+2022-03-10 20:48:04,324 - davarocr - INFO - Epoch [36][15/30]	lr: 3.636e-04, eta: 0:10:29, time: 1.391, data_time: 0.008, memory: 5234, loss_crf: 0.0066, loss: 0.0066, grad_norm: 0.0384
+2022-03-10 20:48:11,221 - davarocr - INFO - Epoch [36][20/30]	lr: 3.636e-04, eta: 0:10:22, time: 1.379, data_time: 0.007, memory: 5234, loss_crf: 0.0067, loss: 0.0067, grad_norm: 0.0370
+2022-03-10 20:48:18,248 - davarocr - INFO - Epoch [36][25/30]	lr: 3.636e-04, eta: 0:10:14, time: 1.406, data_time: 0.007, memory: 5234, loss_crf: 0.0066, loss: 0.0066, grad_norm: 0.0393
+2022-03-10 20:48:25,239 - davarocr - INFO - Exp name: bilstm_crf.py
+2022-03-10 20:48:25,240 - davarocr - INFO - Epoch [36][30/30]	lr: 3.636e-04, eta: 0:10:07, time: 1.398, data_time: 0.007, memory: 5234, loss_crf: 0.0095, loss: 0.0095, grad_norm: 0.0669
+2022-03-10 20:49:26,135 - davarocr - INFO - Now best checkpoint is epoch_20.pth. Best hmean is 0.9365128522762466
+2022-03-10 20:49:26,136 - davarocr - INFO - Exp name: bilstm_crf.py
+2022-03-10 20:49:26,136 - davarocr - INFO - Epoch(val) [36][30]	NAME: {'precision': 0.9818181818181818, 'recall': 0.9642857142857143, 'f1-score': 0.972972972972973}, PRO: {'precision': 0.8823529411764706, 'recall': 0.9090909090909091, 'f1-score': 0.8955223880597014}, EDU: {'precision': 0.9732142857142857, 'recall': 0.9732142857142857, 'f1-score': 0.9732142857142857}, TITLE: {'precision': 0.9308996088657105, 'recall': 0.9248704663212435, 'f1-score': 0.9278752436647172}, ORG: {'precision': 0.907942238267148, 'recall': 0.9095840867992767, 'f1-score': 0.9087624209575429}, CONT: {'precision': 1.0, 'recall': 1.0, 'f1-score': 1.0}, RACE: {'precision': 1.0, 'recall': 1.0, 'f1-score': 1.0}, LOC: {'precision': 0.8, 'recall': 0.6666666666666666, 'f1-score': 0.7272727272727272}, all: {'precision': 0.9298029556650246, 'recall': 0.9263803680981595, 'f1-score': 0.9280885064535956}, hmean: 0.9281
+2022-03-10 20:49:36,192 - davarocr - INFO - Epoch [37][5/30]	lr: 3.571e-04, eta: 0:10:01, time: 2.010, data_time: 0.591, memory: 5234, loss_crf: 0.0070, loss: 0.0070, grad_norm: 0.0435
+2022-03-10 20:49:43,000 - davarocr - INFO - Epoch [37][10/30]	lr: 3.571e-04, eta: 0:09:54, time: 1.362, data_time: 0.007, memory: 5234, loss_crf: 0.0071, loss: 0.0071, grad_norm: 0.0427
+2022-03-10 20:49:49,742 - davarocr - INFO - Epoch [37][15/30]	lr: 3.571e-04, eta: 0:09:46, time: 1.348, data_time: 0.006, memory: 5234, loss_crf: 0.0058, loss: 0.0058, grad_norm: 0.0288
+2022-03-10 20:49:55,041 - davarocr - INFO - Epoch [37][20/30]	lr: 3.571e-04, eta: 0:09:38, time: 1.060, data_time: 0.007, memory: 5234, loss_crf: 0.0062, loss: 0.0062, grad_norm: 0.0347
+2022-03-10 20:50:02,364 - davarocr - INFO - Epoch [37][25/30]	lr: 3.571e-04, eta: 0:09:31, time: 1.464, data_time: 0.006, memory: 5234, loss_crf: 0.0068, loss: 0.0068, grad_norm: 0.0519
+2022-03-10 20:50:09,687 - davarocr - INFO - Exp name: bilstm_crf.py
+2022-03-10 20:50:09,688 - davarocr - INFO - Epoch [37][30/30]	lr: 3.571e-04, eta: 0:09:24, time: 1.465, data_time: 0.007, memory: 5234, loss_crf: 0.0078, loss: 0.0078, grad_norm: 0.0428
+2022-03-10 20:51:14,492 - davarocr - INFO - Now best checkpoint is epoch_20.pth. Best hmean is 0.9365128522762466
+2022-03-10 20:51:14,493 - davarocr - INFO - Exp name: bilstm_crf.py
+2022-03-10 20:51:14,493 - davarocr - INFO - Epoch(val) [37][30]	NAME: {'precision': 0.9818181818181818, 'recall': 0.9642857142857143, 'f1-score': 0.972972972972973}, PRO: {'precision': 0.8823529411764706, 'recall': 0.9090909090909091, 'f1-score': 0.8955223880597014}, EDU: {'precision': 0.9732142857142857, 'recall': 0.9732142857142857, 'f1-score': 0.9732142857142857}, TITLE: {'precision': 0.9308996088657105, 'recall': 0.9248704663212435, 'f1-score': 0.9278752436647172}, ORG: {'precision': 0.9113924050632911, 'recall': 0.9113924050632911, 'f1-score': 0.9113924050632911}, CONT: {'precision': 1.0, 'recall': 1.0, 'f1-score': 1.0}, RACE: {'precision': 1.0, 'recall': 1.0, 'f1-score': 1.0}, LOC: {'precision': 0.8, 'recall': 0.6666666666666666, 'f1-score': 0.7272727272727272}, all: {'precision': 0.9309919901417129, 'recall': 0.9269938650306748, 'f1-score': 0.9289886258837995}, hmean: 0.9290
+2022-03-10 20:51:25,201 - davarocr - INFO - Epoch [38][5/30]	lr: 3.509e-04, eta: 0:09:18, time: 2.140, data_time: 0.539, memory: 5234, loss_crf: 0.0061, loss: 0.0061, grad_norm: 0.0367
+2022-03-10 20:51:32,716 - davarocr - INFO - Epoch [38][10/30]	lr: 3.509e-04, eta: 0:09:11, time: 1.503, data_time: 0.008, memory: 5234, loss_crf: 0.0075, loss: 0.0075, grad_norm: 0.0479
+2022-03-10 20:51:40,525 - davarocr - INFO - Epoch [38][15/30]	lr: 3.509e-04, eta: 0:09:04, time: 1.562, data_time: 0.008, memory: 5234, loss_crf: 0.0063, loss: 0.0063, grad_norm: 0.0342
+2022-03-10 20:51:48,201 - davarocr - INFO - Epoch [38][20/30]	lr: 3.509e-04, eta: 0:08:56, time: 1.535, data_time: 0.008, memory: 5234, loss_crf: 0.0058, loss: 0.0058, grad_norm: 0.0314
+2022-03-10 20:51:56,002 - davarocr - INFO - Epoch [38][25/30]	lr: 3.509e-04, eta: 0:08:49, time: 1.561, data_time: 0.009, memory: 5234, loss_crf: 0.0062, loss: 0.0062, grad_norm: 0.0328
+2022-03-10 20:52:03,688 - davarocr - INFO - Exp name: bilstm_crf.py
+2022-03-10 20:52:03,688 - davarocr - INFO - Epoch [38][30/30]	lr: 3.509e-04, eta: 0:08:42, time: 1.537, data_time: 0.007, memory: 5234, loss_crf: 0.0068, loss: 0.0068, grad_norm: 0.0378
+2022-03-10 20:53:08,764 - davarocr - INFO - Now best checkpoint is epoch_20.pth. Best hmean is 0.9365128522762466
+2022-03-10 20:53:08,765 - davarocr - INFO - Exp name: bilstm_crf.py
+2022-03-10 20:53:08,765 - davarocr - INFO - Epoch(val) [38][30]	NAME: {'precision': 0.9818181818181818, 'recall': 0.9642857142857143, 'f1-score': 0.972972972972973}, PRO: {'precision': 0.8823529411764706, 'recall': 0.9090909090909091, 'f1-score': 0.8955223880597014}, EDU: {'precision': 0.9732142857142857, 'recall': 0.9732142857142857, 'f1-score': 0.9732142857142857}, TITLE: {'precision': 0.9308996088657105, 'recall': 0.9248704663212435, 'f1-score': 0.9278752436647172}, ORG: {'precision': 0.9113924050632911, 'recall': 0.9113924050632911, 'f1-score': 0.9113924050632911}, CONT: {'precision': 1.0, 'recall': 1.0, 'f1-score': 1.0}, RACE: {'precision': 1.0, 'recall': 1.0, 'f1-score': 1.0}, LOC: {'precision': 0.8, 'recall': 0.6666666666666666, 'f1-score': 0.7272727272727272}, all: {'precision': 0.9309919901417129, 'recall': 0.9269938650306748, 'f1-score': 0.9289886258837995}, hmean: 0.9290
+2022-03-10 20:53:18,185 - davarocr - INFO - Epoch [39][5/30]	lr: 3.448e-04, eta: 0:08:36, time: 1.883, data_time: 0.529, memory: 5234, loss_crf: 0.0057, loss: 0.0057, grad_norm: 0.0307
+2022-03-10 20:53:24,987 - davarocr - INFO - Epoch [39][10/30]	lr: 3.448e-04, eta: 0:08:28, time: 1.360, data_time: 0.008, memory: 5234, loss_crf: 0.0072, loss: 0.0072, grad_norm: 0.0446
+2022-03-10 20:53:31,830 - davarocr - INFO - Epoch [39][15/30]	lr: 3.448e-04, eta: 0:08:21, time: 1.368, data_time: 0.008, memory: 5234, loss_crf: 0.0061, loss: 0.0061, grad_norm: 0.0286
+2022-03-10 20:53:38,487 - davarocr - INFO - Epoch [39][20/30]	lr: 3.448e-04, eta: 0:08:13, time: 1.332, data_time: 0.007, memory: 5234, loss_crf: 0.0055, loss: 0.0055, grad_norm: 0.0322
+2022-03-10 20:53:45,290 - davarocr - INFO - Epoch [39][25/30]	lr: 3.448e-04, eta: 0:08:06, time: 1.360, data_time: 0.006, memory: 5234, loss_crf: 0.0075, loss: 0.0075, grad_norm: 0.0516
+2022-03-10 20:53:52,208 - davarocr - INFO - Exp name: bilstm_crf.py
+2022-03-10 20:53:52,208 - davarocr - INFO - Epoch [39][30/30]	lr: 3.448e-04, eta: 0:07:59, time: 1.384, data_time: 0.008, memory: 5234, loss_crf: 0.0059, loss: 0.0059, grad_norm: 0.0314
+2022-03-10 20:54:52,643 - davarocr - INFO - Now best checkpoint is epoch_20.pth. Best hmean is 0.9365128522762466
+2022-03-10 20:54:52,644 - davarocr - INFO - Exp name: bilstm_crf.py
+2022-03-10 20:54:52,644 - davarocr - INFO - Epoch(val) [39][30]	NAME: {'precision': 0.9818181818181818, 'recall': 0.9642857142857143, 'f1-score': 0.972972972972973}, PRO: {'precision': 0.8823529411764706, 'recall': 0.9090909090909091, 'f1-score': 0.8955223880597014}, EDU: {'precision': 0.9732142857142857, 'recall': 0.9732142857142857, 'f1-score': 0.9732142857142857}, TITLE: {'precision': 0.9308996088657105, 'recall': 0.9248704663212435, 'f1-score': 0.9278752436647172}, ORG: {'precision': 0.9097472924187726, 'recall': 0.9113924050632911, 'f1-score': 0.9105691056910569}, CONT: {'precision': 1.0, 'recall': 1.0, 'f1-score': 1.0}, RACE: {'precision': 1.0, 'recall': 1.0, 'f1-score': 1.0}, LOC: {'precision': 0.8, 'recall': 0.6666666666666666, 'f1-score': 0.7272727272727272}, all: {'precision': 0.9304187192118226, 'recall': 0.9269938650306748, 'f1-score': 0.9287031346035647}, hmean: 0.9287
+2022-03-10 20:55:02,040 - davarocr - INFO - Epoch [40][5/30]	lr: 3.390e-04, eta: 0:07:52, time: 1.878, data_time: 0.548, memory: 5234, loss_crf: 0.0063, loss: 0.0063, grad_norm: 0.0309
+2022-03-10 20:55:08,687 - davarocr - INFO - Epoch [40][10/30]	lr: 3.390e-04, eta: 0:07:45, time: 1.330, data_time: 0.008, memory: 5234, loss_crf: 0.0056, loss: 0.0056, grad_norm: 0.0261
+2022-03-10 20:55:15,563 - davarocr - INFO - Epoch [40][15/30]	lr: 3.390e-04, eta: 0:07:37, time: 1.375, data_time: 0.008, memory: 5234, loss_crf: 0.0067, loss: 0.0067, grad_norm: 0.0443
+2022-03-10 20:55:22,296 - davarocr - INFO - Epoch [40][20/30]	lr: 3.390e-04, eta: 0:07:30, time: 1.346, data_time: 0.007, memory: 5234, loss_crf: 0.0056, loss: 0.0056, grad_norm: 0.0329
+2022-03-10 20:55:28,973 - davarocr - INFO - Epoch [40][25/30]	lr: 3.390e-04, eta: 0:07:22, time: 1.335, data_time: 0.007, memory: 5234, loss_crf: 0.0055, loss: 0.0055, grad_norm: 0.0291
+2022-03-10 20:55:35,620 - davarocr - INFO - Exp name: bilstm_crf.py
+2022-03-10 20:55:35,620 - davarocr - INFO - Epoch [40][30/30]	lr: 3.390e-04, eta: 0:07:15, time: 1.329, data_time: 0.007, memory: 5234, loss_crf: 0.0059, loss: 0.0059, grad_norm: 0.0310
+2022-03-10 20:56:35,973 - davarocr - INFO - Now best checkpoint is epoch_20.pth. Best hmean is 0.9365128522762466
+2022-03-10 20:56:35,974 - davarocr - INFO - Exp name: bilstm_crf.py
+2022-03-10 20:56:35,974 - davarocr - INFO - Epoch(val) [40][30]	NAME: {'precision': 0.9818181818181818, 'recall': 0.9642857142857143, 'f1-score': 0.972972972972973}, PRO: {'precision': 0.8823529411764706, 'recall': 0.9090909090909091, 'f1-score': 0.8955223880597014}, EDU: {'precision': 0.9732142857142857, 'recall': 0.9732142857142857, 'f1-score': 0.9732142857142857}, TITLE: {'precision': 0.9296875, 'recall': 0.9248704663212435, 'f1-score': 0.9272727272727271}, ORG: {'precision': 0.9097472924187726, 'recall': 0.9113924050632911, 'f1-score': 0.9105691056910569}, CONT: {'precision': 1.0, 'recall': 1.0, 'f1-score': 1.0}, RACE: {'precision': 1.0, 'recall': 1.0, 'f1-score': 1.0}, LOC: {'precision': 0.8, 'recall': 0.6666666666666666, 'f1-score': 0.7272727272727272}, all: {'precision': 0.9298461538461539, 'recall': 0.9269938650306748, 'f1-score': 0.9284178187403994}, hmean: 0.9284
+2022-03-10 20:56:45,607 - davarocr - INFO - Epoch [41][5/30]	lr: 3.333e-04, eta: 0:07:08, time: 1.926, data_time: 0.545, memory: 5234, loss_crf: 0.0061, loss: 0.0061, grad_norm: 0.0433
+2022-03-10 20:56:52,555 - davarocr - INFO - Epoch [41][10/30]	lr: 3.333e-04, eta: 0:07:01, time: 1.389, data_time: 0.008, memory: 5234, loss_crf: 0.0053, loss: 0.0053, grad_norm: 0.0281
+2022-03-10 20:56:59,485 - davarocr - INFO - Epoch [41][15/30]	lr: 3.333e-04, eta: 0:06:54, time: 1.386, data_time: 0.008, memory: 5234, loss_crf: 0.0058, loss: 0.0058, grad_norm: 0.0307
+2022-03-10 20:57:06,273 - davarocr - INFO - Epoch [41][20/30]	lr: 3.333e-04, eta: 0:06:46, time: 1.357, data_time: 0.009, memory: 5234, loss_crf: 0.0054, loss: 0.0054, grad_norm: 0.0279
+2022-03-10 20:57:13,318 - davarocr - INFO - Epoch [41][25/30]	lr: 3.333e-04, eta: 0:06:39, time: 1.409, data_time: 0.007, memory: 5234, loss_crf: 0.0055, loss: 0.0055, grad_norm: 0.0340
+2022-03-10 20:57:20,048 - davarocr - INFO - Exp name: bilstm_crf.py
+2022-03-10 20:57:20,049 - davarocr - INFO - Epoch [41][30/30]	lr: 3.333e-04, eta: 0:06:31, time: 1.346, data_time: 0.007, memory: 5234, loss_crf: 0.0065, loss: 0.0065, grad_norm: 0.0355
+2022-03-10 20:58:21,742 - davarocr - INFO - Now best checkpoint is epoch_20.pth. Best hmean is 0.9365128522762466
+2022-03-10 20:58:21,743 - davarocr - INFO - Exp name: bilstm_crf.py
+2022-03-10 20:58:21,743 - davarocr - INFO - Epoch(val) [41][30]	NAME: {'precision': 0.9818181818181818, 'recall': 0.9642857142857143, 'f1-score': 0.972972972972973}, PRO: {'precision': 0.8823529411764706, 'recall': 0.9090909090909091, 'f1-score': 0.8955223880597014}, EDU: {'precision': 0.9732142857142857, 'recall': 0.9732142857142857, 'f1-score': 0.9732142857142857}, TITLE: {'precision': 0.9296875, 'recall': 0.9248704663212435, 'f1-score': 0.9272727272727271}, ORG: {'precision': 0.9097472924187726, 'recall': 0.9113924050632911, 'f1-score': 0.9105691056910569}, CONT: {'precision': 1.0, 'recall': 1.0, 'f1-score': 1.0}, RACE: {'precision': 1.0, 'recall': 1.0, 'f1-score': 1.0}, LOC: {'precision': 0.8, 'recall': 0.6666666666666666, 'f1-score': 0.7272727272727272}, all: {'precision': 0.9298461538461539, 'recall': 0.9269938650306748, 'f1-score': 0.9284178187403994}, hmean: 0.9284
+2022-03-10 20:58:31,356 - davarocr - INFO - Epoch [42][5/30]	lr: 3.279e-04, eta: 0:06:25, time: 1.922, data_time: 0.536, memory: 5234, loss_crf: 0.0059, loss: 0.0059, grad_norm: 0.0361
+2022-03-10 20:58:38,334 - davarocr - INFO - Epoch [42][10/30]	lr: 3.279e-04, eta: 0:06:17, time: 1.395, data_time: 0.007, memory: 5234, loss_crf: 0.0057, loss: 0.0057, grad_norm: 0.0350
+2022-03-10 20:58:45,337 - davarocr - INFO - Epoch [42][15/30]	lr: 3.279e-04, eta: 0:06:10, time: 1.401, data_time: 0.008, memory: 5234, loss_crf: 0.0056, loss: 0.0056, grad_norm: 0.0288
+2022-03-10 20:58:52,365 - davarocr - INFO - Epoch [42][20/30]	lr: 3.279e-04, eta: 0:06:03, time: 1.406, data_time: 0.007, memory: 5234, loss_crf: 0.0060, loss: 0.0060, grad_norm: 0.0328
+2022-03-10 20:58:59,349 - davarocr - INFO - Epoch [42][25/30]	lr: 3.279e-04, eta: 0:05:55, time: 1.397, data_time: 0.007, memory: 5234, loss_crf: 0.0052, loss: 0.0052, grad_norm: 0.0271
+2022-03-10 20:59:06,317 - davarocr - INFO - Exp name: bilstm_crf.py
+2022-03-10 20:59:06,318 - davarocr - INFO - Epoch [42][30/30]	lr: 3.279e-04, eta: 0:05:48, time: 1.393, data_time: 0.007, memory: 5234, loss_crf: 0.0052, loss: 0.0052, grad_norm: 0.0266
+2022-03-10 21:00:08,957 - davarocr - INFO - Now best checkpoint is epoch_20.pth. Best hmean is 0.9365128522762466
+2022-03-10 21:00:08,958 - davarocr - INFO - Exp name: bilstm_crf.py
+2022-03-10 21:00:08,958 - davarocr - INFO - Epoch(val) [42][30]	NAME: {'precision': 0.9818181818181818, 'recall': 0.9642857142857143, 'f1-score': 0.972972972972973}, PRO: {'precision': 0.8823529411764706, 'recall': 0.9090909090909091, 'f1-score': 0.8955223880597014}, EDU: {'precision': 0.9732142857142857, 'recall': 0.9732142857142857, 'f1-score': 0.9732142857142857}, TITLE: {'precision': 0.9284785435630689, 'recall': 0.9248704663212435, 'f1-score': 0.926670992861778}, ORG: {'precision': 0.9097472924187726, 'recall': 0.9113924050632911, 'f1-score': 0.9105691056910569}, CONT: {'precision': 1.0, 'recall': 1.0, 'f1-score': 1.0}, RACE: {'precision': 1.0, 'recall': 1.0, 'f1-score': 1.0}, LOC: {'precision': 0.8, 'recall': 0.6666666666666666, 'f1-score': 0.7272727272727272}, all: {'precision': 0.9292742927429274, 'recall': 0.9269938650306748, 'f1-score': 0.9281326781326781}, hmean: 0.9281
+2022-03-10 21:00:17,950 - davarocr - INFO - Epoch [43][5/30]	lr: 3.226e-04, eta: 0:05:41, time: 1.797, data_time: 0.547, memory: 5234, loss_crf: 0.0047, loss: 0.0047, grad_norm: 0.0270
+2022-03-10 21:00:23,952 - davarocr - INFO - Epoch [43][10/30]	lr: 3.226e-04, eta: 0:05:34, time: 1.200, data_time: 0.008, memory: 5234, loss_crf: 0.0050, loss: 0.0050, grad_norm: 0.0243
+2022-03-10 21:00:29,193 - davarocr - INFO - Epoch [43][15/30]	lr: 3.226e-04, eta: 0:05:26, time: 1.048, data_time: 0.008, memory: 5234, loss_crf: 0.0052, loss: 0.0052, grad_norm: 0.0269
+2022-03-10 21:00:36,810 - davarocr - INFO - Epoch [43][20/30]	lr: 3.226e-04, eta: 0:05:19, time: 1.523, data_time: 0.008, memory: 5234, loss_crf: 0.0056, loss: 0.0056, grad_norm: 0.0310
+2022-03-10 21:00:44,438 - davarocr - INFO - Epoch [43][25/30]	lr: 3.226e-04, eta: 0:05:12, time: 1.525, data_time: 0.008, memory: 5234, loss_crf: 0.0050, loss: 0.0050, grad_norm: 0.0273
+2022-03-10 21:00:52,021 - davarocr - INFO - Exp name: bilstm_crf.py
+2022-03-10 21:00:52,022 - davarocr - INFO - Epoch [43][30/30]	lr: 3.226e-04, eta: 0:05:04, time: 1.517, data_time: 0.007, memory: 5234, loss_crf: 0.0070, loss: 0.0070, grad_norm: 0.0482
+2022-03-10 21:01:58,859 - davarocr - INFO - Now best checkpoint is epoch_20.pth. Best hmean is 0.9365128522762466
+2022-03-10 21:01:58,860 - davarocr - INFO - Exp name: bilstm_crf.py
+2022-03-10 21:01:58,860 - davarocr - INFO - Epoch(val) [43][30]	NAME: {'precision': 0.9818181818181818, 'recall': 0.9642857142857143, 'f1-score': 0.972972972972973}, PRO: {'precision': 0.8823529411764706, 'recall': 0.9090909090909091, 'f1-score': 0.8955223880597014}, EDU: {'precision': 0.9732142857142857, 'recall': 0.9732142857142857, 'f1-score': 0.9732142857142857}, TITLE: {'precision': 0.9284785435630689, 'recall': 0.9248704663212435, 'f1-score': 0.926670992861778}, ORG: {'precision': 0.9113924050632911, 'recall': 0.9113924050632911, 'f1-score': 0.9113924050632911}, CONT: {'precision': 1.0, 'recall': 1.0, 'f1-score': 1.0}, RACE: {'precision': 1.0, 'recall': 1.0, 'f1-score': 1.0}, LOC: {'precision': 0.8, 'recall': 0.6666666666666666, 'f1-score': 0.7272727272727272}, all: {'precision': 0.9298461538461539, 'recall': 0.9269938650306748, 'f1-score': 0.9284178187403994}, hmean: 0.9284
+2022-03-10 21:02:09,666 - davarocr - INFO - Epoch [44][5/30]	lr: 3.175e-04, eta: 0:04:58, time: 2.160, data_time: 0.534, memory: 5234, loss_crf: 0.0046, loss: 0.0046, grad_norm: 0.0245
+2022-03-10 21:02:17,297 - davarocr - INFO - Epoch [44][10/30]	lr: 3.175e-04, eta: 0:04:51, time: 1.526, data_time: 0.010, memory: 5234, loss_crf: 0.0057, loss: 0.0057, grad_norm: 0.0368
+2022-03-10 21:02:25,247 - davarocr - INFO - Epoch [44][15/30]	lr: 3.175e-04, eta: 0:04:43, time: 1.590, data_time: 0.008, memory: 5234, loss_crf: 0.0055, loss: 0.0055, grad_norm: 0.0274
+2022-03-10 21:02:33,026 - davarocr - INFO - Epoch [44][20/30]	lr: 3.175e-04, eta: 0:04:36, time: 1.556, data_time: 0.007, memory: 5234, loss_crf: 0.0062, loss: 0.0062, grad_norm: 0.0362
+2022-03-10 21:02:40,735 - davarocr - INFO - Epoch [44][25/30]	lr: 3.175e-04, eta: 0:04:29, time: 1.541, data_time: 0.008, memory: 5234, loss_crf: 0.0052, loss: 0.0052, grad_norm: 0.0281
+2022-03-10 21:02:48,508 - davarocr - INFO - Exp name: bilstm_crf.py
+2022-03-10 21:02:48,509 - davarocr - INFO - Epoch [44][30/30]	lr: 3.175e-04, eta: 0:04:22, time: 1.555, data_time: 0.008, memory: 5234, loss_crf: 0.0049, loss: 0.0049, grad_norm: 0.0258
+2022-03-10 21:03:54,924 - davarocr - INFO - Now best checkpoint is epoch_20.pth. Best hmean is 0.9365128522762466
+2022-03-10 21:03:54,925 - davarocr - INFO - Exp name: bilstm_crf.py
+2022-03-10 21:03:54,925 - davarocr - INFO - Epoch(val) [44][30]	NAME: {'precision': 0.9818181818181818, 'recall': 0.9642857142857143, 'f1-score': 0.972972972972973}, PRO: {'precision': 0.8823529411764706, 'recall': 0.9090909090909091, 'f1-score': 0.8955223880597014}, EDU: {'precision': 0.9646017699115044, 'recall': 0.9732142857142857, 'f1-score': 0.9688888888888889}, TITLE: {'precision': 0.9284785435630689, 'recall': 0.9248704663212435, 'f1-score': 0.926670992861778}, ORG: {'precision': 0.9081081081081082, 'recall': 0.9113924050632911, 'f1-score': 0.9097472924187725}, CONT: {'precision': 1.0, 'recall': 1.0, 'f1-score': 1.0}, RACE: {'precision': 1.0, 'recall': 1.0, 'f1-score': 1.0}, LOC: {'precision': 0.8, 'recall': 0.6666666666666666, 'f1-score': 0.7272727272727272}, all: {'precision': 0.9281326781326781, 'recall': 0.9269938650306748, 'f1-score': 0.9275629220380602}, hmean: 0.9276
+2022-03-10 21:04:04,612 - davarocr - INFO - Epoch [45][5/30]	lr: 3.125e-04, eta: 0:04:15, time: 1.936, data_time: 0.555, memory: 5234, loss_crf: 0.0051, loss: 0.0051, grad_norm: 0.0269
+2022-03-10 21:04:11,421 - davarocr - INFO - Epoch [45][10/30]	lr: 3.125e-04, eta: 0:04:07, time: 1.362, data_time: 0.008, memory: 5234, loss_crf: 0.0053, loss: 0.0053, grad_norm: 0.0273
+2022-03-10 21:04:18,420 - davarocr - INFO - Epoch [45][15/30]	lr: 3.125e-04, eta: 0:04:00, time: 1.400, data_time: 0.009, memory: 5234, loss_crf: 0.0052, loss: 0.0052, grad_norm: 0.0324
+2022-03-10 21:04:25,560 - davarocr - INFO - Epoch [45][20/30]	lr: 3.125e-04, eta: 0:03:53, time: 1.428, data_time: 0.009, memory: 5234, loss_crf: 0.0048, loss: 0.0048, grad_norm: 0.0270
+2022-03-10 21:04:32,193 - davarocr - INFO - Epoch [45][25/30]	lr: 3.125e-04, eta: 0:03:45, time: 1.326, data_time: 0.009, memory: 5234, loss_crf: 0.0054, loss: 0.0054, grad_norm: 0.0270
+2022-03-10 21:04:39,043 - davarocr - INFO - Exp name: bilstm_crf.py
+2022-03-10 21:04:39,044 - davarocr - INFO - Epoch [45][30/30]	lr: 3.125e-04, eta: 0:03:38, time: 1.367, data_time: 0.008, memory: 5234, loss_crf: 0.0050, loss: 0.0050, grad_norm: 0.0286
+2022-03-10 21:05:41,416 - davarocr - INFO - Now best checkpoint is epoch_20.pth. Best hmean is 0.9365128522762466
+2022-03-10 21:05:41,417 - davarocr - INFO - Exp name: bilstm_crf.py
+2022-03-10 21:05:41,417 - davarocr - INFO - Epoch(val) [45][30]	NAME: {'precision': 0.9818181818181818, 'recall': 0.9642857142857143, 'f1-score': 0.972972972972973}, PRO: {'precision': 0.8823529411764706, 'recall': 0.9090909090909091, 'f1-score': 0.8955223880597014}, EDU: {'precision': 0.9646017699115044, 'recall': 0.9732142857142857, 'f1-score': 0.9688888888888889}, TITLE: {'precision': 0.9284785435630689, 'recall': 0.9248704663212435, 'f1-score': 0.926670992861778}, ORG: {'precision': 0.9081081081081082, 'recall': 0.9113924050632911, 'f1-score': 0.9097472924187725}, CONT: {'precision': 1.0, 'recall': 1.0, 'f1-score': 1.0}, RACE: {'precision': 1.0, 'recall': 1.0, 'f1-score': 1.0}, LOC: {'precision': 0.8, 'recall': 0.6666666666666666, 'f1-score': 0.7272727272727272}, all: {'precision': 0.9281326781326781, 'recall': 0.9269938650306748, 'f1-score': 0.9275629220380602}, hmean: 0.9276
+2022-03-10 21:05:50,930 - davarocr - INFO - Epoch [46][5/30]	lr: 3.077e-04, eta: 0:03:31, time: 1.901, data_time: 0.520, memory: 5234, loss_crf: 0.0054, loss: 0.0054, grad_norm: 0.0279
+2022-03-10 21:05:58,122 - davarocr - INFO - Epoch [46][10/30]	lr: 3.077e-04, eta: 0:03:24, time: 1.439, data_time: 0.010, memory: 5234, loss_crf: 0.0048, loss: 0.0048, grad_norm: 0.0264
+2022-03-10 21:06:05,032 - davarocr - INFO - Epoch [46][15/30]	lr: 3.077e-04, eta: 0:03:16, time: 1.382, data_time: 0.009, memory: 5234, loss_crf: 0.0050, loss: 0.0050, grad_norm: 0.0275
+2022-03-10 21:06:11,497 - davarocr - INFO - Epoch [46][20/30]	lr: 3.077e-04, eta: 0:03:09, time: 1.293, data_time: 0.007, memory: 5234, loss_crf: 0.0050, loss: 0.0050, grad_norm: 0.0263
+2022-03-10 21:06:18,205 - davarocr - INFO - Epoch [46][25/30]	lr: 3.077e-04, eta: 0:03:02, time: 1.341, data_time: 0.007, memory: 5234, loss_crf: 0.0047, loss: 0.0047, grad_norm: 0.0260
+2022-03-10 21:06:24,957 - davarocr - INFO - Exp name: bilstm_crf.py
+2022-03-10 21:06:24,958 - davarocr - INFO - Epoch [46][30/30]	lr: 3.077e-04, eta: 0:02:54, time: 1.351, data_time: 0.007, memory: 5234, loss_crf: 0.0054, loss: 0.0054, grad_norm: 0.0371
+2022-03-10 21:07:27,011 - davarocr - INFO - Now best checkpoint is epoch_20.pth. Best hmean is 0.9365128522762466
+2022-03-10 21:07:27,012 - davarocr - INFO - Exp name: bilstm_crf.py
+2022-03-10 21:07:27,012 - davarocr - INFO - Epoch(val) [46][30]	NAME: {'precision': 0.9818181818181818, 'recall': 0.9642857142857143, 'f1-score': 0.972972972972973}, PRO: {'precision': 0.8823529411764706, 'recall': 0.9090909090909091, 'f1-score': 0.8955223880597014}, EDU: {'precision': 0.9646017699115044, 'recall': 0.9732142857142857, 'f1-score': 0.9688888888888889}, TITLE: {'precision': 0.9284785435630689, 'recall': 0.9248704663212435, 'f1-score': 0.926670992861778}, ORG: {'precision': 0.9099099099099099, 'recall': 0.9132007233273056, 'f1-score': 0.9115523465703971}, CONT: {'precision': 1.0, 'recall': 1.0, 'f1-score': 1.0}, RACE: {'precision': 1.0, 'recall': 1.0, 'f1-score': 1.0}, LOC: {'precision': 0.8, 'recall': 0.6666666666666666, 'f1-score': 0.7272727272727272}, all: {'precision': 0.9287469287469288, 'recall': 0.9276073619631902, 'f1-score': 0.9281767955801105}, hmean: 0.9282
+2022-03-10 21:07:36,577 - davarocr - INFO - Epoch [47][5/30]	lr: 3.030e-04, eta: 0:02:47, time: 1.912, data_time: 0.560, memory: 5234, loss_crf: 0.0054, loss: 0.0054, grad_norm: 0.0325
+2022-03-10 21:07:43,468 - davarocr - INFO - Epoch [47][10/30]	lr: 3.030e-04, eta: 0:02:40, time: 1.378, data_time: 0.008, memory: 5234, loss_crf: 0.0047, loss: 0.0047, grad_norm: 0.0246
+2022-03-10 21:07:50,344 - davarocr - INFO - Epoch [47][15/30]	lr: 3.030e-04, eta: 0:02:33, time: 1.375, data_time: 0.009, memory: 5234, loss_crf: 0.0052, loss: 0.0052, grad_norm: 0.0280
+2022-03-10 21:07:57,381 - davarocr - INFO - Epoch [47][20/30]	lr: 3.030e-04, eta: 0:02:25, time: 1.408, data_time: 0.009, memory: 5234, loss_crf: 0.0044, loss: 0.0044, grad_norm: 0.0222
+2022-03-10 21:08:04,242 - davarocr - INFO - Epoch [47][25/30]	lr: 3.030e-04, eta: 0:02:18, time: 1.372, data_time: 0.009, memory: 5234, loss_crf: 0.0047, loss: 0.0047, grad_norm: 0.0242
+2022-03-10 21:08:11,202 - davarocr - INFO - Exp name: bilstm_crf.py
+2022-03-10 21:08:11,203 - davarocr - INFO - Epoch [47][30/30]	lr: 3.030e-04, eta: 0:02:11, time: 1.391, data_time: 0.008, memory: 5234, loss_crf: 0.0049, loss: 0.0049, grad_norm: 0.0274
+2022-03-10 21:09:12,753 - davarocr - INFO - Now best checkpoint is epoch_20.pth. Best hmean is 0.9365128522762466
+2022-03-10 21:09:12,754 - davarocr - INFO - Exp name: bilstm_crf.py
+2022-03-10 21:09:12,754 - davarocr - INFO - Epoch(val) [47][30]	NAME: {'precision': 0.9818181818181818, 'recall': 0.9642857142857143, 'f1-score': 0.972972972972973}, PRO: {'precision': 0.8823529411764706, 'recall': 0.9090909090909091, 'f1-score': 0.8955223880597014}, EDU: {'precision': 0.9646017699115044, 'recall': 0.9732142857142857, 'f1-score': 0.9688888888888889}, TITLE: {'precision': 0.9272727272727272, 'recall': 0.9248704663212435, 'f1-score': 0.9260700389105058}, ORG: {'precision': 0.9099099099099099, 'recall': 0.9132007233273056, 'f1-score': 0.9115523465703971}, CONT: {'precision': 1.0, 'recall': 1.0, 'f1-score': 1.0}, RACE: {'precision': 1.0, 'recall': 1.0, 'f1-score': 1.0}, LOC: {'precision': 0.8, 'recall': 0.6666666666666666, 'f1-score': 0.7272727272727272}, all: {'precision': 0.9281767955801105, 'recall': 0.9276073619631902, 'f1-score': 0.9278919914084076}, hmean: 0.9279
+2022-03-10 21:09:22,129 - davarocr - INFO - Epoch [48][5/30]	lr: 2.985e-04, eta: 0:02:03, time: 1.874, data_time: 0.548, memory: 5234, loss_crf: 0.0041, loss: 0.0041, grad_norm: 0.0232
+2022-03-10 21:09:29,357 - davarocr - INFO - Epoch [48][10/30]	lr: 2.985e-04, eta: 0:01:56, time: 1.446, data_time: 0.008, memory: 5234, loss_crf: 0.0052, loss: 0.0052, grad_norm: 0.0325
+2022-03-10 21:09:36,497 - davarocr - INFO - Epoch [48][15/30]	lr: 2.985e-04, eta: 0:01:49, time: 1.428, data_time: 0.008, memory: 5234, loss_crf: 0.0058, loss: 0.0058, grad_norm: 0.0302
+2022-03-10 21:09:43,246 - davarocr - INFO - Epoch [48][20/30]	lr: 2.985e-04, eta: 0:01:42, time: 1.350, data_time: 0.008, memory: 5234, loss_crf: 0.0048, loss: 0.0048, grad_norm: 0.0308
+2022-03-10 21:09:49,680 - davarocr - INFO - Epoch [48][25/30]	lr: 2.985e-04, eta: 0:01:34, time: 1.287, data_time: 0.007, memory: 5234, loss_crf: 0.0041, loss: 0.0041, grad_norm: 0.0221
+2022-03-10 21:09:56,187 - davarocr - INFO - Exp name: bilstm_crf.py
+2022-03-10 21:09:56,188 - davarocr - INFO - Epoch [48][30/30]	lr: 2.985e-04, eta: 0:01:27, time: 1.301, data_time: 0.007, memory: 5234, loss_crf: 0.0047, loss: 0.0047, grad_norm: 0.0235
+2022-03-10 21:10:59,184 - davarocr - INFO - Now best checkpoint is epoch_20.pth. Best hmean is 0.9365128522762466
+2022-03-10 21:10:59,185 - davarocr - INFO - Exp name: bilstm_crf.py
+2022-03-10 21:10:59,185 - davarocr - INFO - Epoch(val) [48][30]	NAME: {'precision': 0.9818181818181818, 'recall': 0.9642857142857143, 'f1-score': 0.972972972972973}, PRO: {'precision': 0.8823529411764706, 'recall': 0.9090909090909091, 'f1-score': 0.8955223880597014}, EDU: {'precision': 0.9646017699115044, 'recall': 0.9732142857142857, 'f1-score': 0.9688888888888889}, TITLE: {'precision': 0.9271781534460338, 'recall': 0.9235751295336787, 'f1-score': 0.9253731343283581}, ORG: {'precision': 0.9099099099099099, 'recall': 0.9132007233273056, 'f1-score': 0.9115523465703971}, CONT: {'precision': 1.0, 'recall': 1.0, 'f1-score': 1.0}, RACE: {'precision': 1.0, 'recall': 1.0, 'f1-score': 1.0}, LOC: {'precision': 0.8, 'recall': 0.6666666666666666, 'f1-score': 0.7272727272727272}, all: {'precision': 0.9281326781326781, 'recall': 0.9269938650306748, 'f1-score': 0.9275629220380602}, hmean: 0.9276
+2022-03-10 21:11:06,972 - davarocr - INFO - Epoch [49][5/30]	lr: 2.941e-04, eta: 0:01:20, time: 1.557, data_time: 0.548, memory: 5234, loss_crf: 0.0049, loss: 0.0049, grad_norm: 0.0257
+2022-03-10 21:11:14,391 - davarocr - INFO - Epoch [49][10/30]	lr: 2.941e-04, eta: 0:01:12, time: 1.484, data_time: 0.008, memory: 5234, loss_crf: 0.0047, loss: 0.0047, grad_norm: 0.0245
+2022-03-10 21:11:21,842 - davarocr - INFO - Epoch [49][15/30]	lr: 2.941e-04, eta: 0:01:05, time: 1.490, data_time: 0.009, memory: 5234, loss_crf: 0.0043, loss: 0.0043, grad_norm: 0.0225
+2022-03-10 21:11:29,265 - davarocr - INFO - Epoch [49][20/30]	lr: 2.941e-04, eta: 0:00:58, time: 1.485, data_time: 0.008, memory: 5234, loss_crf: 0.0044, loss: 0.0044, grad_norm: 0.0217
+2022-03-10 21:11:37,368 - davarocr - INFO - Epoch [49][25/30]	lr: 2.941e-04, eta: 0:00:51, time: 1.620, data_time: 0.016, memory: 5234, loss_crf: 0.0048, loss: 0.0048, grad_norm: 0.0269
+2022-03-10 21:11:45,049 - davarocr - INFO - Exp name: bilstm_crf.py
+2022-03-10 21:11:45,050 - davarocr - INFO - Epoch [49][30/30]	lr: 2.941e-04, eta: 0:00:43, time: 1.537, data_time: 0.008, memory: 5234, loss_crf: 0.0049, loss: 0.0049, grad_norm: 0.0234
+2022-03-10 21:12:51,136 - davarocr - INFO - Now best checkpoint is epoch_20.pth. Best hmean is 0.9365128522762466
+2022-03-10 21:12:51,136 - davarocr - INFO - Exp name: bilstm_crf.py
+2022-03-10 21:12:51,136 - davarocr - INFO - Epoch(val) [49][30]	NAME: {'precision': 0.9818181818181818, 'recall': 0.9642857142857143, 'f1-score': 0.972972972972973}, PRO: {'precision': 0.8571428571428571, 'recall': 0.9090909090909091, 'f1-score': 0.8823529411764706}, EDU: {'precision': 0.9646017699115044, 'recall': 0.9732142857142857, 'f1-score': 0.9688888888888889}, TITLE: {'precision': 0.9271781534460338, 'recall': 0.9235751295336787, 'f1-score': 0.9253731343283581}, ORG: {'precision': 0.9099099099099099, 'recall': 0.9132007233273056, 'f1-score': 0.9115523465703971}, CONT: {'precision': 1.0, 'recall': 1.0, 'f1-score': 1.0}, RACE: {'precision': 1.0, 'recall': 1.0, 'f1-score': 1.0}, LOC: {'precision': 0.8, 'recall': 0.6666666666666666, 'f1-score': 0.7272727272727272}, all: {'precision': 0.9275629220380601, 'recall': 0.9269938650306748, 'f1-score': 0.9272783062289045}, hmean: 0.9273
+2022-03-10 21:13:01,532 - davarocr - INFO - Epoch [50][5/30]	lr: 2.899e-04, eta: 0:00:36, time: 2.078, data_time: 0.549, memory: 5234, loss_crf: 0.0049, loss: 0.0049, grad_norm: 0.0263
+2022-03-10 21:13:09,478 - davarocr - INFO - Epoch [50][10/30]	lr: 2.899e-04, eta: 0:00:29, time: 1.589, data_time: 0.009, memory: 5234, loss_crf: 0.0043, loss: 0.0043, grad_norm: 0.0230
+2022-03-10 21:13:17,183 - davarocr - INFO - Epoch [50][15/30]	lr: 2.899e-04, eta: 0:00:21, time: 1.541, data_time: 0.007, memory: 5234, loss_crf: 0.0045, loss: 0.0045, grad_norm: 0.0309
+2022-03-10 21:13:24,833 - davarocr - INFO - Epoch [50][20/30]	lr: 2.899e-04, eta: 0:00:14, time: 1.530, data_time: 0.006, memory: 5234, loss_crf: 0.0044, loss: 0.0044, grad_norm: 0.0205
+2022-03-10 21:13:32,498 - davarocr - INFO - Epoch [50][25/30]	lr: 2.899e-04, eta: 0:00:07, time: 1.533, data_time: 0.007, memory: 5234, loss_crf: 0.0051, loss: 0.0051, grad_norm: 0.0249
+2022-03-10 21:13:40,172 - davarocr - INFO - Exp name: bilstm_crf.py
+2022-03-10 21:13:40,172 - davarocr - INFO - Epoch [50][30/30]	lr: 2.899e-04, eta: 0:00:00, time: 1.535, data_time: 0.007, memory: 5234, loss_crf: 0.0044, loss: 0.0044, grad_norm: 0.0215
+2022-03-10 21:14:44,698 - davarocr - INFO - Now best checkpoint is epoch_20.pth. Best hmean is 0.9365128522762466
+2022-03-10 21:14:44,698 - davarocr - INFO - Exp name: bilstm_crf.py
+2022-03-10 21:14:44,698 - davarocr - INFO - Epoch(val) [50][30]	NAME: {'precision': 0.9818181818181818, 'recall': 0.9642857142857143, 'f1-score': 0.972972972972973}, PRO: {'precision': 0.8571428571428571, 'recall': 0.9090909090909091, 'f1-score': 0.8823529411764706}, EDU: {'precision': 0.9646017699115044, 'recall': 0.9732142857142857, 'f1-score': 0.9688888888888889}, TITLE: {'precision': 0.9271781534460338, 'recall': 0.9235751295336787, 'f1-score': 0.9253731343283581}, ORG: {'precision': 0.9099099099099099, 'recall': 0.9132007233273056, 'f1-score': 0.9115523465703971}, CONT: {'precision': 1.0, 'recall': 1.0, 'f1-score': 1.0}, RACE: {'precision': 1.0, 'recall': 1.0, 'f1-score': 1.0}, LOC: {'precision': 0.8, 'recall': 0.6666666666666666, 'f1-score': 0.7272727272727272}, all: {'precision': 0.9275629220380601, 'recall': 0.9269938650306748, 'f1-score': 0.9272783062289045}, hmean: 0.9273

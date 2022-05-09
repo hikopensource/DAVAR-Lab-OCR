@@ -18,7 +18,7 @@ from mmdet.models.builder import HEADS
 from mmdet.models.builder import build_loss
 from mmcv.runner import load_checkpoint
 
-from ...core.converter import build_converter
+from davarocr.davar_common.core.builder import build_converter
 
 
 @HEADS.register_module()

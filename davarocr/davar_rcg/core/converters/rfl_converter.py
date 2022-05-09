@@ -14,10 +14,10 @@ import json
 import torch
 from mmcv.utils import print_log
 
-from .builder import CONVERTER
+from davarocr.davar_common.core.builder import CONVERTERS
 
 
-@CONVERTER.register_module()
+@CONVERTERS.register_module()
 class RFLLabelConverter:
     """ Convert between text-label and text-index in Ref [1]
 

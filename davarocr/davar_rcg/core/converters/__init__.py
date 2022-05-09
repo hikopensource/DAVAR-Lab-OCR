@@ -14,14 +14,11 @@ from .rfl_converter import RFLLabelConverter
 from .bert_converter import BertLabelConverter
 from .ace_converter import ACELabelConverter
 
-from .builder import CONVERTER
-from .builder import build_converter
 
 __all__ = [
     'AttnLabelConverter',
     'CTCLabelConverter',
     'RFLLabelConverter',
-    'build_converter',
     'BertLabelConverter',
     'ACELabelConverter'
 ]

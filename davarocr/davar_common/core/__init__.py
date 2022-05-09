@@ -8,13 +8,14 @@
 # Date           :    2021-05-20
 ##################################################################################################
 """
-from .builder import POSTPROCESS, build_postprocess
+from .builder import POSTPROCESS, build_postprocess, CONVERTERS, build_converter
 from .evaluation import DavarDistEvalHook, DavarEvalHook
 
 
 __all__ = ['POSTPROCESS',
            'build_postprocess',
-
+           'CONVERTERS',
+           'build_converter',
            "DavarEvalHook",
            "DavarDistEvalHook",
            ]

@@ -21,3 +21,5 @@ distance
 apted
 lxml
 jsonlines
+transformers
+seqeval

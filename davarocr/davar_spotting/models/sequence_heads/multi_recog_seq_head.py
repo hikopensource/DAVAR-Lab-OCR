@@ -12,7 +12,7 @@ import torch
 import torch.nn as nn
 from mmdet.models.builder import HEADS, build_loss
 from mmcv.runner import auto_fp16
-from davarocr.davar_rcg.core.converter import build_converter
+from davarocr.davar_common.core.builder import build_converter
 
 
 @HEADS.register_module()

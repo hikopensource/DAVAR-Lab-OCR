@@ -5,24 +5,20 @@
 # Abstract       :
 
 # Current Version:    1.0.0
-# Date           :    2020-05-31
+# Date           :    2022-05-06
 ##################################################################################################
 """
 from mmcv.utils import Registry, build_from_cfg
 
-CONVERTER = Registry('converter')
+LOADERS = Registry('loader')
+PARSERS = Registry('parser')
 
 
-def build_converter(cfg):
-    """
-    Args:
-        cfg (config): model config):
+def build_loader(cfg):
+    """Build anno file loader."""
+    return build_from_cfg(cfg, LOADERS)
 
-    Returns:
-        build the converter
 
-    """
-    assert 'type' in cfg and isinstance(cfg['type'], str)
-    converter = build_from_cfg(cfg, CONVERTER)
-
-    return converter
+def build_parser(cfg):
+    """Build anno file parser."""
+    return build_from_cfg(cfg, PARSERS)

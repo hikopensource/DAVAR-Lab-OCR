@@ -57,6 +57,9 @@ def init_model(config, checkpoint=None, device='cuda:0', cfg_options=None):
     elif cfg_types == "SPOTTER":
         from davarocr.davar_spotting.models.builder import build_spotter
         model = build_spotter(config.model, test_cfg=config.get('test_cfg'))
+    elif cfg_types == "NER":
+        from davarocr.davar_ner.models.builder import build_ner
+        model = build_ner(config.model, test_cfg=config.get('test_cfg'))
     else:
         raise NotImplementedError
 

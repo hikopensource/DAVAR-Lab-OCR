@@ -4,8 +4,8 @@
 # Filename       :    test.py
 # Abstract       :
 
-# Current Version:    1.0.0
-# Date           :    2020-05-31
+# Current Version:    1.0.1
+# Date           :    2022-05-06
 ##################################################################################################
 """
 import argparse
@@ -26,8 +26,8 @@ from davarocr.davar_common.datasets import build_dataset, build_dataloader
 from davarocr.davar_common.datasets.builder import davar_build_dataset
 
 from davarocr.davar_common.models import build_model
-from davarocr.davar_spotting.models.builder import build_spotter
-from davarocr.davar_rcg.models.builder import build_recognizor
+
+
 
 
 def parse_args():
@@ -179,6 +179,8 @@ def main():
         dataset = davar_build_dataset(cfg.data.test)
     elif model_type in ["DETECTOR", "SPOTTER"]:
         dataset = build_dataset(cfg.data.test)
+    elif model_type == "NER":
+        dataset = davar_build_dataset(cfg.data.test)
     else:
         raise NotImplementedError
 
@@ -194,17 +196,25 @@ def main():
 
     # build model
     if model_type == "RECOGNIZOR":
+        from davarocr.davar_rcg.models.builder import build_recognizor
         model = build_recognizor(
             cfg.model,
             train_cfg=cfg.get('train_cfg', None),
             test_cfg=cfg.get('test_cfg', None))
     elif model_type == "SPOTTER":
+        from davarocr.davar_spotting.models.builder import build_spotter
         model = build_spotter(
             cfg.model,
             train_cfg=cfg.get('train_cfg', None),
             test_cfg=cfg.get('test_cfg', None))
     elif model_type == "DETECTOR":
         model = build_model(
+            cfg.model,
+            train_cfg=cfg.get('train_cfg', None),
+            test_cfg=cfg.get('test_cfg', None))
+    elif model_type == "NER":
+        from davarocr.davar_ner.models.builder import build_ner
+        model = build_ner(
             cfg.model,
             train_cfg=cfg.get('train_cfg', None),
             test_cfg=cfg.get('test_cfg', None))

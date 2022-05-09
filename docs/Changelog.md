@@ -1,5 +1,13 @@
 # Changelog
 
+### v0.5.0  (08/05/2022)
+
+**Highlights**
+
+- Support for the basic NLP tasks, currently including NER. In the future we will release more works related to the text understanding.
+- Release BERT-based NER models, including BERT+CRF, BERT+Softmax, BERT+Span.
+- Release BiLSTM-CRF-based NER models.
+
 ### v0.4.1  (04/05/2022)
 
 **Highlights**

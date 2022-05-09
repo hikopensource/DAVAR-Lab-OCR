@@ -16,6 +16,8 @@ from .davar_ie import *
 from .davar_layout import *
 from .davar_videotext import *
 from .davar_table import *
+from .davar_nlp_common import *
+from .davar_ner import *
 from .mmcv import *
 from .version import __version__
 

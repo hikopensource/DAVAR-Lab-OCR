@@ -8,19 +8,30 @@
 # Date           :    2020-05-31
 ##################################################################################################
 """
-from mmcv.utils import Registry
-from mmdet.models.builder import build
+from mmcv.utils import Registry, build_from_cfg
 
 POSTPROCESS = Registry('postprocess')
-
+CONVERTERS = Registry('converter')
 
 def build_postprocess(cfg):
     """ Build POSTPROCESS module
 
     Args:
-       cfg(dict): module configuration
+       cfg(mmcv.Config): module configuration
 
     Returns:
        obj: POSTPROCESS module
     """
-    return build(cfg, POSTPROCESS)
+    return build_from_cfg(cfg, POSTPROCESS)
+
+
+def build_converter(cfg):
+    """
+    Args:
+        cfg (mmcv.Config): model config):
+
+    Returns:
+        obj: CONVERTER module
+
+    """
+    return build_from_cfg(cfg, CONVERTERS)

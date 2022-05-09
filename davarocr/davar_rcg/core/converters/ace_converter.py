@@ -15,10 +15,10 @@ import os.path as osp
 import torch
 from mmcv.utils import print_log
 
-from .builder import CONVERTER
+from davarocr.davar_common.core.builder import CONVERTERS
 
 
-@CONVERTER.register_module()
+@CONVERTERS.register_module()
 class ACELabelConverter:
     """Convert between text-label and text-index, ACE Loss Converter in Ref [1]
 

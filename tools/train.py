@@ -4,8 +4,8 @@
 # Filename       :    train.py
 # Abstract       :
 
-# Current Version:    1.0.0
-# Date           :    2020-05-31
+# Current Version:    1.0.1
+# Date           :    2022-05-06
 ##################################################################################################
 """
 import argparse
@@ -32,9 +32,7 @@ from davarocr.davar_common.models import build_model
 from davarocr.davar_common.utils import collect_env, get_root_logger
 from davarocr.davar_common.datasets import davar_build_dataset
 
-from davarocr.davar_rcg.models.builder import build_recognizor
 
-from davarocr.davar_spotting.models.builder import build_spotter
 
 
 
@@ -204,11 +202,13 @@ def main():
     model_type = cfg.get('type', 'DETECTOR')
 
     if model_type == "RECOGNIZOR":
+        from davarocr.davar_rcg.models.builder import build_recognizor
         model = build_recognizor(
             cfg.model,
             train_cfg=cfg.get('train_cfg', None),
             test_cfg=cfg.get('test_cfg', None))
     elif model_type == "SPOTTER":
+        from davarocr.davar_spotting.models.builder import build_spotter
         model = build_spotter(
             cfg.model,
             train_cfg=cfg.get('train_cfg', None),
@@ -219,7 +219,11 @@ def main():
             train_cfg=cfg.get('train_cfg', None),
             test_cfg=cfg.get('test_cfg', None))
     elif model_type == "NER":
-        raise NotImplementedError
+        from davarocr.davar_ner.models.builder import build_ner
+        model = build_ner(
+            cfg.model,
+            train_cfg=cfg.get('train_cfg', None),
+            test_cfg=cfg.get('test_cfg', None))
     else:
         raise NotImplementedError
 
