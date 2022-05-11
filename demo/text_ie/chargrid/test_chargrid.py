@@ -23,7 +23,7 @@ vis_dir = "./vis/publaynet/res" # path to save visualization results
 # path setting
 save_pred_path = "./vis/publaynet/pred_res.json" # path to save prediction
 config_file = './configs/publaynet_chargrid.py' # config path
-checkpoint_file = './Best_checkpoint_charcat_la_pub.pth'# model path
+checkpoint_file = '/path/to/checkpoint_file'# model path
 
 # loading model from config file and pth file
 model = init_model(config_file, checkpoint_file)

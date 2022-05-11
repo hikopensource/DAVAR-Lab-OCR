@@ -85,4 +85,4 @@ For the PubLayNet, you can get the Davar format datalist through the following s
 1. Dataset preparation: download the [PubLayNet](https://github.com/ibm-aur-nlp/PubLayNet) dataset together with its PDF files
 2. Annotation parsing: use [pdfplumber](https://github.com/jsvine/pdfplumber) to parse the *bboxes, texts, cbboxes, ctexts* in *content_ann* from PDF files (if you want to generate labels for text lines, map layout-level annotations to text lines through IOU matching). You can refer to the script provided in [DocBank](https://github.com/doc-analysis/DocBank).
 3. Format convertion: convert the above annotations to Davar format.
-4. The coco_val.json file can be downloaded from [Link](https://one.hikvision.com/#/link/h7WpuP9kvop6JpYFBPgF) (Access Code：6kdQ).
+4. The coco_val.json file can be downloaded from [Link](https://one.hikvision.com/#/link/h7WpuP9kvop6JpYFBPgF) (Access Code: 6kdQ).

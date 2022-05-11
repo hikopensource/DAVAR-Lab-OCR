@@ -5,5 +5,5 @@ export PATH=/usr/local/miniconda3/bin/:$PATH
 
 export CUDA_VISIBLE_DEVICES=0
 
-DAVAROCR_PATH=/data1/repo
-python $DAVAROCR_PATH/tools/test.py ./configs/wildreceipt_chargrid.py ./Best_checkpoint_ie_char.pth --eval macro_f1
+DAVAROCR_PATH=/path/to/Davar-Lab-OCR/
+python $DAVAROCR_PATH/tools/test.py ./configs/wildreceipt_chargrid.py /path/to/checkpoint_file --eval macro_f1

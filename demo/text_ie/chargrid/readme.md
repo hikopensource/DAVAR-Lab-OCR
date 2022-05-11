@@ -35,9 +35,12 @@ python test_chargrid.py
 ```
 Some visualization of generated chargrid maps and detection results are shown:
 - WildReceipt
+
 ![./vis/wildreceipt/chargrid/0c2ee907b32f7bccc6deedd6d780107ffeda251c.jpeg](./vis/wildreceipt/chargrid/0c2ee907b32f7bccc6deedd6d780107ffeda251c.jpeg)
 - PubLayNet
+
 ![./vis/publaynet/chargrid/PMC2386501_00001.jpg](./vis/publaynet/chargrid/PMC2386501_00001.jpg)
+
 ![./vis/publaynet/res/PMC2386501_00001.jpg](./vis/publaynet/res/PMC2386501_00001.jpg)
 
 ## Trained Model Download
@@ -46,12 +49,14 @@ All of the models are re-implemented and well trained based on the opensourced f
 
 Results on various datasets and trained models can be download as follows:
 
-|   Dataset   |  Task | Test Scale |   metric |  result | Links |
-| :---------: | :---------: | :--------: | :------: | :----:  |:------:|
-| Wildreceipt | Visually Information Extraction | (512, 512)  | F1-score | 81.02  | [config](./configs/wildreceipt_chargrid.py), [pth](https://one.hikvision.com/#/link/I4ECGkaQg1QeudTVegcM) (Access Code: TkXQ)|
-| PubLayNet   |     Layout Recognition   | (1300, 800) |   mAP    | 71.8   | [config](./configs/publaynet_chargrid.py), [pth](https://one.hikvision.com/#/link/fcYoRXxS4cNFPBXgGaGR) (Access Code: XWB3)|
+|   Dataset   | Input | Task | Test Scale |   metric |  result | Links |
+| :---------: | :---------: | :---------:| :--------: | :------: | :----:  |:------:|
+| Wildreceipt |  Image  | Visually Information Extraction | (512, 512)  | F1-score | 67.10  | [config](./configs/wildreceipt_chargrid.py), [pth](https://one.hikvision.com/#/link/n3cnPI6KYrwvAASJ5wjc) (Access Code: goty)|
+| Wildreceipt |  Image+Chargrid  | Visually Information Extraction | (512, 512)  | F1-score | 81.02  | [config](./configs/wildreceipt_chargrid.py), [pth](https://one.hikvision.com/#/link/I4ECGkaQg1QeudTVegcM) (Access Code: TkXQ)|
+| PubLayNet   |    Image        |  Layout Recognition   | (1300, 800) |   mAP    | 71.9  | [config](./configs/publaynet_chargrid.py), [pth](https://one.hikvision.com/#/link/XUblMexuP5Fd2cNaTruP) (Access Code: tOJQ)|
+| PubLayNet   |    Image+Chargrid        |  Layout Recognition   | (1300, 800) |   mAP    | 71.8   | [config](./configs/publaynet_chargrid.py), [pth](https://one.hikvision.com/#/link/fcYoRXxS4cNFPBXgGaGR) (Access Code: XWB3)|
 
-
+> The PubLayNet results are report based on a sampled sub-set (1000) of the original dataset.
 
 ## Citation
 ``` markdown

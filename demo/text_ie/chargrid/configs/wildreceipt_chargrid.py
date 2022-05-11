@@ -15,11 +15,11 @@ type = "SPOTTER"
 model = dict(
     type='ChargridNetIE',
     # whether to use chargrid map as input, False to original image
-    use_chargrid=True,
+    use_chargrid=True,  # for testing raw image input, set to False
     pretrained=None,
     backbone=dict(
         type='ChargridEncoder',
-        input_channels=93,
+        input_channels=93,  # for testing raw image input, set to 3
         out_indices=(0, 1, 2, 4),
         base_channels=64),
     neck=dict(
@@ -265,7 +265,7 @@ log_config = dict(
 
 dist_params = dict(backend='nccl')
 log_level = 'INFO'
-work_dir = '/path/to/log/wildreceipt_chargrid'
+work_dir = '/path/to/demo/text_ie/chargrid/log/wildreceipt_chargrid'
 
 load_from = None
 resume_from = None

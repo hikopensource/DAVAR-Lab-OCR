@@ -1,10 +1,8 @@
-character = '/data1/repo/demo/text_layout/datalist/PubLayNet/char_vocab.txt'
-
 # model settings
 model = dict(
     type='ChargridNetLayout',
-    use_chargrid=True,
-    is_cat=True,
+    use_chargrid=True,  # for testing raw image input, set to False
+    is_cat=True,    # for testing raw image input, set to False
     pretrained=None,
     embedding=dict(
         type='Embedding',
@@ -13,7 +11,7 @@ model = dict(
     ),
     backbone=dict(
         type='ChargridEncoder',
-        input_channels=99,
+        input_channels=99,  # for testing raw image input, set to 3
         out_indices=(0, 1, 2, 4),
         base_channels=64),
     neck=dict(
@@ -195,7 +193,7 @@ test_pipeline = [
             dict(
                 type='ChargridDataGeneration',
                 # visualize=True,
-                # vis_save_dir='/data1/repo/demo/text_ie/chargrid/vis/publaynet/chargrid',
+                # vis_save_dir='/path/to/demo/text_ie/chargrid/vis/publaynet/chargrid',
                 with_label=False,
                 poly_shape=False),
             dict(type='ChargridFormatBundle'),
@@ -210,26 +208,28 @@ data = dict(
 		type=dataset_type,
 		ann_file='/path/to/demo/text_ie/datalist/PubLayNet/sampled_datalist_train_new.json',
 		img_prefix='/path/to/PubLayNet/',
+        ann_prefix='/path/to/PubLayNet/Annos/train/',
 		pipeline=train_pipeline,
 		classes=('others', 'text', 'title', 'list', 'table', 'figure')),
 	val=dict(
 		type=dataset_type,
-    
-		ann_file='/data1/repo/demo/text_ie/datalist/PubLayNet/sampled_datalist_val_new.json',
+		ann_file='/path/to/demo/text_ie/datalist/PubLayNet/sampled_datalist_val_new.json',
 		img_prefix='/path/to/PubLayNet/',
+        ann_prefix='/path/to/PubLayNet/Annos/dev/',
 		pipeline=test_pipeline,
 		classes=('text', 'title', 'list', 'table', 'figure'),
-		coco_ann='/path/to/coco_val.json'),
+		coco_ann='/path/to/PubLayNet/Datalist/coco_val.json'),
 	test=dict(
 		type=dataset_type,
-
 		ann_file='/data1/repo/demo/text_ie/datalist/PubLayNet/sampled_datalist_val_new.json',
 		img_prefix='/path/to/PubLayNet/',
-		pipeline=test_pipeline,
+        ann_prefix='/path/to/PubLayNet/Annos/dev/',
+        pipeline=test_pipeline,
 		classes=('text', 'title', 'list', 'table', 'figure'),
-		coco_ann='/path/to/coco_val.json')
+		coco_ann='/path/to/PubLayNet/Datalist/coco_val.json')
 	)
 # optimizer
+find_unused_parameters = True
 optimizer = dict(type='SGD', lr=0.01, momentum=0.9, weight_decay=0.0001)
 optimizer_config = dict(grad_clip=dict(max_norm=35, norm_type=2))
 # learning policy
@@ -252,7 +252,7 @@ log_config = dict(
 # yapf:enable
 dist_params = dict(backend='nccl')
 log_level = 'INFO'
-work_dir='/path/to/PubLayNet/demo/text_ie/chargrid/log/publaynet_chargrid/'
+work_dir='/path/to/demo/text_ie/chargrid/log/publaynet_chargrid/'
 load_from = None
 resume_from = None
 workflow = [('train', 1)]
