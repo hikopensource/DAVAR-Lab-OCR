@@ -16,8 +16,7 @@ import torch.nn as nn
 
 import numpy as np
 
-from ..builder import TRANSFORMATIONS
-from ..builder import build_transformation
+from davarocr.davar_common.models.builder import TRANSFORMATIONS, build_transformation
 
 
 class SP_TransformerNetwork(nn.Module):

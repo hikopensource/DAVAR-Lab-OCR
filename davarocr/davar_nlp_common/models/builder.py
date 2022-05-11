@@ -9,22 +9,16 @@
 ##################################################################################################
 """
 from mmcv.utils import Registry, build_from_cfg
-from mmdet.models.builder import build
 ENCODERS = Registry('encoder')
 DECODERS = Registry('decoder')
-PREPROCESSOR = Registry('preprocessor')
+
 
 def build_encoder(cfg):
-    """Build encoder for scene text recognizer."""
+    """Build encoder for nlp models"""
     return build_from_cfg(cfg, ENCODERS)
 
-
 def build_decoder(cfg):
-    """Build decoder for scene text recognizer."""
+    """Build decoder for nlp recognizer."""
     return build_from_cfg(cfg, DECODERS)
 
-
-def build_preprocessor(cfg):
-    """Build preprocessor for scene text recognizer."""
-    return build_from_cfg(cfg, PREPROCESSOR)
 

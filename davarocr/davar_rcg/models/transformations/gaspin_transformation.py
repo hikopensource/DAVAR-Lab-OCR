@@ -16,7 +16,7 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
-from ..builder import TRANSFORMATIONS
+from davarocr.davar_common.models.builder import TRANSFORMATIONS
 from .tps_transformation import GridGenerator
 from .spin_transformation import SP_TransformerNetwork
 

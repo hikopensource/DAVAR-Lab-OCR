@@ -15,7 +15,7 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
-from ..builder import TRANSFORMATIONS
+from davarocr.davar_common.models.builder import TRANSFORMATIONS
 
 
 @TRANSFORMATIONS.register_module()

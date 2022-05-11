@@ -15,6 +15,5 @@ from .transformations import *
 from .recognizors import *
 from .connects import *
 
-from .builder import (TRANSFORMATIONS, RECOGNIZORS)
-from .builder import (build_transformation, build_recognizor)
+from .builder import RECOGNIZORS, build_recognizor
 

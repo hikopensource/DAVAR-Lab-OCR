@@ -12,23 +12,7 @@ from mmdet.models.builder import build
 from mmcv.utils import Registry
 
 
-TRANSFORMATIONS = Registry('transformation')
 RECOGNIZORS = Registry('recognizor')
-
-
-def build_transformation(cfg):
-    """
-
-    Args:
-        cfg (config): model config
-
-    Returns:
-        build transformation model
-
-    """
-
-    return build(cfg, TRANSFORMATIONS)
-
 
 def build_recognizor(cfg, train_cfg=None, test_cfg=None):
     """

@@ -10,11 +10,10 @@
 """
 from mmdet.models import builder
 
-from davarocr.davar_common.models.builder import build_connect
+from davarocr.davar_common.models.builder import build_connect, build_transformation
 
 from .base import BaseRecognizor
 from ..builder import RECOGNIZORS
-from .. import builder as recog_builder
 
 
 @RECOGNIZORS.register_module()
@@ -56,7 +55,7 @@ class RFLRecognizor(BaseRecognizor):
 
         # build the transformation network
         if transformation is not None:
-            self.transformation = recog_builder.build_transformation(transformation)
+            self.transformation = build_transformation(transformation)
 
         # build the backbone network
         self.backbone = builder.build_backbone(backbone)

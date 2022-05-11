@@ -17,7 +17,7 @@ import torch.nn.functional as F
 
 from mmcv.runner import load_checkpoint
 
-from ..builder import TRANSFORMATIONS
+from davarocr.davar_common.models.builder import TRANSFORMATIONS
 
 
 @TRANSFORMATIONS.register_module()

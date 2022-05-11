@@ -14,7 +14,7 @@ from mmdet.models.builder import build
 
 CONNECTS = Registry('connect')
 EMBEDDING = Registry('embedding')
-
+TRANSFORMATIONS = Registry('transformation')
 
 def build_connect(cfg):
     """ Build CONNECTS module
@@ -38,3 +38,17 @@ def build_embedding(cfg):
         An Embedding module.
     """
     return build(cfg, EMBEDDING)
+
+
+def build_transformation(cfg):
+    """
+
+    Args:
+        cfg (config): model config
+
+    Returns:
+        build transformation model
+
+    """
+
+    return build(cfg, TRANSFORMATIONS)

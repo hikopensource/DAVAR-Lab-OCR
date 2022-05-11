@@ -10,8 +10,21 @@
 """
 from mmcv.utils import Registry, build_from_cfg
 
+PREPROCESS = Registry('preprocess')
 POSTPROCESS = Registry('postprocess')
 CONVERTERS = Registry('converter')
+
+def build_preprocess(cfg):
+    """ Build PREPROCESS module
+
+    Args:
+       cfg(mmcv.Config): module configuration
+
+    Returns:
+       obj: PREPROCESS module
+    """
+    return build_from_cfg(cfg, PREPROCESS)
+
 
 def build_postprocess(cfg):
     """ Build POSTPROCESS module
