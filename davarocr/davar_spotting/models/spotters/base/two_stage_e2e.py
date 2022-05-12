@@ -15,8 +15,7 @@ import numpy as np
 from mmdet.models import build_backbone, build_roi_extractor, build_head, build_neck
 from mmdet.core import bbox2roi
 
-from davarocr.davar_common.models import build_connect
-from davarocr.davar_rcg.models import build_transformation
+from davarocr.davar_common.models import build_connect, build_transformation
 from davarocr.davar_common.core.builder import build_postprocess
 from davarocr.davar_spotting.models.builder import SPOTTER
 

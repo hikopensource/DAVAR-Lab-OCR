@@ -20,7 +20,6 @@ import matplotlib.pyplot as plt
 from string import punctuation
 from mmcv.parallel import DataContainer as DC
 from mmdet.datasets.builder import PIPELINES
-from davarocr.davar_common.datasets.pipelines import DavarDefaultFormatBundle
 from davarocr.davar_layout.datasets.pipelines import MMLAFormatBundle
 from mmdet.datasets.pipelines.formating import to_tensor
 

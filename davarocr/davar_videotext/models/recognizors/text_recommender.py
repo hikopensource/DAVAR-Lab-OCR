@@ -13,7 +13,7 @@ from mmdet.models import builder
 
 from davarocr.davar_rcg.models.recognizors import GeneralRecognizor
 from davarocr.davar_rcg.models.builder import RECOGNIZORS
-from davarocr.davar_rcg.models import builder as recog_builder
+from davarocr.davar_common.models import build_transformation
 from davarocr.davar_common.models.builder import build_connect
 
 
@@ -47,7 +47,7 @@ class TextRecommender(GeneralRecognizor):
 
         # Build the transformation network
         if transformation is not None:
-            self.transformation = recog_builder.build_transformation(transformation)
+            self.transformation = build_transformation(transformation)
 
         # Build the backbone network
         self.backbone = builder.build_backbone(backbone)
