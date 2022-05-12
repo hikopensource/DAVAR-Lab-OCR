@@ -8,18 +8,6 @@
 # Date           :    2020-05-31
 ##################################################################################################
 """
-from .davar_common import *
-from .davar_det import *
-from .davar_rcg import *
-from .davar_spotting import *
-from .davar_ie import *
-from .davar_layout import *
-from .davar_videotext import *
-from .davar_table import *
-from .davar_nlp_common import *
-from .davar_ner import *
-from .davar_order import *
-from .mmcv import *
-from .version import __version__
+from .graph_conv_encoder import GraphConvEncoder
 
-__all__ = ['__version__']
+__all__ = ['GraphConvEncoder']

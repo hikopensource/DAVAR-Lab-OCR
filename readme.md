@@ -63,6 +63,10 @@ To date, davarocr contains the following algorithms:
 
 - [x] [VSR](demo/text_layout/VSR) (ICDAR 2021)
 
+***Reading Order Detection***
+
+- [x] [GCN-PN](demo/reading_order_detection/GCN-PN) (ECCN 2020)
+
 ***Named Entity Reocognition***
 
 - [x] [Bert-based NER](demo/ner/BERT), including BERT+CRF/Span/Softmax 
@@ -103,7 +107,7 @@ For the problems existing in the process of installation and researching, we wil
 
 ## Changelog
 
-DavarOCR v0.5.0 was released in 09/05/2022.
+DavarOCR v0.5.1 was released in 12/05/2022.
 Please refer to [Changelog.md](./docs/Changelog.md) for details and release history.
 
 

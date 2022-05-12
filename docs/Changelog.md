@@ -1,5 +1,13 @@
 # Changelog
 
+
+### v0.5.1  (12/05/2022)
+
+**Highlights**
+
+- Support for the Reading Order Detection task.
+- Release re-implement of GCN-PN model (ECCV 2020).
+
 ### v0.5.0  (08/05/2022)
 
 **Highlights**
