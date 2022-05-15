@@ -41,6 +41,7 @@ Trained models can be download as follows:
 |  DocBank (Reported) | ResNext101 |    COCO    | (600, 800)  |  95.59      |  - |
 |  DocBank  | ResNext101 |    COCO    | (600, 800)  | 95.25  | [config](./DocBank/config/docbank_x101.py), [pth](https://one.hikvision.com/#/link/76YItjTJkFNFMC0VNEK9) (Access Code: lJsy ) |
 
+
 ## Citation
 
 If you find this repository is helpful to your research, please feel free to cite us:

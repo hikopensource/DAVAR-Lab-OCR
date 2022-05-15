@@ -51,7 +51,7 @@ def init_model(config, checkpoint=None, device='cuda:0', cfg_options=None):
     cfg_types = config.get("type", "DETECTOR")
     if cfg_types == "DETECTOR":
         model = build_detector(config.model, test_cfg=config.get('test_cfg'))
-    elif cfg_types == "RECOGNIZER":
+    elif cfg_types == "RECOGNIZOR":
         from davarocr.davar_rcg.models.builder import build_recognizor
         model = build_recognizor(config.model, test_cfg=config.get('test_cfg'))
     elif cfg_types == "SPOTTER":

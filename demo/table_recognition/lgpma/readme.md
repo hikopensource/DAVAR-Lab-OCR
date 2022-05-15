@@ -42,7 +42,7 @@ Some visualization of detection results are shown:
 
 The offline evaluation tool can be found in `demo/table_recognition/lgpma/tools/eval_pub/`
 
-## Trained Model Download
+## Table Structure Recognition
 All of the models are re-implemented and well trained in the based on the opensourced framework mmdetection. So, the results might be slightly different from reported results.
 
 Results on various datasets and trained models download:
@@ -51,11 +51,42 @@ Results on various datasets and trained models download:
 |---------------------|------------|----------------|------------|-------|
 | PubTabNet(reported) | L-768      | w              | 96.7       |       |
 | PubTabNet           | 1.5x       | wo             | 96.7       | [config](configs/lgpma_pub.py), [pth](https://one.hikvision.com/#/link/u9YgYyoPW3hLw6iolFoA) (Access Code: zUoX)| |
-| PubTabNet           | 1.5x       | w              | 96.9       | Same as the links |
-
-> The release model only contains structure-level result. You may use the [text recognition module](../../text_recognition) for the complete result.
+| PubTabNet           | 1.5x       | w              | 96.9       | Same as above link |
 
 > The Trained Model on dataset SciTSR and ICDAR 2013 will release soon.
+
+## Table Recognition with OCR Result
+
+Here, we provide a demo to obtain the complete table result using LGPMA model, including the strcutre result and OCR result. 
+
+The OCR models are trained on pubtabnet, including a single-line text detection model and a single-line recognition model.
+(Since the dataset only provides the position of entire text region for each cell, the OCR models are trained on the 
+instances that only contain single-line text. )
+
+Notice that the orignal annoation in PubTabNet includes the font information like superscript, subscript, italic and bold. For simply, our recognition model ignores the font type.  Correspondingly, these font information in the ground-truth are also be removed in the following demonstrated evaluation results.
+ 
+To run an inference demo, you can modify the model and config paths in the 'tool/test_pub_with_ocr.py' and directly run:
+
+``` shell
+python test_pub_with_ocr.py 
+```
+
+THe OCR model can be downloaded as follows, whose performances are evaluated on a self-divided validation set. 
+
+| Models         | Precision | Recall  | Hmean    | Links |
+|----------------|-----------|---------|----------|-------|
+| Text Detection | 99.57     | 99.53   | 99.55    | [config](tools/ocr_models/det_mask_rcnn_r50_fpn_pubtabnet.py), [pth](https://one.hikvision.com/#/link/FSdTVJuNvuadQ7X0FoAw) (Access Code: n8hi) |
+
+| Models           | Accuracy  | Links |
+|------------------|-----------|-------|
+| Text recognition | 95.60     | [config](tools/ocr_models/rcg_res32_bilstm_attn_pubtabnet_sensitive.py), [pth](https://one.hikvision.com/#/link/NGVXfvJpNznqxGJTJhKY) (Access Code: SZTc) |
+
+The complete TEDS result on PubTabNet is as follows:
+
+
+| Dataset   | Test Scale |  Bboxes refine |  TEDS-struc   |  TEDS   |
+|-----------|------------|----------------|---------------|---------|
+| PubTabNet | 1.5x       |       wo       |   96.7        |  94.7   |
 
 ## Citation
 

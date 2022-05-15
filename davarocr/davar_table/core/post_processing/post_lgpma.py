@@ -4,6 +4,8 @@
 # Filename       :    post_lgpma.py
 # Abstract       :    Post processing of lgpma detector. Get the format html output.
 
+# Current Version:    1.0.2
+# Date           :    2022-05-12
 # Current Version:    1.0.1
 # Date           :    2022-03-09
 # Current Version:    1.0.0
@@ -16,7 +18,7 @@ from math import ceil
 from networkx import Graph, find_cliques
 from davarocr.davar_common.core import POSTPROCESS
 from davarocr.davar_det.core.post_processing.post_detector_base import BasePostDetector
-from davarocr.davar_table.core.bbox.bbox_process import nms_inter_classes, bbox2adj
+from davarocr.davar_table.core.bbox.bbox_process import nms_inter_classes, bbox2adj, rect_max_iou
 from .generate_html import area_to_html, format_html
 
 
@@ -236,6 +238,56 @@ def softmasks_refine_bboxes(bboxes, texts_masks, soft_masks):
     return cls_bboxes
 
 
+def ocr_result_matching(cell_bboxes, ocr_results, iou_thres=0.75):
+    """ assign ocr_results to cells acrroding to their position
+
+    Args:
+        cell_bboxes(list): (n x 4). aligned bboxes of non-empty cells
+        ocr_results(dict): ocr results of the table including bboxes of single-line text and therir content
+        iou_thres(float): matching threshold between bboxes of cells and bboxes of single-line text
+
+    Returns:
+        list(str): ocr results of each cell
+    """
+    texts_assigned = []
+    ocr_bboxes, ocr_texts = ocr_results['bboxes'], ocr_results['texts']
+    for i, box_cell in enumerate(cell_bboxes):
+        matched_bboxes, matched_texts = [], []
+        for j, box_text in enumerate(ocr_bboxes):
+            if rect_max_iou(box_cell, box_text) >= iou_thres:
+                # Insert curent ocr bbox into the matched_bboxes list according to Y coordinate,
+                if len(matched_bboxes) == 0:
+                    matched_bboxes.append(box_text)
+                    matched_texts.append(ocr_texts[j])
+                else:
+                    insert_staus = 0
+                    for k, matched_box in enumerate(matched_bboxes):
+                        if box_text[1] < matched_box[1]:
+                            matched_bboxes.insert(k, box_text)
+                            matched_texts.insert(k, ocr_texts[j])
+                            insert_staus = 1
+                            break
+                    if not insert_staus:
+                        matched_bboxes.append(box_text)
+                        matched_texts.append(ocr_texts[j])
+
+        # Get the ocr result of the current cell
+        matched_texts = [txt for txt in matched_texts if len(txt)]
+        if len(matched_texts) == 0:
+            texts_assigned.append("")
+        elif len(matched_texts) == 1:
+            texts_assigned.append(matched_texts[0])
+        else:
+            merge = matched_texts[0]
+            for txt in matched_texts[1:]:
+                if txt[0] != '%' and merge[-1] != '-':
+                    merge += " "
+                merge += txt
+            texts_assigned.append(merge)
+
+    return texts_assigned
+
+
 @POSTPROCESS.register_module()
 class PostLGPMA(BasePostDetector):
     """Get the format html of table
@@ -244,19 +296,22 @@ class PostLGPMA(BasePostDetector):
     def __init__(self,
                  refine_bboxes=False,
                  nms_inter=True,
-                 nms_threshold=0.3
+                 nms_threshold=0.3,
+                 ocr_result=None
                  ):
         """
         Args:
             refine_bboxes(bool): whether refine bboxes of aligned cells according to pyramid masks.
             nms_inter(bool): whether using nms inter classes.
             nms_threshold(float): nsm threshold
+            ocr_result(list(list): ocr results of a batch of data
         """
 
         super().__init__()
         self.refine_bboxes = refine_bboxes
         self.nms_inter = nms_inter
         self.nms_threshold = nms_threshold
+        self.ocr_result = ocr_result
 
     def post_processing(self, batch_result, **kwargs):
         """
@@ -268,10 +323,9 @@ class PostLGPMA(BasePostDetector):
         Returns:
             list(str): Format results, like [html of table1 (str), html of table2 (str), ...]
         """
-
         table_results = []
-        for result in batch_result:
-            table_result = dict()
+        for rid, result in enumerate(batch_result):
+            table_result = {'html': '', 'content_ann': {}}
             # Processing bboxes of aligned cells, such as nms between all classes and bboxes refined according to lgpma
             if self.refine_bboxes:
                 bboxes_results = softmasks_refine_bboxes(result[0], result[1], result[2])
@@ -288,39 +342,60 @@ class PostLGPMA(BasePostDetector):
 
             # Return empty result, if processed bboxes of aligned cells is empty.
             if not len(labels):
-                table_results.append({'html': '', 'bboxes': [], 'labels': []})
+                table_results.append({'html': '', 'bboxes': [], 'labels': [], 'texts': []})
                 continue
 
+            # If ocr results are provided, assign them to the corresponding cell
             bboxes = [list(map(round, b[0:4])) for b in bboxes]
-            bboxes_np = np.array(bboxes)
+            if self.ocr_result is None:
+                texts = [''] * len(bboxes)
+            else:
+                texts = ocr_result_matching(bboxes, self.ocr_result[rid])
 
             # Calculating cell adjacency matrix according to bboxes of non-empty aligned cells
+            bboxes_np = np.array(bboxes)
             adjr, adjc = bbox2adj(bboxes_np)
 
             # Predicting start and end row / column of each cell according to the cell adjacency matrix
             colspan = adj_to_cell(adjc, bboxes_np, 'col')
             rowspan = adj_to_cell(adjr, bboxes_np, 'row')
-            cells_non = [[row.min(), col.min(), row.max(), col.max()] for col, row in zip(colspan, rowspan)]
-            cells_non = np.array([list(map(int, cell)) for cell in cells_non])
+            cells = [[row.min(), col.min(), row.max(), col.max()] for col, row in zip(colspan, rowspan)]
+            cells = [list(map(int, cell)) for cell in cells]
+            cells_np = np.array(cells)
 
             # Searching empty cells and recording them through arearec
-            arearec = np.zeros([cells_non[:, 2].max() + 1, cells_non[:, 3].max() + 1])
-            for cellid, rec in enumerate(cells_non):
+            arearec = np.zeros([cells_np[:, 2].max() + 1, cells_np[:, 3].max() + 1])
+            for cellid, rec in enumerate(cells_np):
                 srow, scol, erow, ecol = rec[0], rec[1], rec[2], rec[3]
                 arearec[srow:erow + 1, scol:ecol + 1] = cellid + 1
             empty_index = -1  # deal with empty cell
             for row in range(arearec.shape[0]):
                 for col in range(arearec.shape[1]):
                     if arearec[row, col] == 0:
+                        cells.append([row, col, row, col])
                         arearec[row, col] = empty_index
                         empty_index -= 1
 
             # Generate html of each table.
-            texts_tokens = [[""]] * len(labels)  # The final html is available if text recognition results are used.
-            html_str_rec, html_text_rec = area_to_html(arearec, labels, texts_tokens)
+            html_str_rec, html_text_rec = area_to_html(arearec, labels, texts)
             table_result['html'] = format_html(html_str_rec, html_text_rec)
-            table_result['bboxes'] = bboxes
-            table_result['labels'] = labels
+
+            # Append empty cells and sort all cells so that cells information are in the same order with html
+            num_empty = len(cells) - len(bboxes)
+            if num_empty:
+                bboxes += [[]] * num_empty
+                labels += [[]] * num_empty
+                texts += [''] * num_empty
+            sortindex = np.lexsort([np.array(cells)[:, 1], np.array(cells)[:, 0]])
+            bboxes = [bboxes[i] for i in sortindex]
+            labels = [labels[i] for i in sortindex]
+            texts = [texts[i] for i in sortindex]
+            if len(bboxes_results) == 2:
+                head_s, head_e = html_str_rec.index('<thead>'), html_str_rec.index('<tbody>')
+                head_num = html_str_rec[head_s:head_e + 1].count('</td>')
+                labels = [[0]] * head_num + [[1]] * (len(cells) - head_num)
+
+            table_result['content_ann'] = {'bboxes': bboxes, 'labels': labels, 'texts': texts}
             table_results.append(table_result)
 
         return table_results
