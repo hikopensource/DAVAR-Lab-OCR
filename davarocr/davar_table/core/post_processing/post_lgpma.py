@@ -304,7 +304,12 @@ class PostLGPMA(BasePostDetector):
             refine_bboxes(bool): whether refine bboxes of aligned cells according to pyramid masks.
             nms_inter(bool): whether using nms inter classes.
             nms_threshold(float): nsm threshold
-            ocr_result(list(list): ocr results of a batch of data
+            ocr_result(List(dict): ocr results of a batch of data
+                                  [ {
+                                    'bboxes':[[...],[...],...], 
+                                    'confidence': [1.0, 0.9, ...], 
+                                    'texts': ['...','...']
+                                    },... ]
         """
 
         super().__init__()
