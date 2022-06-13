@@ -65,7 +65,7 @@ To date, davarocr contains the following algorithms:
 
 ***Reading Order Detection***
 
-- [x] [GCN-PN](demo/reading_order_detection/GCN-PN) (ECCN 2020)
+- [x] [GCN-PN](demo/reading_order_detection/GCN-PN) (ECCV 2020)
 
 ***Named Entity Reocognition***
 
