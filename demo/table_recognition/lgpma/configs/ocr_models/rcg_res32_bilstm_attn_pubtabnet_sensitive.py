@@ -25,7 +25,7 @@ Add keywords:
 type = 'RECOGNIZOR'
 
 # recognition dictionary
-character = 'path/to/character_dict'
+character = 'path/to/pubtabnet_dict.txt'
 
 # Model setting
 model = dict(
