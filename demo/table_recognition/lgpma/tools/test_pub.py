@@ -48,7 +48,7 @@ for sample in tqdm(test_file):
     if do_visualize:
         img = cv2.imread(img_path)
         img_name = img_path.split("/")[-1]
-        bboxes = [[b[0], b[1], b[2], b[1], b[2], b[3], b[0], b[3]] for b in result['bboxes']]
+        bboxes = [[b[0], b[1], b[2], b[1], b[2], b[3], b[0], b[3]] for b in result['content_ann']['bboxes']]
         for box in bboxes:
             for j in range(0, len(box), 2):
                 cv2.line(img, (box[j], box[j + 1]), (box[(j + 2) % len(box)], box[(j + 3) % len(box)]), (0, 0, 255), 1)
