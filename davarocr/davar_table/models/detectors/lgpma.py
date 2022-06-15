@@ -9,6 +9,7 @@
 ##################################################################################################
 """
 
+from asyncio.log import logger
 from torch import nn
 from mmdet.models import builder
 from mmdet.models.builder import DETECTORS
@@ -140,7 +141,8 @@ class LGPMA(TwoStageDetector):
             seg_targets = self.global_seg_head.get_target(gt_semantic_seg)
             loss_global_seg = self.global_seg_head.loss(seg_pred, seg_targets)
             losses.update(loss_global_seg)
-
+        print (losses)
+        logger.warning(losses)
         return losses
 
     def simple_test(self, img, img_metas, proposals=None, rescale=False):
