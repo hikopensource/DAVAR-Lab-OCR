@@ -9,6 +9,8 @@
 ##################################################################################################
 """
 
+from asyncio.log import logger
+from logging import Logger
 from torch import nn
 from mmdet.models import builder
 from mmdet.models.builder import DETECTORS
@@ -131,7 +133,10 @@ class LGPMA(TwoStageDetector):
                                                  gt_bboxes_ignore, gt_masks,
                                                  **kwargs)
         losses.update(roi_losses)
-
+        print (f'losses {losses}')
+        logger.info("log.inf")
+        logger.warning("log.war")
+        Logger.warning("L.w")
         # global forward and loss
         if self.with_global_seg:
             # Change shape to compatible DavarDefaultFormatBundle
