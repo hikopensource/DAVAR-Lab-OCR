@@ -137,9 +137,15 @@ def train_model(model,
         # Support batch_size > 1 in validation
         val_samples_per_gpu = cfg.data.val.pop('samples_per_gpu', 1)
         if val_samples_per_gpu > 1:
-            # Replace 'ImageToTensor' to 'DefaultFormatBundle'
-            cfg.data.val.pipeline = replace_ImageToTensor(
-                cfg.data.val.get("pipeline", cfg.data.val.dataset.get("pipeline", None)))
+            # in case the test dataset is concatenated
+            val_pipeline = cfg.data.val.get("pipeline", cfg.data.val.dataset.get("pipeline", None))
+            # supported multi dataset with different validation pipelines
+            if isinstance(val_pipeline[0], dict):
+                cfg.data.val.pipeline = replace_ImageToTensor(val_pipeline)
+            elif isinstance(val_pipeline[0], list):
+                cfg.data.val.pipeline = [
+                    replace_ImageToTensor(this_pipeline) for this_pipeline in val_pipeline]
+
         val_dataset = davar_build_dataset(cfg.data.val, dict(test_mode=True))
         val_dataloader = davar_build_dataloader(
             val_dataset,

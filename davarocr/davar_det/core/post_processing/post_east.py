@@ -97,7 +97,6 @@ class PostEAST(BasePostDetector):
             nms_thres(float): iou threshold when conduct nms
             nms_method(int): nms mode, 0: standard RBOX, 1: long-text RBOX, 2: standard QUAD, 2: long-text QUAD.
                              long-text mode means pixels only predict their nearest corner.
-            class_num(int): segmentation classes, default as 1.
 
         Returns:
             np.ndarray: predict results, in shape of [N, 9], box coordinates and confidence.

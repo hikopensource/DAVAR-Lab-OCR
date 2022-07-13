@@ -17,6 +17,7 @@ import mmcv
 import cv2
 import pycocotools.mask as maskUtils
 import numpy as np
+
 from mmdet.datasets.builder import PIPELINES
 from mmdet.core import BitmapMasks, PolygonMasks
 
@@ -134,6 +135,7 @@ class DavarLoadAnnotations():
                  text_profile=None,
                  label_start_index=0,
                  poly2mask=True,
+                 only_quad=False
                  ):
         """ Parameter initialization
 
@@ -172,6 +174,7 @@ class DavarLoadAnnotations():
                                      according to `classes_config`. The start label will be added. e.g., for mmdet 1.x,
                                      this value is set to [1];  for mmdet 2.x, this will be set to [0].
             poly2mask (boolean):      Whether to convert the instance masks from polygons to bitmaps. Default: True.
+            only_quad (boolean): Whether only quad format annotation supported.
         """
         self.with_bbox = with_bbox
         self.with_poly_bbox = with_poly_bbox
@@ -182,9 +185,10 @@ class DavarLoadAnnotations():
         self.with_text = with_text
         self.bieo_labels = bieo_labels
         self.text_profile = text_profile
-        self.label_start_index=label_start_index
+        self.label_start_index = label_start_index
         self.with_cbbox = with_cbbox
         self.poly2mask = poly2mask
+        self.only_quad = only_quad
 
         assert not (self.with_label and self.with_multi_label), \
             "Only one of with_label and with_multi_label can be true"
@@ -324,10 +328,25 @@ class DavarLoadAnnotations():
         gt_poly_bboxes = []
         gt_poly_bboxes_ignore = []
 
+        height, width = results['img_info']['height'], results['img_info']['width']
+
         for i, box in enumerate(tmp_gt_bboxes):
+            for cor_idx in range(0, len(box), 2):
+                box[cor_idx] = min(max(0, box[cor_idx]), width)
+                box[cor_idx + 1] = min(max(0, box[cor_idx + 1]), height)
+
             # If the bboxes are labeled in 2-point form, then transfer it into 4-point form.
             if len(box) == 4:
                 box = [box[0], box[1], box[2], box[1], box[2], box[3], box[0], box[3]]
+
+            if self.only_quad and len(box) != 8:
+                continue
+
+            if self.only_quad:
+                box = self.sorted_bbox_convex(box.copy())
+                if not self.is_convex(box.copy()):
+                    continue
+
             if cares[i] == 1:
                 gt_poly_bboxes.append(np.array(box))
             else:
@@ -390,6 +409,67 @@ class DavarLoadAnnotations():
                 valid_polygons.append(polygon)
         return valid_polygons
 
+    def is_convex(self, bbox, area=2):
+        """ Determine if a quadrilateral is a convex polygon
+
+        Args:
+            bbox (list[float]): coordinate
+            area (int): minimum area
+
+        Returns:
+            bool: whether a convex polygon
+        """
+        pre = 1
+        n = 8
+        for i in range(n // 2):
+            cur = (bbox[(i * 2 + 2) % n] - bbox[i * 2]) * (bbox[(i * 2 + 5) % n] - bbox[(i * 2 + 3) % n]) \
+                    - (bbox[(i * 2 + 4) % n] - bbox[(i * 2 + 2) % n])\
+                    * (bbox[(i * 2 + 3) % n] - bbox[(i * 2 + 1) % n])
+            if cur < area:
+                return False
+            else:
+                if cur * pre < 0:
+                    return False
+                else:
+                    pre = cur
+        return True
+
+    def sorted_bbox_convex(self, bbox):
+        """ 
+        Args:
+            bbox (list[float]): coordinate
+
+        Returns:
+            list[float]: sorted bbox
+        """
+        assert len(bbox) == 8
+
+        bbox = [[bbox[0], bbox[1]], [bbox[2], bbox[3]], [bbox[4], bbox[5]], [bbox[6], bbox[7]]]
+        tmp_bbox = bbox.copy()
+        tmp_bbox = sorted(tmp_bbox, key=lambda x: x[0])
+        new_bbox = []
+
+        if tmp_bbox[0][1] < tmp_bbox[1][1]:
+            new_bbox.append(tmp_bbox[0])
+            tmp_bbox.pop(0)
+        else:
+            new_bbox.append(tmp_bbox[1])
+            tmp_bbox.pop(1)
+
+        tmp_bbox = sorted(tmp_bbox, key=lambda x: x[1])
+        for idx in range(len(tmp_bbox)):
+            if tmp_bbox[idx][0] > new_bbox[0][0]:
+                new_bbox.append(tmp_bbox[idx])
+                tmp_bbox.pop(idx)
+                break
+        
+        tmp_bbox = sorted(tmp_bbox, key=lambda x: x[0], reverse=True)
+        new_bbox.append(tmp_bbox[0])
+        new_bbox.append(tmp_bbox[1])
+        
+        new_bbox = [i for cor in new_bbox for i in cor]
+        return new_bbox
+
     def _load_polymasks(self, results):
         """Private function to load mask annotations.
 
@@ -407,21 +487,46 @@ class DavarLoadAnnotations():
         cares = results["cares"]
         polygons = ann.get('bboxes', [])
         valid_polygons = []
+        invalid_polygons = []
+
         for i, box in enumerate(polygons):
+            for cor_idx in range(0, len(box), 2):
+                box[cor_idx] = min(max(0, box[cor_idx]), width)
+                box[cor_idx + 1] = min(max(0, box[cor_idx + 1]), height)
+
+            # If the bboxes are labeled in 2-point form, then transfer it into 4-point form.
+            if len(box) == 4:
+                box = [box[0], box[1], box[2], box[1], box[2], box[3], box[0], box[3]]
+
+            if self.only_quad and len(box) != 8:
+                continue
+
+            if self.only_quad:
+                box = self.sorted_bbox_convex(box.copy())
+                if not self.is_convex(box.copy()):
+                    continue
+
             if cares[i] == 1:
-                # Handle the case of 2-point annotation
-                if len(box) == 4:
-                    box = [box[0], box[1], box[2], box[1], box[2], box[3], box[0], box[3]]
                 valid_polygons.append([np.array(box)])
+            else:
+                invalid_polygons.append([np.array(box)])
 
         if self.poly2mask:
             gt_masks = BitmapMasks(
                 [self._poly2mask(mask, height, width) for mask in valid_polygons], height, width)
+            gt_masks_ignore = BitmapMasks(
+                [self._poly2mask(mask, height, width) for mask in invalid_polygons], height, width)
         else:
             gt_masks = PolygonMasks(
                 [self.process_polygons(polygons) for polygons in valid_polygons], height, width)
+            gt_masks_ignore = PolygonMasks(
+                [self.process_polygons(polygons) for polygons in invalid_polygons], height, width)
+
         results['gt_masks'] = gt_masks
+        results['gt_masks_ignore'] = gt_masks_ignore
+
         results['mask_fields'].append('gt_masks')
+        results['mask_fields'].append('gt_masks_ignore')
         return results
 
     def _load_labels(self, results):
@@ -445,7 +550,10 @@ class DavarLoadAnnotations():
             self.label_start_index = self.label_start_index[0]
 
         # If there is no `labels` in annotation, set `label_start_index` as the default value for all bboxes.
-        if tmp_labels is None or len(tmp_labels)==0:
+        if tmp_labels is None:
+            tmp_labels = [[self.label_start_index]] * bboxes_length
+        # If `labels` in annotation are empty, set `label_start_index` as the default value for all bboxes.
+        elif len(tmp_labels) == 0:
             tmp_labels = [[self.label_start_index]] * bboxes_length
 
         gt_labels = []

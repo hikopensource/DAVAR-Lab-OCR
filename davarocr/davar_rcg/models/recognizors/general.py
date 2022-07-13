@@ -17,7 +17,8 @@ from davarocr.davar_common.models.builder import build_transformation
 
 from .base import BaseRecognizor
 from ..builder import RECOGNIZORS
-
+from .. import builder as recog_builder
+from .test_mixins import TextRecognitionTestMixin
 
 
 def word_acc(pred, target, topk=1):
@@ -41,7 +42,7 @@ def word_acc(pred, target, topk=1):
 
 
 @RECOGNIZORS.register_module()
-class GeneralRecognizor(BaseRecognizor):
+class GeneralRecognizor(BaseRecognizor, TextRecognitionTestMixin):
     """General Recognizor class support CTC and Attn model"""
     def __init__(self,
                  backbone,
@@ -275,9 +276,23 @@ class GeneralRecognizor(BaseRecognizor):
         if isinstance(text, list):
             out_format["text"] = text
         elif isinstance(text, tuple):
-            out_format["text"] = text[0]
-            out_format["prob"] = text[1]
+            out_format["text"] = [text[0]]
+            out_format["prob"] = [text[1]]
         else:
             raise TypeError("Not supported data type in davarocr")
 
+        return out_format
+    
+
+    def aug_test(self,
+                 imgs,
+                 gt_texts=None,
+                 **kwargs):
+        
+        out_format = dict()
+        result = self.aug_test_text_recognition(imgs, gt_texts, **kwargs)
+
+        text = self.post_processing(result)
+
+        out_format["text"] = [text]
         return out_format

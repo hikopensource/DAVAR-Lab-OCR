@@ -326,13 +326,13 @@ class DavarRCGDataset(Dataset):
         for k, value in img_infos.items():
             texts = value['content_ann']['texts']
             labels = value['content_ann'].get('labels', [None]*len(texts))
+            height = img_infos[k]["height"]
+            width = img_infos[k]["width"]
             if flag:
                 # load the 'bboxes' information
                 bboxes = value['content_ann']['bboxes']
             else:
                 # 'bboxes' is not in img_infos, use the image size as 'bboxes' information
-                height = img_infos[k]["height"]
-                width = img_infos[k]["width"]
                 bboxes = img_infos[k]["content_ann"].get("bboxes", [0, 0, width - 1, 0, width - 1,
                                                                     height - 1, 0, height - 1])
             cares = value['content_ann'].get('cares', [1]*len(texts))
@@ -342,6 +342,8 @@ class DavarRCGDataset(Dataset):
                 reslist.append({
                     'filename': k,
                     'ann': {
+                        'height': height,
+                        'width': width,
                         'text': text if self.pipeline_dict[0]["sensitive"] else text.lower(),
                         'bbox': bboxes[i],
                         'label': labels[i]
@@ -385,13 +387,13 @@ class DavarRCGDataset(Dataset):
         for k, value in img_infos.items():
             texts = value['content_ann']['texts']
             cares = value['content_ann'].get('cares', [1]*len(texts))  # ['cares']
+            height = img_infos[k]["height"]
+            width = img_infos[k]["width"]
             if flag:
                 # load the 'bboxes' information
                 bboxes = value['content_ann']['bboxes']
             else:
                 # 'bboxes' is not in img_infos, use the image size as 'bboxes' information
-                height = img_infos[k]["height"]
-                width = img_infos[k]["width"]
                 bboxes = img_infos[k]["content_ann"].get("bboxes", [0, 0, width - 1, 0, width - 1, 0, height - 1])
 
             labels = value['content_ann'].get('labels', [None]*len(texts))
@@ -461,6 +463,8 @@ class DavarRCGDataset(Dataset):
                 reslist.append({
                     'filename': k,
                     'ann': {
+                        'height': height,
+                        'width': width,
                         'text': text if self.pipeline_dict[0]["sensitive"] else text.lower(),
                         'bbox': bboxes[i],
                         'label': labels[i]

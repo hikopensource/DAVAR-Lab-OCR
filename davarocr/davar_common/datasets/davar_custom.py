@@ -303,7 +303,6 @@ class DavarCustomDataset(CustomDataset):
         img_info = copy.deepcopy(self.data_infos[idx].get('ann', None))
         if self.classes_config is not None:
             img_info['labels'] = [per[0] for per in img_info['labels']]
-
             bboxes = []
             labels = []
             bboxes_ignore = []
@@ -313,11 +312,16 @@ class DavarCustomDataset(CustomDataset):
                 cares = [1] * len(img_info['labels'])
 
             for i, care in enumerate(cares):
+                x_min = min(img_info['bboxes'][i][0::2])
+                x_max = max(img_info['bboxes'][i][0::2])
+                y_min = min(img_info['bboxes'][i][1::2])
+                y_max = max(img_info['bboxes'][i][1::2])
+                rect_box = [x_min, y_min, x_max, y_max]
                 if care:
-                    bboxes.append(img_info['bboxes'][i])
+                    bboxes.append(rect_box)
                     labels.append(self.classes_config['classes'].index(img_info['labels'][i]))
                 else:
-                    bboxes_ignore.append(img_info['bboxes'][i])
+                    bboxes_ignore.append(rect_box)
                     labels_ignore.append(self.classes_config['classes'].index(img_info['labels'][i]))
             bboxes = np.array(bboxes).reshape(-1, 4)
             bboxes_ignore = np.array(bboxes_ignore).reshape(-1, 4)
@@ -359,7 +363,16 @@ class DavarCustomDataset(CustomDataset):
         allowed_metrics = ['mAP', 'recall']
         if metric not in allowed_metrics:
             raise KeyError(f'metric {metric} is not supported')
-        # annotations = [self.get_ann_info(i) for i in range(len(self))]
+        if len(results) > 0 and isinstance(results[0], dict):
+            num_classes = len(self.classes_config['classes'])
+            tmp_results = []
+            for res in results:
+                points = np.array(res['points']).reshape(-1, 4)
+                scores = np.array(res['scores']).reshape(-1, 1)
+                labels = np.array(res['labels'])
+                bboxes = np.concatenate([points, scores], axis=-1)
+                tmp_results.append([bboxes[labels == i, :] for i in range(num_classes)])
+            results = tmp_results
         annotations = [self.process_anns(i) for i in range(len(self))]
         eval_results = OrderedDict()
         iou_thrs = [iou_thr] if isinstance(iou_thr, float) else iou_thr

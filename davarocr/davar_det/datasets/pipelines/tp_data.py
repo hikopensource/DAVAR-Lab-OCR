@@ -88,7 +88,6 @@ class TPDataGeneration:
         else:
             raise ValueError('lib_name or lib_dir cannot be None')
 
-
     def __call__(self, results):
         """Data generation pipeline
 

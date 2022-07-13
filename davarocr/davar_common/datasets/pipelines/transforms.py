@@ -8,12 +8,12 @@
 # Date           :    2020-11-25
 #####################################################################################################
 """
-from math import fabs, sin, cos, radians
+
 import numpy as np
 import cv2
 import mmcv
 
-from mmdet.core import BitmapMasks
+from mmdet.core import BitmapMasks, PolygonMasks
 from mmdet.datasets.builder import PIPELINES
 from mmdet.datasets.pipelines import Resize, RandomFlip
 import torchvision.transforms as transforms
@@ -142,6 +142,7 @@ class DavarResize(Resize):
         self._resize_seg(results)
 
         return results
+
 
 @PIPELINES.register_module()
 class DavarRandomFlip(RandomFlip):
@@ -337,7 +338,7 @@ class DavarRandomFlip(RandomFlip):
 
 
 @PIPELINES.register_module()
-class RandomRotate():
+class RandomRotate:
     """ Randomly rotate images and corresponding annotations"""
 
     def __init__(self,
@@ -614,6 +615,7 @@ class ResizeNormalize:
         results['img'] = img
         return results
 
+
 @PIPELINES.register_module()
 class DavarRandomCrop:
     """ Randomly crop images and make sure to contain text instances."""
@@ -636,8 +638,8 @@ class DavarRandomCrop:
         """ Randomly crop image
 
         Args:
-            img (ndarray): image to be cropped
-            polys (ndarray): location of polys.
+            img (nd.array): image to be cropped
+            polys (nd.array): location of polys.
 
         Returns:
             tuple: location of the cropping box
@@ -733,8 +735,15 @@ class DavarRandomCrop:
             if key in results:
                 results[key] = [results[key][idx] for idx in kept_idx]
         # calculate the kept mask
-        for key in ['gt_masks']:
-            if key in results:
+        for key in results['mask_fields']:
+            if isinstance(results[key], PolygonMasks):
+                polys = []
+                poly_key = 'gt_poly_bboxes_ignore' if 'ignore' in key else 'gt_poly_bboxes'
+                for poly in results[poly_key]:
+                    poly = np.array(poly).reshape(-1, 2).astype(np.float32)
+                    polys.append([poly])
+                results[key] = PolygonMasks(polys, *results['img_shape'][:-1])
+            elif isinstance(results[key], BitmapMasks):
                 ori_mask = results[key].masks
                 kept_mask = [ori_mask[idx] for idx in kept_idx]
                 if len(kept_mask) > 0:
@@ -742,6 +751,8 @@ class DavarRandomCrop:
                 else:
                     kept_mask = np.empty((0, results[key].height, results[key].width), dtype=np.float32)
                 results[key] = BitmapMasks(kept_mask, results[key].height, results[key].width)
+            else:
+                raise TypeError("mask_fields type error")
         return results
 
     def __repr__(self):

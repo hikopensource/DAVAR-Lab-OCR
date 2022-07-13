@@ -8,14 +8,15 @@
 # Date           :    2021-05-01
 ##################################################################################################
 """
-from .base import BaseRecognizor
+from .test_mixins import TextRecognitionTestMixin
+
 from .general import GeneralRecognizor
 from .rf_learning import RFLRecognizor
+from .base import BaseRecognizor
 
 __all__ = [
-
-    'BaseRecognizor',
-
     'GeneralRecognizor',
     'RFLRecognizor',
+    "TextRecognitionTestMixin",
+    'BaseRecognizor'
 ]

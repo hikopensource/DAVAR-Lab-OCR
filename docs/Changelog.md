@@ -1,6 +1,16 @@
 # Changelog
 
 
+
+### v0.5.2  (13/07/2022)
+
+**Highlights**
+
+- Support for setting logging interval.
+- Support for filtering invalid box in davar_loading.
+- Support for multi-dataset testing in recognizor.
+- Some bug fixed 
+
 ### v0.5.1  (12/05/2022)
 
 **Highlights**

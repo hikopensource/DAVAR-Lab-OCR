@@ -80,6 +80,11 @@ class BaseRecognizor(nn.Module):
 
         """
         pass
+    
+    @abstractmethod
+    def aug_test(self, imgs, gt_texts, **kwargs):
+        """Test function with test time augmentation."""
+        pass
 
     def init_weights(self, pretrained=None):
         """
@@ -111,10 +116,14 @@ class BaseRecognizor(nn.Module):
         if isinstance(imgs, torch.Tensor):
             imgs = [imgs]
 
-        # TODO: remove the restriction of imgs_per_gpu == 1 when prepared
-        return self.simple_test(imgs[0],
-                                gt_texts[0]
-                                if gt_texts is not None else None, **kwargs)
+        num_augs = len(imgs)
+        if num_augs == 1:
+            # TODO: remove the restriction of imgs_per_gpu == 1 when prepared
+            return self.simple_test(imgs[0],
+                                    gt_texts[0]
+                                    if gt_texts is not None else None, **kwargs)
+        else:
+            return self.aug_test(imgs, gt_texts if gt_texts is not None else None, **kwargs)
 
     def forward(self, img, gt_text=None,
                 img_meta=None, return_loss=True,

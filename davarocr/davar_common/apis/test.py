@@ -22,13 +22,16 @@ from mmcv.runner import get_dist_info
 from mmdet.core import encode_mask_results
 from mmdet.apis.test import collect_results_cpu, collect_results_gpu
 
+from davarocr.mmcv import DavarProgressBar
+
 
 def single_gpu_test(model,
                     data_loader,
                     show=False,
                     out_dir=None,
                     show_score_thr=0.3,
-                    model_type="DETECTOR"):
+                    model_type="DETECTOR",
+                    min_time_interval=1):
     """ Test model with single GPU, used for visualization.
 
     Args:
@@ -37,7 +40,8 @@ def single_gpu_test(model,
         show (boolean): whether to show visualization
         out_dir (str): visualization results saved path
         show_score_thr (float): the threshold to show visualization.
-        model_type(float): model type indicator, used to formalize final results.
+        model_type(str): model type indicator, used to formalize final results.
+        min_time_interval(int): progressbar minimal update unit
     Returns:
         dict: test results
     """
@@ -45,7 +49,7 @@ def single_gpu_test(model,
     model.eval()
     results = []
     dataset = data_loader.dataset
-    prog_bar = mmcv.ProgressBar(len(dataset))
+    prog_bar = DavarProgressBar(len(dataset), min_time_interval=min_time_interval)
     for _, data in enumerate(data_loader):
         with torch.no_grad():
             result = model(return_loss=False, rescale=True, **data)
@@ -95,7 +99,7 @@ def single_gpu_test(model,
                 result = list(zip(result["text"], result["length"]))
             else:
                 result = result["text"]
-            batch_size = len(result)
+            batch_size = len(result) if not isinstance(result[0], list) else len(result[0])
         elif model_type == "SPOTTER":
             pass
             # if isinstance(result[0], dict):
@@ -118,7 +122,8 @@ def multi_gpu_test(model,
                    data_loader,
                    tmpdir=None,
                    gpu_collect=False,
-                   model_type="DETECTOR"):
+                   model_type="DETECTOR",
+                   min_time_interval=1):
     """Test model with multiple gpus.
 
     This method tests model with multiple gpus and collects the results
@@ -133,6 +138,8 @@ def multi_gpu_test(model,
         tmpdir (str): Path of directory to save the temporary results from
             different gpus under cpu mode.
         gpu_collect (bool): Option to use either gpu or cpu to collect results.
+        model_type(str): model type indicator, used to formalize final results.
+        min_time_interval(int): progressbar minimal update unit
 
     Returns:
         list(dict): The prediction results.
@@ -142,7 +149,7 @@ def multi_gpu_test(model,
     dataset = data_loader.dataset
     rank, world_size = get_dist_info()
     if rank == 0:
-        prog_bar = mmcv.ProgressBar(len(dataset))
+        prog_bar = DavarProgressBar(len(dataset), min_time_interval=min_time_interval)
     time.sleep(2)  # This line can prevent deadlock problem in some cases.
     for _, data in enumerate(data_loader):
 
@@ -158,12 +165,17 @@ def multi_gpu_test(model,
             elif model_type == "RECOGNIZOR":
                 if "prob" in result:
                     result = result["text"]
+                    if isinstance(result[0], list):
+                        result = result[0]
                 elif "length" in result and "text" not in result:
                     result = result["length"]
                 elif "length" in result and "text" in result:
                     result = list(zip(result["text"], result["length"]))
                 else:
                     result = result["text"]
+                    if isinstance(result[0], list):
+                        result = result[0]
+
             elif model_type == "SPOTTER":
                 pass
                 # if isinstance(result[0], dict):

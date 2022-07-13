@@ -135,7 +135,7 @@ class EASTDataGeneration:
             invalid = False
             if len(box) != 8:
                 print("invalid annotation {}".format(box))
-                invalid = True
+                continue
             for k in range(4):
                 # filter out box with unspport text length
                 if not (self.min_text_width <= math.sqrt((box[k * 2] - box[(k + 1) * 2 % 8]) ** 2 + (

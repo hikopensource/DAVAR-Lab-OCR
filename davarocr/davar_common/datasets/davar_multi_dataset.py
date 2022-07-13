@@ -153,5 +153,25 @@ class DavarMultiDataset(Dataset):
             dict: model evaluation metric
 
         """
-        validation_result = self.datasets[0].evaluate(results, metric, logger, **eval_kwargs)
+
+        # use the group samples to validate
+        group_samples = self.flag["group_samples"]
+        start_idx = 0
+        validation_result = dict()
+        for dataset_idx, group_sample in enumerate(group_samples):
+            this_results = results[start_idx:start_idx + group_sample]
+            this_validation_result = self.datasets[dataset_idx].evaluate(
+                this_results, metric, logger, **eval_kwargs)
+            # record the each dataset info
+            for key, value in this_validation_result.items():
+                this_key = "{}_set{}".format(key, dataset_idx)
+                validation_result[this_key] = value
+                # calculate the average performance
+                if dataset_idx == 0:
+                    validation_result[key] = value / len(group_samples)
+                else:
+                    validation_result[key] += value / len(group_samples)
+            # update the sample index 
+            start_idx += group_sample
+
         return validation_result
