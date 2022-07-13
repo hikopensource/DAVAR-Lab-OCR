@@ -5,15 +5,10 @@
 # Abstract       :
 
 # Current Version:    1.0.0
-# Date           :    2021-05-01
+# Date           :    2022-07-07
 ##################################################################################################
 """
+from .base import BaseDistillation
+from .spot_res_distill import SpotResolutionDistillation
 
-from .hooks import DavarCheckpointHook, ReduceonplateauLrUpdaterHook
-from .distill_runner import DistillRunner
-
-__all__ = [
-    'DavarCheckpointHook',
-    'ReduceonplateauLrUpdaterHook',
-    'DistillRunner'
-]
+__all__ = ['SpotResolutionDistillation', 'BaseDistillation']

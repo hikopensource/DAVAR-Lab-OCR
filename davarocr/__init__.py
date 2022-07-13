@@ -19,6 +19,7 @@ from .davar_table import *
 from .davar_nlp_common import *
 from .davar_ner import *
 from .davar_order import *
+from .davar_distill import *
 from .mmcv import *
 from .version import __version__
 

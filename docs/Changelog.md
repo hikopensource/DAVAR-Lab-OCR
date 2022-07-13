@@ -1,5 +1,10 @@
 # Changelog
 
+### v0.6.0  (13/07/2022)
+
+**Highlights**
+
+- Release the implements of DLD model (ECCV 2022)
 
 
 ### v0.5.2  (13/07/2022)
@@ -10,6 +15,7 @@
 - Support for filtering invalid box in davar_loading.
 - Support for multi-dataset testing in recognizor.
 - Some bug fixed 
+
 
 ### v0.5.1  (12/05/2022)
 

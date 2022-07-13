@@ -41,7 +41,7 @@ To date, davarocr contains the following algorithms:
 
 - [x] [MANGO](demo/text_spotting/mango) (AAAI 2021)
 
-- [x] [DLD](demo/text_spotting/dld) (ECCV 2022) (to be released)
+- [x] [DLD](demo/text_spotting/dld) (ECCV 2022)
 
 ***Video Text Spotting***
 
@@ -55,7 +55,7 @@ To date, davarocr contains the following algorithms:
 
 - [x] [TRIE](demo/text_ie/trie) (ACM MM 2020)
 
-***Table Recognition ***
+***Table Recognition***
 
 - [x] [LGPMA](demo/table_recognition/lgpma) (ICDAR 2021)
 
@@ -111,7 +111,7 @@ For the problems existing in the process of installation and researching, we wil
 
 ## Changelog
 
-DavarOCR v0.5.1 was released in 12/05/2022.
+DavarOCR v0.6.0 was released in 13/07/2022.
 Please refer to [Changelog.md](./docs/Changelog.md) for details and release history.
 
 
