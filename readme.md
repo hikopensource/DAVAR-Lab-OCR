@@ -6,6 +6,8 @@ We begin to maintain this code repository to release the implementations of our 
 
 We also provide some of the ablation experiment comparasions for better reproduction. 
 
+A short paper introduces DavarOCR is available at [arxiv](https://arxiv.org/pdf/2207.06695.pdf). 
+
 > Note: Due to the policy limits of the company. All of the codes were re-implemented based on the open-source frameworks, [mmdetection-2.11.0](https://github.com/open-mmlab/mmdetection/releases/tag/v2.11.0) and [mmcv-1.3.4](https://github.com/open-mmlab/mmcv/releases/tag/v1.3.4), from [open-mmlab](https://github.com/open-mmlab "open-mmlab"). The code architecture also refers to [mmocr](https://github.com/open-mmlab/mmocr), which means these two frameworks can be well compatible to each other.
 
 ## Implementations
@@ -114,6 +116,30 @@ For the problems existing in the process of installation and researching, we wil
 DavarOCR v0.6.0 was released in 13/07/2022.
 Please refer to [Changelog.md](./docs/Changelog.md) for details and release history.
 
+## Citation
+If you find this repository is helpful to your research, please feel free to cite us:
+
+``` markdown
+@article{qiao2022davarocr,
+  title    ={{DavarOCR:} {A} Toolbox for OCR and Multi-Modal Document Understanding},
+  author   ={Liang Qiao and
+			  Hui Jiang and
+			  Ying Chen and
+			  Can Li and
+			  Pengfei Li and
+			  Zaisheng Li and
+			  Baorui Zou and
+			  Dashan Guo and
+			  Yingda Xu and
+			  Yunlu Xu and
+			  Zhanzhan Cheng and
+			  Yi Niu}
+  journal   = {CoRR},
+  volume    = {abs/2207.06695},
+  year      = {2022},
+}
+
+```
 
 ## License
 This project is released under the [Apache 2.0 license](./LICENSE)
