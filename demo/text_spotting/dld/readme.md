@@ -1,5 +1,5 @@
 # Dynamic Low-Resolution Distillation
-This code repository contains the implementations of the paper [Dynamic Low-Resolution Distillation for Cost-Efficient End-to-End Text Spotting]() (ECCV 2022).
+This code repository contains the implementations of the paper [Dynamic Low-Resolution Distillation for Cost-Efficient End-to-End Text Spotting](https://arxiv.org/pdf/2207.06694.pdf) (ECCV 2022).
 
 ## Preparing Dataset
 Original images can be downloaded from: [Total-Text](https://github.com/cs-chan/Total-Text-Dataset "Total-Text") , [ICDAR2013](https://rrc.cvc.uab.es/?ch=2) , [ICDAR2015](https://rrc.cvc.uab.es/?ch=4), [ICDAR2017_MLT](https://rrc.cvc.uab.es/?ch=8).
