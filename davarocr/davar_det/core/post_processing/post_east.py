@@ -166,7 +166,7 @@ class PostEAST(BasePostDetector):
                     else:
                         scale_factor = float(img_meta[i]['scale_factor'])
 
-                res = post_east(cur_score_map.reshape(-1),
+                res = self.post_east(cur_score_map.reshape(-1),
                                 cur_geo_map.reshape(-1),
                                 height, width, 4,
                                 scale_factor,
