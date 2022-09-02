@@ -187,7 +187,7 @@ val_pipeline = [
             dict(type='Normalize', **img_norm_cfg),
             dict(type='Pad', size_divisor=32),
             dict(type='DavarDefaultFormatBundle'),
-            dict(type='DavarCollect', keys=['img', 'gt_bboxes', 'gt_labels', 'gt_masks']),
+            dict(type='DavarCollect', keys=['img']),
         ])
 ]
 test_pipeline = [
