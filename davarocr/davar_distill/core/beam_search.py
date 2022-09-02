@@ -105,7 +105,6 @@ def beam_decode(encoder_outputs, beam_width=5, topk=1):
                 log_p = log_prob[new_k].item()
 
                 node = BeamSearchNode(priority_node, decoded_t, priority_node.logp + log_p, priority_node.leng + 1)
-                # score = -node.eval()
                 nextnodes.append(node)
 
             # put them into queue

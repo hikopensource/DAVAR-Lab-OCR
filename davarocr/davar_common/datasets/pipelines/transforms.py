@@ -744,6 +744,9 @@ class DavarRandomCrop:
                     polys.append([poly])
                 results[key] = PolygonMasks(polys, *results['img_shape'][:-1])
             elif isinstance(results[key], BitmapMasks):
+                # filter gt_masks_ignore
+                if 'ignore' in key:
+                    continue
                 ori_mask = results[key].masks
                 kept_mask = [ori_mask[idx] for idx in kept_idx]
                 if len(kept_mask) > 0:

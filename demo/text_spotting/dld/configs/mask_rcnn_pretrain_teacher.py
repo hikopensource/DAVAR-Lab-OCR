@@ -8,7 +8,7 @@
 # Date           :    2020-07-07
 #################################################################################################
 """
-character = '../../../text_spotting/datalist/character_list.txt'
+character = '../../datalist/character_list.txt'
 batch_max_length = 32
 type='SPOTTER'
 model = dict(
