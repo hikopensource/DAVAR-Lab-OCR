@@ -72,7 +72,7 @@ ln -s ctc_entrypoint.cpp ctc_entrypoint.cu
 
 
 cd $ROOT/davarocr/davar_rcg/third_party/warp-ctc-pytorch_bindings/
-mkdir build;
+mkdir -p build;
 cd build;
 cmake ..
 make
