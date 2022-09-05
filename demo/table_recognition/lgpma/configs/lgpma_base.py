@@ -3,9 +3,8 @@
 # Copyright Info :    Copyright (c) Davar Lab @ Hikvision Research Institute. All rights reserved.
 # Filename       :    lgpma_base.py
 # Abstract       :    Base model settings for LGPMA detector
-
-# Current Version:    1.0.0
-# Date           :    2021-09-18
+# Current Version:    1.0.1
+# Date           :    2022-09-05
 ##################################################################################################
 """
 
@@ -149,7 +148,7 @@ model = dict(
 train_cfg = None
 test_cfg = None
 # dataset settings
-dataset_type = 'DavarCustomDataset'
+dataset_type = 'TableRcgDataset'
 data_root = ''
 img_norm_cfg = dict(
     mean=[123.675, 116.28, 103.53], std=[58.395, 57.12, 57.375], to_rgb=True)
@@ -171,13 +170,6 @@ train_pipeline = [
 ]
 val_pipeline = [
     dict(type='DavarLoadImageFromFile'),
-    dict(type='DavarLoadTableAnnotations',
-         with_bbox=True,          # Bounding Rect
-         with_enlarge_bbox=True,  # Produce pseudo-bboxes for aligned cells
-         with_label=True,         # Bboxes' labels
-         with_poly_mask=True,     # Mask
-         with_empty_bbox=True,    # Produce pseudo-bboxes for empty cells
-         ),
     dict(
         type='MultiScaleFlipAug',
         scale_factor=1.5,

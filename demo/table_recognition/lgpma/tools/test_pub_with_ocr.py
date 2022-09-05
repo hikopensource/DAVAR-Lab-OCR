@@ -15,8 +15,7 @@ import json
 import jsonlines
 import numpy as np
 from tqdm import tqdm
-from eval_pub.metric import TEDS
-from eval_pub.format import format_html
+from davarocr.davar_table.utils import TEDS, format_html
 from davarocr.davar_common.apis import inference_model, init_model
 
 

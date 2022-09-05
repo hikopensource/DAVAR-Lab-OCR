@@ -18,6 +18,16 @@ Run the following bash command in the command line,
 cd $DAVAR_LAB_OCR_ROOT$/demo/table_recognition/lgpma/
 bash dist_train.sh
 ```
+## Online evaluation 
+We provide the online evaluation support that can be used to pick models during training. You can remove the tag `--no-validate` in the startup script `dist_train.sh`. 
+
+Two evaluation metrics are supported:
+
+- "TEDS": directly measures the similarity of the table structure. When using this metric, you need to convert the validating datalist (PubTabNet_2.0.0_val.jsonl) into json format same as the training set (refer to the script convert_jsonl_json.py).
+
+- "hmen": measures the similarity between the detection results of aligned cells and its true value. When using this metric, you need to convert the validating datalist (PubTabNet_2.0.0_val.jsonl) into davar json format(refer to the script convert_html_ann.py).
+
+> The online validation takes a relatively long time. it is recommended to use a small subset of the validation dataset.
 
 ## Offline Inference and Evaluation
 We provide a demo of forward inference and evaluation on PubTabNet dataset. You can modify the paths (`savepath`, `config_file`, `checkpoint_file`) in test script, and start testing:

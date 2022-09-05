@@ -17,6 +17,7 @@ from collections import deque
 from tqdm import tqdm
 from .parallel import parallel_process
 
+
 class TableTree(Tree):
     def __init__(self, tag, colspan=None, rowspan=None, content=None, *children):
         self.tag = tag

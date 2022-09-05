@@ -31,6 +31,7 @@
 - Support for the basic NLP tasks, currently including NER. In the future we will release more works related to the text understanding.
 - Release BERT-based NER models, including BERT+CRF, BERT+Softmax, BERT+Span.
 - Release BiLSTM-CRF-based NER models.
+- Provide the demo for table recognition with OCR (MaskRCNN + ATT + LGPMA).
 
 ### v0.4.1  (04/05/2022)
 

@@ -1,10 +1,14 @@
+
+
 # Helper function to read in tables from the annotations
 # from bs4 import BeautifulSoup as bs
 from html import escape
 
+
 def format_html(img):
-    ''' Formats HTML code from tokenized annotation of img
-    '''
+    """
+    Formats HTML code from tokenized annotation of img
+    """
     html_code = img['html']['structure']['tokens'].copy()
     to_insert = [i for i, tag in enumerate(html_code) if tag in ('<td>', '>')]
     for i, cell in zip(to_insert[::-1], img['html']['cells'][::-1]):
