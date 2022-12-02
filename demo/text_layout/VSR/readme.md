@@ -17,7 +17,7 @@ If you want to re-implement the model's performance from scratch, please followi
 
 1.Firstly, prepare the pretrained models:
 
--  [pretrained mask-rcnn model](https://one.hikvision.com/#/link/vpg0qc0rd7XuuB6GnckA) (Access Code：KZgm) on COCO (*we just copy the params of backbone to initialize backbone_semantic*)
+-  [pretrained mask-rcnn model](https://drive.hikvision.com/hcs/controller/hik-manage/fileDownload?link=soZRTJWw) (Access Code：U743) on COCO (*we just copy the params of backbone to initialize backbone_semantic*)
 -  [bert-base-uncased](https://huggingface.co/bert-base-uncased)
 
 2.Secondly, modify the paths in model config (`demo/text_layout/VSR/PubLayNet/config/publaynet_x101.py` or `demo/text_layout/VSR/DocBank/config/docbank_x101.py`.), including the pretrained models paths, images paths, work space, etc. 
@@ -37,9 +37,9 @@ Trained models can be download as follows:
 |  Dataset  |  Backbone  | Pretrained |  Test Scale  |  AP   |                           Links                             |
 | :-------: | :--------: | :--------: | :---------: | :---: |  :----------------------------------------------------------: |
 | PubLayNet (Reported) | ResNext101 |    COCO    | (1300, 800) | 95.7  |  - |
-| PubLayNet | ResNext101 |    COCO    | (1300, 800) | 95.8     | [config](./PubLayNet/config/publaynet_x101.py), [pth](https://one.hikvision.com/#/link/kOpw0pJr3T4hloB2x6Kq) (Access Code: STsJ) |
+| PubLayNet | ResNext101 |    COCO    | (1300, 800) | 95.8     | [config](./PubLayNet/config/publaynet_x101.py), [pth](https://drive.hikvision.com/hcs/controller/hik-manage/fileDownload?link=ZF8TQD80) (Access Code: 8Rm1) |
 |  DocBank (Reported) | ResNext101 |    COCO    | (600, 800)  |  95.59      |  - |
-|  DocBank  | ResNext101 |    COCO    | (600, 800)  | 95.25  | [config](./DocBank/config/docbank_x101.py), [pth](https://one.hikvision.com/#/link/76YItjTJkFNFMC0VNEK9) (Access Code: lJsy ) |
+|  DocBank  | ResNext101 |    COCO    | (600, 800)  | 95.25  | [config](./DocBank/config/docbank_x101.py), [pth](https://drive.hikvision.com/hcs/controller/hik-manage/fileDownload?link=vp6uWpjO) (Access Code: 6T64 ) |
 
 
 ## Citation

@@ -128,7 +128,7 @@ bash ./train.sh
         <td><center> 86.7 </center></td>
         <td><center> 88.2 </center></td>
         <td><center><p><a href="./configs/res32_bilstm_visual.py"> Config </a></p></center></td>
-        <td><center><p> pth <a href="https://one.hikvision.com/#/link/J5HJY06LgDcutqiOZVFa"> [Link]</a> (Access Code: IE7A)</p></center></td>
+        <td><center><p> pth <a href="https://drive.hikvision.com/hcs/controller/hik-manage/fileDownload?link=nvzuiHFZ"> [Link]</a> (Access Code: 04OV)</p></center></td>
 	<tr>
     <tr>
         <td><center> RF-Learning total(Report) </center></td>
@@ -152,7 +152,7 @@ bash ./train.sh
         <td><center> 82.0 </center></td>
         <td><center> 84.7 </center></td>
         <td><center><p><a href="./configs/res32_bilstm_attn.py"> Config </a></p></center></td>
-         <td><center><p> pth <a href="https://one.hikvision.com/#/link/fziDiQSKw2LUM226mHPN"> [Link] </a> (Access Code: S02V)</p></center></td>
+         <td><center><p> pth <a href="https://drive.hikvision.com/hcs/controller/hik-manage/fileDownload?link=4FvXcsOW"> [Link] </a> (Access Code: 49z1)</p></center></td>
 	<tr>
 <table>
 

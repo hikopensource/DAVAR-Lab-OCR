@@ -40,11 +40,11 @@ Results on various datasets and trained models download:
 |   Dataset      | Mode       | Backbone  | Pre-trained |Test Scale| Precision | Recall | Hmean | Links |
 | ---------------|--------    |---------- | ---------- | ----     |--------- | ------ | ----- | -------------- |
 | ICDAR2015 (Reported)     | RBOX    | PAVNET2x |  ImageNet    | (L-1280, S-720) |  83.57    | 73.47  | 78.20 |        |
-| ICDAR2015      | RBOX    | ResNet-50 |  ImageNet    | (L-1280, S-720) |  80.53    | 79.44  | 79.98 | [config](config/east_r50_rbox.py), [pth](https://one.hikvision.com/#/link/Q6KOdg7ZNmHronC13pv0) (Access Code: M6K2)         |
-| ICDAR2015      | RBOX    | ResNet-50 |  ImageNet    | (L-1600, S-900) |  79.45    | 80.4  | 79.92 | [config](config/east_r50_rbox.py) ,[pth](https://one.hikvision.com/#/link/Q6KOdg7ZNmHronC13pv0) (Access Code: M6K2)         | 
+| ICDAR2015      | RBOX    | ResNet-50 |  ImageNet    | (L-1280, S-720) |  80.53    | 79.44  | 79.98 | [config](config/east_r50_rbox.py), [pth](https://drive.hikvision.com/hcs/controller/hik-manage/fileDownload?link=HLEvBIMC) (Access Code: 7968)         |
+| ICDAR2015      | RBOX    | ResNet-50 |  ImageNet    | (L-1600, S-900) |  79.45    | 80.4  | 79.92 | [config](config/east_r50_rbox.py) ,[pth](https://drive.hikvision.com/hcs/controller/hik-manage/fileDownload?link=HLEvBIMC) (Access Code: 7968)         | 
 | ICDAR2015  (Reported)    | QUAD    | PAVNET2x |  ImageNet    | (L-1600, S-900) |  80.18    | 74.19  | 77.07 |    |    
-| ICDAR2015      | QUAD    | ResNet-50 |  ImageNet    | (L-1280, S-720) |  71.43   | 79.20  | 75.11 | [config](config/east_r50_quad.py) , [pth](https://one.hikvision.com/#/link/w5ZGMlhcnAfD0aM3Gcin) (Access Code: YFZa)         |
-| ICDAR2015      | QUAD    | ResNet-50 |  ImageNet    | (L-1600, S-900) |  71.52   | 79.30  | 75.21 | [config](config/east_r50_quad.py) ,  [pth](https://one.hikvision.com/#/link/w5ZGMlhcnAfD0aM3Gcin) (Access Code: YFZa)          |
+| ICDAR2015      | QUAD    | ResNet-50 |  ImageNet    | (L-1280, S-720) |  71.43   | 79.20  | 75.11 | [config](config/east_r50_quad.py) , [pth](https://drive.hikvision.com/hcs/controller/hik-manage/fileDownload?link=2PGVOcjn) (Access Code: 0D9h)         |
+| ICDAR2015      | QUAD    | ResNet-50 |  ImageNet    | (L-1600, S-900) |  71.52   | 79.30  | 75.21 | [config](config/east_r50_quad.py) ,  [pth](https://drive.hikvision.com/hcs/controller/hik-manage/fileDownload?link=2PGVOcjn) (Access Code: 0D9h)         |
 
 > ** Note **: Above links are from BaiduYunPan. Models can also be downloaded from [Google Drive](https://drive.google.com/drive/folders/1dWZN2uMKMgJalHcBHWvpAuku1eyXq-Jj?usp=sharing) 
  

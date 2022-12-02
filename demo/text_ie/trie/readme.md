@@ -32,7 +32,7 @@ Results on various datasets and trained models can be download as follows:
 
 |   Dataset   | Backbone | Pretrained | Train Scale | Test Scale | F1-score | Links |
 | :---------: | :------: | :--------: | :---------: | :--------: | :------: | :---: |
-| Wildreceipt | ResNet50 |  ImageNet  | (512, 512)  | (512, 512) |  87.08   |  [config](./configs/wildreceipt_gt_trie.py), [pth](https://one.hikvision.com/#/link/J9ON6sW8PTxrF0RuWL3a) (Access Code:0od6)     |
+| Wildreceipt | ResNet50 |  ImageNet  | (512, 512)  | (512, 512) |  87.08   |  [config](./configs/wildreceipt_gt_trie.py), [pth](https://drive.hikvision.com/hcs/controller/hik-manage/fileDownload?link=gFcV3D3g) (Access Code:6xq7)     |
 
 
 

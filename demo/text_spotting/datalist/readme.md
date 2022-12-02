@@ -21,7 +21,7 @@ The datalist are used in text spotting experiments:
 - train_syntext_word_eng.json
 - train_emcs_imgs.json
 
-All formatted datalist can be downloaded from [Link](https://one.hikvision.com/#/link/nipWaectFcwClNGrkcAT) (Access Code：o5gt)
+All formatted datalist can be downloaded from [Link](https://drive.hikvision.com/hcs/controller/hik-manage/fileDownload?link=qxPOHCtm&) (Access Code：5JBf)
 
 All datalists are transformed into a unified Davar Format like:
 

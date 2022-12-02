@@ -63,7 +63,7 @@ Results on various datasets and trained models download:
 	<tr>
 		<td>tp_r50_fpn+conv6+bilstm+attention</td>
 		<td>SynthText<br>COCO-Text</td>
-		<td><p><a href="./configs/tp_r50_e2e_pretrain.py">cfg </a>, <a href="https://one.hikvision.com/#/link/UlTJ5YdBRk1NXPKwAEO8">pth </a> (Access Code: Zqhp)</p></td>
+		<td><p><a href="./configs/tp_r50_e2e_pretrain.py">cfg </a>, <a href="https://drive.hikvision.com/hcs/controller/hik-manage/fileDownload?link=7NwpHZ4f">pth </a> (Access Code: L6k9)</p></td>
 	</tr>
 </table>
 
@@ -112,7 +112,7 @@ Results on various datasets and trained models download:
 		<td>90.9</td>
 		<td>93.8</td>
 		<td>94.2</td>
-		<td><p><a href="./configs/tp_r50_e2e_finetune_ic13.py">cfg </a>, <a href="https://one.hikvision.com/#/link/5Ylh6nIRGXxJrAYmm25c">pth </a> (Access Code: WvMu)</p></td>
+		<td><p><a href="./configs/tp_r50_e2e_finetune_ic13.py">cfg </a>, <a href="https://drive.hikvision.com/hcs/controller/hik-manage/fileDownload?link=BPTn87ya">pth </a> (Access Code: 5btM)</p></td>
 	</tr>
 	<tr>
 		<td>ICDAR2015<br>(Reported)</td>
@@ -140,7 +140,7 @@ Results on various datasets and trained models download:
 		<td>70.8</td>
 		<td>79.8</td>
 		<td>83.2</td>
-		<td><p><a href="./configs/tp_r50_e2e_finetune_ic15.py">cfg </a>, <a href="https://one.hikvision.com/#/link/5Ylh6nIRGXxJrAYmm25c">pth </a> (Access Code: WvMu)</p></td>
+		<td><p><a href="./configs/tp_r50_e2e_finetune_ic15.py">cfg </a>, <a href="https://drive.hikvision.com/hcs/controller/hik-manage/fileDownload?link=BPTn87ya">pth </a> (Access Code: 5btM)</p></td>
 	</tr>
 </table>
 
@@ -183,7 +183,7 @@ Results on various datasets and trained models download:
 		<td>77.3</td>
 		<td>73.9</td>
 		<td>81.8</td>
-		<td><p><a href="./configs/tp_r50_e2e_finetune_tt.py">cfg </a>, <a href="https://one.hikvision.com/#/link/5Ylh6nIRGXxJrAYmm25c">pth </a> (Access Code: WvMu)</p></td>
+		<td><p><a href="./configs/tp_r50_e2e_finetune_tt.py">cfg </a>, <a href="https://drive.hikvision.com/hcs/controller/hik-manage/fileDownload?link=BPTn87ya">pth </a> (Access Code: 5btM)</p></td>
 	</tr>
 </table>
 

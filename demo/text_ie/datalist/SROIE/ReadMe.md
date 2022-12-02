@@ -87,5 +87,5 @@ The SROIE datalist includes OCR and IE annotations.
 	
 ##### Download Link： 
 
-You can download the datalists via this [link](https://one.hikvision.com/#/link/O0DXYBPhlqpGQI7nmRFA). (Access Code: XYAZ)
+You can download the datalists via this [link](https://drive.hikvision.com/hcs/controller/hik-manage/fileDownload?link=8mwPNWQE). (Access Code: v5C4)
 

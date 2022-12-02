@@ -51,10 +51,10 @@ Results on various datasets and trained models can be download as follows:
 
 |   Dataset   | Input | Task | Test Scale |   metric |  result | Links |
 | :---------: | :---------: | :---------:| :--------: | :------: | :----:  |:------:|
-| Wildreceipt |  Image  | Visually Information Extraction | (512, 512)  | F1-score | 67.10  | [config](./configs/wildreceipt_chargrid.py), [pth](https://one.hikvision.com/#/link/n3cnPI6KYrwvAASJ5wjc) (Access Code: goty)|
-| Wildreceipt |  Image+Chargrid  | Visually Information Extraction | (512, 512)  | F1-score | 81.02  | [config](./configs/wildreceipt_chargrid.py), [pth](https://one.hikvision.com/#/link/I4ECGkaQg1QeudTVegcM) (Access Code: TkXQ)|
-| PubLayNet   |    Image        |  Layout Recognition   | (1300, 800) |   mAP    | 71.9  | [config](./configs/publaynet_chargrid.py), [pth](https://one.hikvision.com/#/link/XUblMexuP5Fd2cNaTruP) (Access Code: tOJQ)|
-| PubLayNet   |    Image+Chargrid        |  Layout Recognition   | (1300, 800) |   mAP    | 71.8   | [config](./configs/publaynet_chargrid.py), [pth](https://one.hikvision.com/#/link/fcYoRXxS4cNFPBXgGaGR) (Access Code: XWB3)|
+| Wildreceipt |  Image  | Visually Information Extraction | (512, 512)  | F1-score | 67.10  | [config](./configs/wildreceipt_chargrid.py), [pth](https://drive.hikvision.com/hcs/controller/hik-manage/fileDownload?link=B8RAwc9V) (Access Code: P69m)|
+| Wildreceipt |  Image+Chargrid  | Visually Information Extraction | (512, 512)  | F1-score | 81.02  | [config](./configs/wildreceipt_chargrid.py), [pth](https://drive.hikvision.com/hcs/controller/hik-manage/fileDownload?link=aD7ExRFR) (Access Code: RL1o)|
+| PubLayNet   |    Image        |  Layout Recognition   | (1300, 800) |   mAP    | 71.9  | [config](./configs/publaynet_chargrid.py), [pth](https://drive.hikvision.com/hcs/controller/hik-manage/fileDownload?link=OdpzYcjb) (Access Code: Qc71)|
+| PubLayNet   |    Image+Chargrid        |  Layout Recognition   | (1300, 800) |   mAP    | 71.8   | [config](./configs/publaynet_chargrid.py), [pth](https://drive.hikvision.com/hcs/controller/hik-manage/fileDownload?link=koWh2bal) (Access Code: 6ng0)|
 
 > The PubLayNet results are report based on a sampled sub-set (1000) of the original dataset.
 

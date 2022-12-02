@@ -67,12 +67,12 @@ Results on various datasets and trained models download:
 	<tr>
 		<td>mask_rcnn_r50_fpn+conv6+bilstm+attention</td>
 		<td>SynthText<br>COCO-Text</td>
-		<td><p><a href="./configs/mask_rcnn_r50_conv6_e2e_pretrain.py">cfg </a>, <a href="https://one.hikvision.com/#/link/asT46Ufzfbf7QTvotanK">pth </a> (Access Code: ngPI)</p></td>
+		<td><p><a href="./configs/mask_rcnn_r50_conv6_e2e_pretrain.py">cfg </a>, <a href="https://drive.hikvision.com/hcs/controller/hik-manage/fileDownload?link=jLte6Hd6">pth </a> (Access Code: yu09)</p></td>
 	</tr>
 	<tr>
 		<td>mask_rcnn_r50_fpn+res32+bilstm+attention</td>
 		<td>SynthText</td>
-		<td><p><a href="./configs/mask_rcnn_r50_r32_e2e_pretrain.py">cfg </a>, <a href="https://one.hikvision.com/#/link/FePvtahwrmJuehAJUYpF">pth </a> (Access Code: QVYc)</p></td>
+		<td><p><a href="./configs/mask_rcnn_r50_r32_e2e_pretrain.py">cfg </a>, <a href="https://drive.hikvision.com/hcs/controller/hik-manage/fileDownload?link=Icqq2yzo">pth </a> (Access Code: cAgC)</p></td>
 	</tr>
 </table>
 
@@ -107,7 +107,7 @@ Results on various datasets and trained models download:
 		<td>85.6</td>
 		<td>89.9</td>
 		<td>90.5</td>
-		<td><p><a href="./configs/mask_rcnn_r50_conv6_e2e_finetune_ic13.py">cfg </a>, <a href="https://one.hikvision.com/#/link/FBfSpSYgj3t6vAH7mcgF">pth </a> (Access Code: Vum3)</p></td>
+		<td><p><a href="./configs/mask_rcnn_r50_conv6_e2e_finetune_ic13.py">cfg </a>, <a href="https://drive.hikvision.com/hcs/controller/hik-manage/fileDownload?link=y6J95GcV">pth </a> (Access Code: eFes)</p></td>
 	</tr>
 	<tr>
 		<td>ICDAR2013</td>
@@ -121,7 +121,7 @@ Results on various datasets and trained models download:
 		<td>86.1</td>
 		<td>90.4</td>
 		<td>91.1</td>
-		<td><p><a href="./configs/mask_rcnn_r50_r32_e2e_finetune_ic13.py">cfg </a>, </a>, <a href="https://one.hikvision.com/#/link/8YlcUqr0o0LWAz1mdhCN">pth </a> (Access Code: Y266)</p></td>
+		<td><p><a href="./configs/mask_rcnn_r50_r32_e2e_finetune_ic13.py">cfg </a>, <a href="https://drive.hikvision.com/hcs/controller/hik-manage/fileDownload?link=IY5EezaW">pth </a> (Access Code: xtD3)</p></td>
 	</tr>
 	<tr>
 		<td>ICDAR2015</td>
@@ -135,7 +135,7 @@ Results on various datasets and trained models download:
 		<td>66.7</td>
 		<td>78.1</td>
 		<td>81.7</td>
-		<td><p><a href="./configs/mask_rcnn_r50_conv6_e2e_finetune_ic15.py">cfg </a>, <a href="https://one.hikvision.com/#/link/FBfSpSYgj3t6vAH7mcgF">pth </a> (Access Code: Vum3)</p></td>
+		<td><p><a href="./configs/mask_rcnn_r50_conv6_e2e_finetune_ic15.py">cfg </a>, <a href="https://drive.hikvision.com/hcs/controller/hik-manage/fileDownload?link=y6J95GcV">pth </a> (Access Code: eFes)</p></td>
 	</tr>
 	<tr>
 		<td>ICDAR2015</td>
@@ -149,7 +149,7 @@ Results on various datasets and trained models download:
 		<td>63.5</td>
 		<td>75.0</td>
 		<td>79.1</td>
-		<td><p><a href="./configs/mask_rcnn_r50_r32_e2e_finetune_ic15.py">cfg </a>, <a href="https://one.hikvision.com/#/link/I2YBv7KJ7umYJL59Pd8v">pth </a> (Access Code: IdJA)</p></td>
+		<td><p><a href="./configs/mask_rcnn_r50_r32_e2e_finetune_ic15.py">cfg </a>, <a href="https://drive.hikvision.com/hcs/controller/hik-manage/fileDownload?link=KJXJj3TY">pth </a> (Access Code: 030W)</p></td>
 	</tr>
 </table>
 
@@ -180,7 +180,7 @@ Results on various datasets and trained models download:
 		<td>72.2</td>
 		<td>66.1</td>
 		<td>76.5</td>
-		<td><p><a href="./configs/mask_rcnn_r50_conv6_e2e_finetune_tt.py">cfg </a>, <a href="https://one.hikvision.com/#/link/FBfSpSYgj3t6vAH7mcgF">pth </a> (Access Code: Vum3)</p></td>
+		<td><p><a href="./configs/mask_rcnn_r50_conv6_e2e_finetune_tt.py">cfg </a>, <a href="https://drive.hikvision.com/hcs/controller/hik-manage/fileDownload?link=y6J95GcV">pth </a> (Access Code: eFes)</p></td>
 	</tr>
 	<tr>
 		<td>Total-Text</td>
@@ -192,7 +192,7 @@ Results on various datasets and trained models download:
 		<td>71.5</td>
 		<td>65.2</td>
 		<td>75.8</td>
-		<td><p><a href="./configs/mask_rcnn_r50_r32_e2e_finetune_tt.py">cfg </a>, <a href="https://one.hikvision.com/#/link/EDoNVWFwLUkZLBu37SAa">pth </a> (Access Code: CyB3)</p></td>
+		<td><p><a href="./configs/mask_rcnn_r50_r32_e2e_finetune_tt.py">cfg </a>, <a href="https://drive.hikvision.com/hcs/controller/hik-manage/fileDownload?link=umwkAXTx">pth </a> (Access Code: i3vP)</p></td>
 	</tr>
 </table>
 

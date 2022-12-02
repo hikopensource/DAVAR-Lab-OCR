@@ -121,7 +121,7 @@ bash ./test_ace.sh
         <td><center> 71.9 </center></td>
         <td><center> 77.1 </center></td>
         <td><center><p><a href="./configs/res32_ace.py"> Config </a></p></center></td>
-        <td><center><p> pth <a href="https://one.hikvision.com/#/link/JMY7vYXkJmdCCahm2GPe"> [Link] </a>(Access Code: 2glz) </p></center></td>
+        <td><center><p> pth <a href="https://drive.hikvision.com/hcs/controller/hik-manage/fileDownload?link=jZrCt3yn"> [Link] </a>(Access Code: 0i7j) </p></center></td>
 	<tr>
 <table>
 

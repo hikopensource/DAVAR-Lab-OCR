@@ -29,7 +29,7 @@ Results on DI datasets and trained models are follows:
 |   total_order_acc   | DI_whole | DI_subset | Links       |
 | :---------:        | :------: | :--------: | :---------: |
 | GCN-PN (report) |  79   |    -       | -   |
-| GCN-PN   |  -    |   72.23   | [config](config/gcn_pn_di.py), [pth](https://one.hikvision.com/#/link/HP35hrUwq0BNRqXGpnhM) (Access Code：mGqS) |
+| GCN-PN   |  -    |   72.23   | [config](config/gcn_pn_di.py), [pth](https://drive.hikvision.com/hcs/controller/hik-manage/fileDownload?link=wLuBfaGi) (Access Code：QDHU) |
 
 
 

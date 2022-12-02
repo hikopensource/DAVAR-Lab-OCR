@@ -27,7 +27,7 @@ Results on various datasets and trained models can be download as follows:
 |   F1-score         | CoNLL2003| Resume     | Links       |
 | :---------:        | :------: | :--------: | :---------: | 
 | BiLSTM+CRF(paper)  |  84.3    |    -       | -   |
-| BiLSTM+CRF         |  77.4    |   93.6     | [config](./configs/bilstm_crf.py), [pth](https://one.hikvision.com/#/link/PxkeemkIJvKThBJmKO4h) (Access Code：nfYT) |
+| BiLSTM+CRF         |  77.4    |   93.6     | [config](./configs/bilstm_crf.py), [pth](https://drive.hikvision.com/hcs/controller/hik-manage/fileDownload?link=kIWUgY7b) (Access Code：0Os5) |
 
 
 

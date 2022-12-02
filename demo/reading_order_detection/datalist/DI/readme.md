@@ -30,4 +30,4 @@ We transfer the original annoation into the uniform Davar format as follows,
 
 ```
 
-The formatted datalist can be downloaded from [here](https://one.hikvision.com/#/link/KcIlJnuCJxv36pvhGqkc) (Access Code：JhF6)
+The formatted datalist can be downloaded from [here](https://drive.hikvision.com/hcs/controller/hik-manage/fileDownload?link=vbNCMtVK) (Access Code：i22d)

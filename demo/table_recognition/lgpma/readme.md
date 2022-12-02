@@ -8,7 +8,7 @@ Original images can be downloaded from: [pubtabnet](https://developer.ibm.com/ex
 
 The test datalist and the example of formatted training datalist can be found in `demo/table_recognition/datalist/`
 
-The whole formatted training/validating datalist can be downloaded from [Hikvision One](https://one.hikvision.com/#/link/eqaugdX6YQgFKhUxF8U4) (Access Code: YF3O).
+The whole formatted training/validating datalist can be downloaded refer to [datalist](../datalist/ReadMe.md).
 
 ## Training
 Modified the paths of "ann_file", "img_prefix", "pretrained_model" and "work_space" in the config files `demo/table_recognition/lgpma/config/lgpma_pub.py`.
@@ -60,7 +60,7 @@ Results on various datasets and trained models download:
 | Dataset             | Test Scale | Bboxes refine  | TEDS-struc | Links |
 |---------------------|------------|----------------|------------|-------|
 | PubTabNet(reported) | L-768      | w              | 96.7       |       |
-| PubTabNet           | 1.5x       | wo             | 96.7       | [config](configs/lgpma_pub.py), [pth](https://one.hikvision.com/#/link/u9YgYyoPW3hLw6iolFoA) (Access Code: zUoX)| |
+| PubTabNet           | 1.5x       | wo             | 96.7       | [config](configs/lgpma_pub.py), [pth](https://drive.hikvision.com/hcs/controller/hik-manage/fileDownload?link=HaUjsAlJ) (Access Code: dFtt)|
 | PubTabNet           | 1.5x       | w              | 96.9       | Same as above link |
 
 > The Trained Model on dataset SciTSR and ICDAR 2013 will release soon.
@@ -85,11 +85,11 @@ THe OCR model can be downloaded as follows, whose performances are evaluated on 
 
 | Models         | Precision | Recall  | Hmean    | Links |
 |----------------|-----------|---------|----------|-------|
-| Text Detection | 99.57     | 99.53   | 99.55    | [config](tools/ocr_models/det_mask_rcnn_r50_fpn_pubtabnet.py), [pth](https://one.hikvision.com/#/link/FSdTVJuNvuadQ7X0FoAw) (Access Code: n8hi) |
+| Text Detection | 99.57     | 99.53   | 99.55    | [config](tools/ocr_models/det_mask_rcnn_r50_fpn_pubtabnet.py), [pth](https://drive.hikvision.com/hcs/controller/hik-manage/fileDownload?link=ZtMP7Cok) (Access Code: N243) |
 
 | Models           | Accuracy  | Links |
 |------------------|-----------|-------|
-| Text recognition | 95.60     | [config](tools/ocr_models/rcg_res32_bilstm_attn_pubtabnet_sensitive.py), [pth](https://one.hikvision.com/#/link/NGVXfvJpNznqxGJTJhKY) (Access Code: SZTc) |
+| Text recognition | 95.60     | [config](tools/ocr_models/rcg_res32_bilstm_attn_pubtabnet_sensitive.py), [pth](https://drive.hikvision.com/hcs/controller/hik-manage/fileDownload?link=AlPjG61i) (Access Code: FX26) |
 
 The complete TEDS result on PubTabNet is as follows:
 

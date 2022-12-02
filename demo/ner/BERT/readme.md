@@ -29,9 +29,9 @@ Results on various datasets and trained models can be download as follows:
 |   F1-score         | CoNLL2003| Resume     | Links       |
 | :---------:        | :------: | :--------: | :---------: | 
 | BERT+Softmax(paper)|  92.4    |    -       | -   |
-| BERT+Softmax       |  92.1    |   96.4     | [config](./configs/bert_softmax.py), [pth](https://one.hikvision.com/#/link/VoSpXzuif7JbeMYrvRvx) (Access Code：2y7o) |
-| BERT+Span          |  92.1    |   96.2     |  [config](./configs/bert_span.py), [pth](https://one.hikvision.com/#/link/ecTFrMbr58GrzFYPKp8Y) (Access Code：hPFQ)  |
-| BERT+CRF           |  92.6    |   96.7     |  [config](./configs/bert_crf.py), [pth](https://one.hikvision.com/#/link/YMMIkrMhIvtrXMDBE9lT) (Access Code：rbU9)  |
+| BERT+Softmax       |  92.1    |   96.4     | [config](./configs/bert_softmax.py), [pth](https://drive.hikvision.com/hcs/controller/hik-manage/fileDownload?link=hDCGBXwH&) (Access Code：agh1) |
+| BERT+Span          |  92.1    |   96.2     |  [config](./configs/bert_span.py), [pth](https://drive.hikvision.com/hcs/controller/hik-manage/fileDownload?link=FY2dFLtw) (Access Code：308S)  |
+| BERT+CRF           |  92.6    |   96.7     |  [config](./configs/bert_crf.py), [pth](https://drive.hikvision.com/hcs/controller/hik-manage/fileDownload?link=zlUi4wcO) (Access Code：1075)  |
 
 
 ## Citation

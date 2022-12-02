@@ -11,7 +11,7 @@ The datalist are used in text detection experiments:
 - ctw1500_test_datalist_with_cares.json
 - ctw1500_test_datalist_without_cares.json
 
-All formatted datalist can be downloaded from [Link](https://one.hikvision.com/#/link/nipWaectFcwClNGrkcAT) (Access Code：o5gt)
+All formatted datalist can be downloaded from [Link](https://drive.hikvision.com/hcs/controller/hik-manage/fileDownload?link=qxPOHCtm) (Access Code：5JBf)
 
 All datalists are transformed into a unified Davar Format like:
 

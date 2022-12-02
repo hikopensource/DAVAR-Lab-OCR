@@ -70,12 +70,12 @@ Results on various datasets and trained models download:
 	<tr>
 		<td>resnet50+fpn+CMA+lstm</td>
 		<td>SynthText<br>SynthCurve</td>
-		<td><p><a href="./configs/mango_r50_ete_pretrain.py">cfg </a>, <a href="https://one.hikvision.com/#/link/QCPRTvEeoFCGhdUG46HG">pth </a> (Access Code: rxNp)</p></td>
+		<td><p><a href="./configs/mango_r50_ete_pretrain.py">cfg </a>, <a href="https://drive.hikvision.com/hcs/controller/hik-manage/fileDownload?link=K1XwqkKs">pth </a> (Access Code: S50M)</p></td>
 	</tr>
 	<tr>
 		<td>resnet101+fpn+CMA+lstm</td>
 		<td>SynthText<br>SynthCurve</td>
-		<td><p><a href="./configs/mango_r101_ete_pretrain.py">cfg </a>, <a href="https://one.hikvision.com/#/link/WnH0uMCms45LIGfFEqBF">pth </a> (Access Code: 9aX7)</p></td>
+		<td><p><a href="./configs/mango_r101_ete_pretrain.py">cfg </a>, <a href="https://drive.hikvision.com/hcs/controller/hik-manage/fileDownload?link=slicepRh">pth </a> (Access Code: 6uc3)</p></td>
 	</tr>
 </table>
 
@@ -127,7 +127,7 @@ Results on various datasets and trained models download:
 		<td>88.4</td>
 		<td>92.7</td>
 		<td>93.7</td>
-		<td><p><a href="./configs/mango_r50_ete_finetune_ic13.py">cfg </a>, <a href="https://one.hikvision.com/#/link/ldSB7U3Y2jHtFluIiBv7">pth </a> (Access Code: UJKZ)</p></td>
+		<td><p><a href="./configs/mango_r50_ete_finetune_ic13.py">cfg </a>, <a href="https://drive.hikvision.com/hcs/controller/hik-manage/fileDownload?link=wcbfEDFS">pth </a> (Access Code: Al5m)</p></td>
 	</tr>
 	<tr>
 		<td>ICDAR2013</td>
@@ -142,7 +142,7 @@ Results on various datasets and trained models download:
 		<td>90.7</td>
 		<td>93.8</td>
 		<td>94.0</td>
-		<td><p><a href="./configs/mango_r101_ete_finetune_ic13.py">cfg </a>, <a href="https://one.hikvision.com/#/link/NsB930FK4bwskJaY2IRw">pth </a> (Access Code: hn63)</p></td>
+		<td><p><a href="./configs/mango_r101_ete_finetune_ic13.py">cfg </a>, <a href="https://drive.hikvision.com/hcs/controller/hik-manage/fileDownload?link=NBfkVRdZ">pth </a> (Access Code: SS27)</p></td>
 	</tr>
 	<tr>
 		<td>ICDAR2015 (Reported)</td>
@@ -172,7 +172,7 @@ Results on various datasets and trained models download:
 		<td>73.8</td>
 		<td>81.1</td>
 		<td>85</td>
-		<td><p><a href="./configs/mango_r50_ete_finetune_ic15.py">cfg </a>, <a href="https://one.hikvision.com/#/link/M5JLdjJDoX38V7PING9S">pth </a> (Access Code: 7nMl)</p></td>
+		<td><p><a href="./configs/mango_r50_ete_finetune_ic15.py">cfg </a>, <a href="https://drive.hikvision.com/hcs/controller/hik-manage/fileDownload?link=UwWj0vAs">pth </a> (Access Code: 6pdl)</p></td>
 	</tr>
 	<tr>
 		<td>ICDAR2015</td>
@@ -187,7 +187,7 @@ Results on various datasets and trained models download:
 		<td>75.7</td>
 		<td>83.4</td>
 		<td>86.6</td>
-		<td><p><a href="./configs/mango_r101_ete_finetune_ic15.py">cfg </a>, <a href="https://one.hikvision.com/#/link/kGeFugPPx700l1I0hCJ5">pth </a> (Access Code: eHT3)</p></td>
+		<td><p><a href="./configs/mango_r101_ete_finetune_ic15.py">cfg </a>, <a href="https://drive.hikvision.com/hcs/controller/hik-manage/fileDownload?link=x7eboIG5">pth </a> (Access Code: 1J0F)</p></td>
 	</tr>
 </table>
 
@@ -233,7 +233,7 @@ Results on various datasets and trained models download:
 		<td>78.9</td>
 		<td>71.7</td>
 		<td>82.7</td>
-		<td><p><a href="./configs/mango_r50_ete_finetune_tt.py">cfg </a>, <a href="https://one.hikvision.com/#/link/arkNnnnF9YTFxevxZhrF">pth </a> (Access Code: F6cX)</p></td>
+		<td><p><a href="./configs/mango_r50_ete_finetune_tt.py">cfg </a>, <a href="https://drive.hikvision.com/hcs/controller/hik-manage/fileDownload?link=8QJaq0zU">pth </a> (Access Code: 4PwC)</p></td>
 	</tr>
 	<tr>
 		<td>Total-Text</td>
@@ -246,7 +246,7 @@ Results on various datasets and trained models download:
 		<td>79.9</td>
 		<td>73</td>
 		<td>83.9</td>
-		<td><p><a href="./configs/mango_r101_ete_finetune_tt.py">cfg </a>, <a href="https://one.hikvision.com/#/link/2eluqYltddtHv3rojDHe">pth </a> (Access Code: eosh)</p></td>
+		<td><p><a href="./configs/mango_r101_ete_finetune_tt.py">cfg </a>, <a href="https://drive.hikvision.com/hcs/controller/hik-manage/fileDownload?link=XiLNdY3v">pth </a> (Access Code: H32x)</p></td>
 	</tr>
 </table>
 

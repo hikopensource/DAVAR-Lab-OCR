@@ -124,7 +124,7 @@ bash ./train.sh
         <td><center> 78.9 </center></td>
         <td><center> 80.6 </center></td>
         <td><center><p><a href="./res32_bilstm_ctc.py"> Config </a></p></center>
-        <td><center><p> pth <a href="https://one.hikvision.com/#/link/ZXKa8MrNd7rHerU2BuMx"> [Link] </a>(Access Code: CPrS)</p></center></td>
+        <td><center><p> pth <a href="https://drive.hikvision.com/hcs/controller/hik-manage/fileDownload?link=VPwpVhRs"> [Link] </a>(Access Code: 05IZ)</p></center></td>
 	<tr>
     <tr>
 		<td><center> Attention(Report) </center></td>
@@ -149,7 +149,7 @@ bash ./train.sh
         <td><center> 82.5 </center></td>
         <td><center> 81.9 </center></td>
         <td><center><p><a href="./res32_bilstm_attn.py"> Config </a></p></center>
-        <td><center><p> pth <a href="https://one.hikvision.com/#/link/o3luolCkZ4tng0cF9EQr"> [Link] </a> (Access Code: iCto)</p></center></td>
+        <td><center><p> pth <a href="https://drive.hikvision.com/hcs/controller/hik-manage/fileDownload?link=gRt4lbCk"> [Link] </a> (Access Code: r6C7)</p></center></td>
 	<tr>
 <table>
 

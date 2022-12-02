@@ -7,7 +7,7 @@ PubTabNet_train_datalist.json: The formated annotation of training dataset in Pu
 
 PubTabNet_train_datalist_examples.json: Exapmles of PubTabNet_train_datalist.json.
 
-Datalists can be downloaded from [link](https://one.hikvision.com/#/link/eqaugdX6YQgFKhUxF8U4) (Access Code：YF3O)
+Datalists can be downloaded from [link](https://drive.hikvision.com/hcs/controller/hik-manage/fileDownload?link=3l83Tmz6) (Access Code：er47)
 
 #### annotation example：
 ``` markdown
@@ -73,7 +73,7 @@ The input of this script is a dictionary recorded in "html" and the output is a 
 You may follow this script and modify it to prepare your own datalist if the original annotation is in other formats. 
 
 
-Thanks to @tucachmo2202 in issue #37 for providing some examples, we have updated the convert script to filter out all illegal samples, which can be downloaded from [link](https://one.hikvision.com/#/link/oHvkYbH6fwXoKlSecPwj) (Access Code：Ft8N). 
+Thanks to @tucachmo2202 in issue #37 for providing some examples, we have updated the convert script to filter out all illegal samples, which can be downloaded from [link](https://drive.hikvision.com/hcs/controller/hik-manage/fileDownload?link=QpixVhZV) (Access Code：Vsa4). 
 
 It is worth noting that the number of element in "cells" should be the same as the number of '</td>' in "structure":"tokens". If the two are not equal, the annotation must be incorrectly and the script will filter out such sample.
 Furthermore, the script will convert the illegal bboxes (with size of 0) into empty cells ("[]") to prevent the problem described in #51.

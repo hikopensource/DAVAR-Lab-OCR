@@ -9,7 +9,7 @@ The formatted training datalists can be found in [`demo/text_spotting/datalist`]
 ## Train From Scratch
 If you want to re-implement the model's performance from scratch, please following these steps:
 
-1.Download the pre-trained model, which was well trained on SynthText & COCO-Text ([pth](https://one.hikvision.com/#/link/asT46Ufzfbf7QTvotanK) (Access Code: ngPI)). See [`demo/text_spotting/mask_rcnn_spot/readme.md`](../mask_rcnn_spot/readme.md) for more details.
+1.Download the pre-trained model, which was well trained on SynthText & COCO-Text ([pth](https://drive.hikvision.com/hcs/controller/hik-manage/fileDownload?link=jLte6Hd6&) (Access Code: yu09)). See [`demo/text_spotting/mask_rcnn_spot/readme.md`](../mask_rcnn_spot/readme.md) for more details.
 
 2.Train the multi-scale teacher model using the ICDAR2013, ICDAR2015, ICDAR2017-MLT and Total-Text based on the pre-trained model in step-1 (L307 in `mask_rcnn_pretrain_teacher.py`). The teacher model is also used as the Vanilla Multi-Scale competitors.  See [`demo/text_spotting/dld/configs/mask_rcnn_pretrain_teacher.py`](./configs/mask_rcnn_pretrain_teacher.py) for more details.
 
@@ -73,7 +73,7 @@ Results on various datasets and trained models download:
 		<td>91.0</td>
 		<td>91.4</td>
 		<td>142.9G</td>
-		<td><p><a href="./configs/mask_rcnn_pretrain_teacher.py">cfg </a>, <a href="https://one.hikvision.com/#/link/rErY9rkFYldN2MNYn2fp">pth </a> (Access Code: 7OXC)</p></td>
+		<td><p><a href="./configs/mask_rcnn_pretrain_teacher.py">cfg </a>, <a href="https://drive.hikvision.com/hcs/controller/hik-manage/fileDownload?link=qxAfYHSc">pth </a> (Access Code: BD63)</p></td>
 	</tr>
 	<tr>
 		<td>ICDAR2013</td>
@@ -86,7 +86,7 @@ Results on various datasets and trained models download:
 		<td>89.9</td>
 		<td>90.9</td>
 		<td>71.5G</td>
-		<td><p><a href="./configs/mask_rcnn_distill.py">cfg </a>, <a href="https://one.hikvision.com/#/link/lknYDorAPPQpKEwdsTvn">pth </a> (Access Code: EhvH)</p></td>
+		<td><p><a href="./configs/mask_rcnn_distill.py">cfg </a>, <a href="https://drive.hikvision.com/hcs/controller/hik-manage/fileDownload?link=mAUrkrSX">pth </a> (Access Code: 32Y9)</p></td>
 	</tr>
 	<tr>
 		<td>ICDAR2013</td>
@@ -99,7 +99,7 @@ Results on various datasets and trained models download:
 		<td>88.6</td>
 		<td>90.0</td>
 		<td>41.6G</td>
-		<td><p><a href="./configs/mask_rcnn_distill.py">cfg </a>, <a href="https://one.hikvision.com/#/link/rPn2acvl2PdC9PilNr8w">pth </a> (Access Code: NNOZ)</p></td>
+		<td><p><a href="./configs/mask_rcnn_distill.py">cfg </a>, <a href="https://drive.hikvision.com/hcs/controller/hik-manage/fileDownload?link=2Lozcg2j">pth </a> (Access Code: Vi12)</p></td>
 	</tr>
 	<tr>
 		<td>ICDAR2015</td>
@@ -112,7 +112,7 @@ Results on various datasets and trained models download:
 		<td>77.2</td>
 		<td>81.4</td>
 		<td>517.2G</td>
-		<td><p><a href="./configs/mask_rcnn_pretrain_teacher.py">cfg </a>, <a href="https://one.hikvision.com/#/link/rErY9rkFYldN2MNYn2fp">pth </a> (Access Code: 7OXC)</p></td>
+		<td><p><a href="./configs/mask_rcnn_pretrain_teacher.py">cfg </a>, <a href="https://drive.hikvision.com/hcs/controller/hik-manage/fileDownload?link=qxAfYHSc">pth </a> (Access Code: BD63)</p></td>
 	</tr>
 	<tr>
 		<td>ICDAR2015</td>
@@ -125,7 +125,7 @@ Results on various datasets and trained models download:
 		<td>78.6</td>
 		<td>82.4</td>
 		<td>298.8G</td>
-		<td><p><a href="./configs/mask_rcnn_distill.py">cfg </a>, <a href="https://one.hikvision.com/#/link/lknYDorAPPQpKEwdsTvn">pth </a> (Access Code: EhvH)</p></td>
+		<td><p><a href="./configs/mask_rcnn_distill.py">cfg </a>, <a href="https://drive.hikvision.com/hcs/controller/hik-manage/fileDownload?link=mAUrkrSX">pth </a> (Access Code: 32Y9)</p></td>
 	</tr>
 	<tr>
 		<td>ICDAR2015</td>
@@ -138,7 +138,7 @@ Results on various datasets and trained models download:
 		<td>76.4</td>
 		<td>81.1</td>
 		<td>148.3G</td>
-		<td><p><a href="./configs/mask_rcnn_distill.py">cfg </a>, <a href="https://one.hikvision.com/#/link/rPn2acvl2PdC9PilNr8w">pth </a> (Access Code: NNOZ)</p></td>
+		<td><p><a href="./configs/mask_rcnn_distill.py">cfg </a>, <a href="https://drive.hikvision.com/hcs/controller/hik-manage/fileDownload?link=2Lozcg2j">pth </a> (Access Code: Vi12)</p></td>
 	</tr>
 </table>
 
@@ -166,7 +166,7 @@ Results on various datasets and trained models download:
 		<td>65.2</td>
 		<td>75.9</td>
 		<td>206.7G</td>
-		<td><p><a href="./configs/mask_rcnn_pretrain_teacher.py">cfg </a>, <a href="https://one.hikvision.com/#/link/rErY9rkFYldN2MNYn2fp">pth </a> (Access Code: 7OXC)</p></td>
+		<td><p><a href="./configs/mask_rcnn_pretrain_teacher.py">cfg </a>, <a href="https://drive.hikvision.com/hcs/controller/hik-manage/fileDownload?link=qxAfYHSc">pth </a> (Access Code: BD63)</p></td>
 	</tr>
 	<tr>
 		<td>Total-Text</td>
@@ -177,7 +177,7 @@ Results on various datasets and trained models download:
 		<td>66.4</td>
 		<td>77.8</td>
 		<td>103.0G</td>
-		<td><p><a href="./configs/mask_rcnn_distill.py">cfg </a>, <a href="https://one.hikvision.com/#/link/lknYDorAPPQpKEwdsTvn">pth </a> (Access Code: EhvH)</p></td>
+		<td><p><a href="./configs/mask_rcnn_distill.py">cfg </a>, <a href="https://drive.hikvision.com/hcs/controller/hik-manage/fileDownload?link=mAUrkrSX">pth </a> (Access Code: 32Y9)</p></td>
 	</tr>
 	<tr>
 		<td>Total-Text</td>
@@ -188,7 +188,7 @@ Results on various datasets and trained models download:
 		<td>64.0</td>
 		<td>75.9</td>
 		<td>62.1G</td>
-		<td><p><a href="./configs/mask_rcnn_distill.py">cfg </a>, <a href="https://one.hikvision.com/#/link/rPn2acvl2PdC9PilNr8w">pth </a> (Access Code: NNOZ)</p></td>
+		<td><p><a href="./configs/mask_rcnn_distill.py">cfg </a>, <a href="https://drive.hikvision.com/hcs/controller/hik-manage/fileDownload?link=2Lozcg2j">pth </a> (Access Code: Vi12)</p></td>
 	</tr>
 </table>
 

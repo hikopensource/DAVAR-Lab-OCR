@@ -136,7 +136,7 @@ bash ./test_scripts/test_gaspin.sh
         <td><center> 80.9 </center></td>
         <td><center> 83.0 </center></td>
         <td><center><p><a href="./configs/affine_res32_attn.py"> Config </a></p></center></td>
-        <td><center><p> pth <a href="https://one.hikvision.com/#/link/JvpdkCUGWnrPFnXzsn8P"> [Link] </a> (Access Code: fwdk)</p></center></td>
+        <td><center><p> pth <a href="https://drive.hikvision.com/hcs/controller/hik-manage/fileDownload?link=9i22WWfQ"> [Link] </a> (Access Code: 5nr1)</p></center></td>
 	<tr>
     <tr>
 		<td><center> TPS(Report) </center></td>
@@ -160,7 +160,7 @@ bash ./test_scripts/test_gaspin.sh
         <td><center> 82.6 </center></td>
         <td><center> 83.7 </center></td>
         <td><center><p><a href="./configs/tps_res32_attn.py"> Config </a></p></center></td>
-        <td><center><p> pth <a href="https://one.hikvision.com/#/link/ccyPeJdRzJ0Gk09jFoeF"> [Link]</a> (Acceess Code: mfgv)</p></center></td>
+        <td><center><p> pth <a href="https://drive.hikvision.com/hcs/controller/hik-manage/fileDownload?link=GWZh1uvE"> [Link]</a> (Acceess Code: 024F)</p></center></td>
 	<tr>
     <tr>
 		<td><center> SPIN(Report) </center></td>
@@ -185,7 +185,7 @@ bash ./test_scripts/test_gaspin.sh
         <td><center> 83.7 </center></td>
         <td><center>
             <p><a href="./configs/spin_res32_attn.py"> Config </a></p></center></td>
-        <td><center><p> pth <a href="https://one.hikvision.com/#/link/KL9rvfdi067aYx5Pz96t"> [Link] </a> (Code:T6yW)</p></center></td>
+        <td><center><p> pth <a href="https://drive.hikvision.com/hcs/controller/hik-manage/fileDownload?link=D1euiL35"> [Link] </a> (Code:M45z)</p></center></td>
 	<tr>
     <tr>
 		<td><center> GA-SPIN(Report) </center></td>
@@ -210,7 +210,7 @@ bash ./test_scripts/test_gaspin.sh
         <td><center> 84.7 </center></td>
         <td><center>
             <p><a href="./configs/gaspin_res32_attn.py"> Config </a></p></center></td>
-       <td><center><p> pth <a href="https://one.hikvision.com/#/link/BpCvNSim2grIGU6e4oSh"> [Link] </a> (Access Code: Xr19)</p></center></td>
+       <td><center><p> pth <a href="https://drive.hikvision.com/hcs/controller/hik-manage/fileDownload?link=1EapFDl8"> [Link] </a> (Access Code: 12q3)</p></center></td>
 	<tr>
 <table>
 
