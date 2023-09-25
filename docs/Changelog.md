@@ -1,5 +1,13 @@
 # Changelog
 
+### v0.6.1  (25/09/2023)
+
+**Highlights**
+
+- Release the implements of CTUNet model and ComFinTab dataset. (ACMMM 2022)
+
+
+
 ### v0.6.0  (13/07/2022)
 
 **Highlights**

@@ -12,5 +12,7 @@
 from .detectors import LGPMA
 from .roi_heads import LPMAMaskHead, LGPMARoIHead
 from .seg_heads import GPMAMaskHead
+from .cls_heads import TableClsHead
+from .understanding_detectors import CTUNet
 
-__all__ = ['LGPMA', 'LGPMARoIHead', 'LPMAMaskHead', 'GPMAMaskHead']
+__all__ = ['LGPMA', 'LGPMARoIHead', 'LPMAMaskHead', 'GPMAMaskHead', 'TableClsHead', 'CTUNet']

@@ -6,7 +6,7 @@
                        https://github.com/huggingface/transformers.
 
 # Current Version:    1.0.0
-# Date           :    2021-05-01
+# Date           :    2022-11-22
 ##################################################################################################
 """
 import math
@@ -17,13 +17,15 @@ from torch import nn
 from davarocr.davar_common.models import CONNECTS
 from .activations import gelu, gelu_new, swish
 
-
 BertLayerNorm = torch.nn.LayerNorm
+
 
 def mish(x):
     return x * torch.tanh(nn.functional.softplus(x))
 
+
 ACT2FN = {"gelu": gelu, "relu": torch.nn.functional.relu, "swish": swish, "gelu_new": gelu_new, "mish": mish}
+
 
 class BertSelfAttention(nn.Module):
     def __init__(self, config):
@@ -51,12 +53,13 @@ class BertSelfAttention(nn.Module):
         return x.permute(0, 2, 1, 3)
 
     def forward(
-        self,
-        hidden_states,
-        attention_mask=None,
-        head_mask=None,
-        encoder_hidden_states=None,
-        encoder_attention_mask=None,
+            self,
+            hidden_states,
+            attention_mask=None,
+            head_mask=None,
+            encoder_hidden_states=None,
+            encoder_attention_mask=None,
+            relative_alpha=None
     ):
         mixed_query_layer = self.query(hidden_states)
 
@@ -78,6 +81,11 @@ class BertSelfAttention(nn.Module):
         # Take the dot product between "query" and "key" to get the raw attention scores.
         attention_scores = torch.matmul(query_layer, key_layer.transpose(-1, -2))
         attention_scores = attention_scores / math.sqrt(self.attention_head_size)
+
+        # correct position
+        if relative_alpha is not None:
+            attention_scores += relative_alpha
+
         if attention_mask is not None:
             # Apply the attention mask is (precomputed for all layers in BertModel forward() function)
             attention_scores = attention_scores + attention_mask
@@ -172,15 +180,17 @@ class BertAttention(nn.Module):
         self.pruned_heads = self.pruned_heads.union(heads)
 
     def forward(
-        self,
-        hidden_states,
-        attention_mask=None,
-        head_mask=None,
-        encoder_hidden_states=None,
-        encoder_attention_mask=None,
+            self,
+            hidden_states,
+            attention_mask=None,
+            head_mask=None,
+            encoder_hidden_states=None,
+            encoder_attention_mask=None,
+            relative_alpha=None
     ):
         self_outputs = self.self(
-            hidden_states, attention_mask, head_mask, encoder_hidden_states, encoder_attention_mask
+            hidden_states, attention_mask, head_mask, encoder_hidden_states, encoder_attention_mask,
+            relative_alpha=relative_alpha
         )
         attention_output = self.output(self_outputs[0], hidden_states)
         outputs = (attention_output,) + self_outputs[1:]  # add attentions if we output them
@@ -227,14 +237,15 @@ class BertLayer(nn.Module):
         self.output = BertOutput(config)
 
     def forward(
-        self,
-        hidden_states,
-        attention_mask=None,
-        head_mask=None,
-        encoder_hidden_states=None,
-        encoder_attention_mask=None,
+            self,
+            hidden_states,
+            attention_mask=None,
+            head_mask=None,
+            encoder_hidden_states=None,
+            encoder_attention_mask=None,
+            relative_alpha=None
     ):
-        self_attention_outputs = self.attention(hidden_states, attention_mask, head_mask)
+        self_attention_outputs = self.attention(hidden_states, attention_mask, head_mask, relative_alpha=relative_alpha)
         attention_output = self_attention_outputs[0]
         outputs = self_attention_outputs[1:]  # add self attentions if we output attention weights
 
@@ -250,6 +261,7 @@ class BertLayer(nn.Module):
         outputs = (layer_output,) + outputs
         return outputs
 
+
 @CONNECTS.register_module()
 class BertEncoder(nn.Module):
     def __init__(self, config):
@@ -259,12 +271,13 @@ class BertEncoder(nn.Module):
         self.layer = nn.ModuleList([BertLayer(config) for _ in range(config.num_hidden_layers)])
 
     def forward(
-        self,
-        hidden_states,
-        attention_mask=None,
-        head_mask=None,
-        encoder_hidden_states=None,
-        encoder_attention_mask=None,
+            self,
+            hidden_states,
+            attention_mask=None,
+            head_mask=None,
+            encoder_hidden_states=None,
+            encoder_attention_mask=None,
+            relative_alpha=None
     ):
         all_hidden_states = ()
         all_attentions = ()
@@ -273,7 +286,8 @@ class BertEncoder(nn.Module):
                 all_hidden_states = all_hidden_states + (hidden_states,)
 
             layer_outputs = layer_module(
-                hidden_states, attention_mask, head_mask[i], encoder_hidden_states, encoder_attention_mask
+                hidden_states, attention_mask, head_mask[i], encoder_hidden_states, encoder_attention_mask,
+                relative_alpha
             )
             hidden_states = layer_outputs[0]
 

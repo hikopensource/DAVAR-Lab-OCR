@@ -63,7 +63,7 @@ To date, davarocr contains the following algorithms:
 
 ***Table Understanding***
 
-- [x] [CTUNet](demo/table_understanding/ctunet) (ACMMM 2022) (To be released)
+- [x] [CTUNet](demo/table_understanding/ctunet) (ACMMM 2022) 
 
 ***Layout Recognition***
 
