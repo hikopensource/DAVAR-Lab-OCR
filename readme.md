@@ -120,7 +120,7 @@ Please refer to [Changelog.md](./docs/Changelog.md) for details and release hist
 If you find this repository is helpful to your research, please feel free to cite us:
 
 ``` markdown
-@article{qiao2022davarocr,
+@inproceedings{qiao2022davarocr,
   title    ={{DavarOCR:} {A} Toolbox for OCR and Multi-Modal Document Understanding},
   author   ={Liang Qiao and
 			  Hui Jiang and
@@ -134,9 +134,9 @@ If you find this repository is helpful to your research, please feel free to cit
 			  Yunlu Xu and
 			  Zhanzhan Cheng and
 			  Yi Niu}
-  journal   = {CoRR},
-  volume    = {abs/2207.06695},
-  year      = {2022},
+  booktitle    = {ACM MM},
+  pages        = {7355--7358},
+  year         = {2022}
 }
 
 ```
@@ -149,4 +149,4 @@ This project is released under the [Apache 2.0 license](./LICENSE)
 The copyright of corresponding contributions of our implementations belongs to *Davar-Lab, Hikvision Research Institute, China*, and other codes from open source repository follows the original distributive licenses.
 
 ## Welcome to DAVAR-LAB!
-See [latest news](https://davar-lab.github.io/) in DAVAR-Lab. If you have any question and suggestion, please feel free to contact us. Contact email: qiaoliang6@hikvision.com, chengzhanzhan@hikvision.com.
+See [latest news](https://davar-lab.github.io/) in DAVAR-Lab. If you have any question and suggestion, please feel free to contact us. Contact email: qiaoliang6@hikvision.com, xuyunlu@hikvision.com.

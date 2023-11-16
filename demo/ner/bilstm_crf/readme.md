@@ -51,6 +51,6 @@ If you find this repository is helpful to your research, please feel free to cit
 
 This project is released under the [Apache 2.0 license](../../../davar_ocr/LICENSE)
 
-## Copyright
+## Contact
 
-If there is any suggestion and problem, please feel free to contact the author with lipengfei27@hikvision.com or qiaoliang6@hikvision.com.
+If there is any suggestion and problem, please feel free to contact the author with qiaoliang6@hikvision.com.

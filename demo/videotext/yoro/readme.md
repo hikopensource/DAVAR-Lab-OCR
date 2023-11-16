@@ -169,5 +169,5 @@ due to the simplification, So the results may have a dither compared with result
 ## License
 This project is released under the [Apache 2.0 license](../../../davar_ocr/LICENSE)
 
-## Copyright
-If there is any suggestion and problem, please feel free to contact the author with zoubaorui@hikvision.com, qiaoliang6@hikvision.com or chengzhanzhan@hikvision.com.
+## Contact
+If there is any suggestion and problem, please feel free to contact the author with qiaoliang6@hikvision.com.

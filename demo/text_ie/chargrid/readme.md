@@ -78,4 +78,4 @@ Results on various datasets and trained models can be download as follows:
 This project is released under the [Apache 2.0 license](../../../davar_ocr/LICENSE)
 
 ## Copyright
-If there is any suggestion and problem, please feel free to contact the author with xuyingda@hikvision.com, qiaoliang6@hikvision.com or chengzhanzhan@hikvision.com.
+If there is any suggestion and problem, please feel free to contact the author with qiaoliang6@hikvision.com.

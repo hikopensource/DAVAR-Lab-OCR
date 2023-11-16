@@ -79,5 +79,5 @@ If you find this repository is helpful to your research, please feel free to cit
 ## License
 This project is released under the [Apache 2.0 license](../../../davar_ocr/LICENSE). The dataset of ComFinTab is under the [Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)](https://creativecommons.org/licenses/by-nc-sa/4.0/). 
 
-## Copyright
-If there is any suggestion and problem, please feel free to contact the author with qiaoliang6@hikvision.com
+## Contact
+If there is any suggestion and problem, please feel free to contact the author with qiaoliang6@hikvision.com.

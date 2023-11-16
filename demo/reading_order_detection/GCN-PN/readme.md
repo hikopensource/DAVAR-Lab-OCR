@@ -55,6 +55,6 @@ Results on DI datasets and trained models are follows:
 
 This project is released under the [Apache 2.0 license](../../../davar_ocr/LICENSE)
 
-## Copyright
+## Contact
 
-If there is any suggestion and problem, please feel free to contact the author with lican9@hikvision.com or qiaoliang6@hikvision.com.
+If there is any suggestion and problem, please feel free to contact the author with qiaoliang6@hikvision.com.
