@@ -85,11 +85,11 @@ THe OCR model can be downloaded as follows, whose performances are evaluated on 
 
 | Models         | Precision | Recall  | Hmean    | Links |
 |----------------|-----------|---------|----------|-------|
-| Text Detection | 99.57     | 99.53   | 99.55    | [config](tools/ocr_models/det_mask_rcnn_r50_fpn_pubtabnet.py), [pth](https://drive.hikvision.com/hcs/controller/hik-manage/fileDownload?link=ZtMP7Cok) (Access Code: N243) |
+| Text Detection | 99.57     | 99.53   | 99.55    | [config](configs/ocr_models/det_mask_rcnn_r50_fpn_pubtabnet.py), [pth](https://drive.hikvision.com/hcs/controller/hik-manage/fileDownload?link=ZtMP7Cok) (Access Code: N243) |
 
 | Models           | Accuracy  | Links |
 |------------------|-----------|-------|
-| Text recognition | 95.60     | [config](tools/ocr_models/rcg_res32_bilstm_attn_pubtabnet_sensitive.py), [pth](https://drive.hikvision.com/hcs/controller/hik-manage/fileDownload?link=AlPjG61i) (Access Code: FX26) |
+| Text recognition | 95.60     | [config](configs/ocr_models/rcg_res32_bilstm_attn_pubtabnet_sensitive.py), [pth](https://drive.hikvision.com/hcs/controller/hik-manage/fileDownload?link=AlPjG61i) (Access Code: FX26) |
 
 The complete TEDS result on PubTabNet is as follows:
 
