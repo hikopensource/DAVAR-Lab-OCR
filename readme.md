@@ -149,4 +149,4 @@ This project is released under the [Apache 2.0 license](./LICENSE)
 The copyright of corresponding contributions of our implementations belongs to *Davar-Lab, Hikvision Research Institute, China*, and other codes from open source repository follows the original distributive licenses.
 
 ## Welcome to DAVAR-LAB!
-See [latest news](https://davar-lab.github.io/) in DAVAR-Lab. If you have any question and suggestion, please feel free to contact us. Contact email: qiaoliang6@hikvision.com, xuyunlu@hikvision.com.
+See [latest news](https://davar-lab.github.io/) in DAVAR-Lab. If you have any question and suggestion, please feel free to contact us. Contact email: xuyunlu@hikvision.com.
