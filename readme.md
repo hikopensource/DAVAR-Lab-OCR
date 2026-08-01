@@ -103,7 +103,7 @@ cd DAVAR-Lab-OCR/
 bash setup.sh
 ```
 
-This script will automatically download and install the "mmdetection" and "mmcv-full". You can also manually install them followinging the [official instructions](https://github.com/open-mmlab/mmdetection/)
+This script will automatically download and install the "mmdetection" and "mmcv-full". You can also manually install them following the [official instructions](https://github.com/open-mmlab/mmdetection/)
 
 Going to the specific algorithm's directory to see more details.
 
